@@ -1,0 +1,56 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="proyecto final">
+    <meta name="author" content="Equipo 4">
+    <title>Ta tootal</title>
+  </head>
+  <body >    
+    <header class="sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse " id="navbarsExample08">
+            <img class="navbar-brand"  src="../assets/media/logo-white.png">
+            <ul class="navbar-nav justify-content-md-start">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="">Página Principal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="gallery">Galería</a>
+              </li>
+
+            </ul>
+            
+          </div>
+          <button class="btn btn-warning" type="button" routerLink="login">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
+              <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+              <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              
+              <a class="nav-link text-dark" >Cuenta</a>
+            </svg>
+            Cuenta</button>
+        </div>
+
+      </nav>
+    </header>
+
+      <div class="principal" w-50>
+        <main>
+          <div class ="routerHolder text-light">
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+        <div class="footerHolder text-dark">
+          <footer class="py-3 " >
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+              <li class="nav-item"><a routerLink="" class="nav-link px-2 text-dark">Pag. Principal</a></li>
+              <li class="nav-item"><a routerLink="gallery" class="nav-link px-2 text-dark">Galeria</a></li>
+              <li class="nav-item"><a routerLink="E" class="nav-link px-2 text-dark">Tercer link</a></li>
+            </ul>
+            <p class="text-center  text-dark">&copy; All rights reserved - 2023</p>
+          </footer>
+        </div>
+      </div>
+
+  </body>

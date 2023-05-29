@@ -1,0 +1,15 @@
+<h5 class="form-title">LOGIN</h5>
+<form>
+    <div class="form-group">
+      <label for="email">Usuario/ Correo electrónico</label>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Introduce tu usuario o correo electrónico">
+    </div>
+    <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" class="form-control" id="password" placeholder="Introduce tu contraseña">
+    </div>
+    <div class="boton">
+      <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+    </div>
+</form>
+<a class="sin_cuenta" [routerLink]="['/registro']">¿No tienes cuenta?</a>

@@ -1,0 +1,23 @@
+.form-title {
+    padding-top: 4rem;
+    text-align: center;
+    font-size: 50px;
+}
+form {
+    width: 30rem;
+    color: #fff;
+    padding: 20px;
+    margin:auto;
+}
+.form-group{
+    margin-top: 1rem;
+}
+.boton{
+    text-align: center;
+    margin-top: 3rem;
+}
+.sin_cuenta {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}

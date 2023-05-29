@@ -1,0 +1,42 @@
+.card{
+  width: 150px;
+  height: auto;
+  background-color:transparent;
+  border: 0;
+  margin: 12px;
+}
+.contenedor2{
+  width: inherit;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card .imagen{
+  width: 150px;
+  border-radius: 5px;
+  margin:5px;
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+  transition: transform 0.3s;
+}
+.imagen:hover{
+  z-index: 1;
+  transform: scale(1.2);
+}
+.contenedor
+{
+  width: 50%;
+  margin:auto;
+}
+.contenedor button{
+  background-color: #808080;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.contenedor button:hover{
+  background-color: #555555;
+}

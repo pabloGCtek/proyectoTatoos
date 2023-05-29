@@ -1,0 +1,20 @@
+<div class="carouselCont mb-5">
+  <app-carousel></app-carousel>
+</div>
+
+  <div class="intro mt-5">
+    <div class="px-5 d-flex flex-column align-items-center">
+      <div class="title pb-2 border-bottom">
+        <h1>Conocenos</h1>
+      </div>
+      <div class="my-5 ">
+        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis expedita quam inventore et possimus, velit itaque fugit, totam, explicabo eius molestiae corrupti in. Quisquam ipsam nostrum quasi voluptate perspiciatis nobis!</span>
+      </div>
+    </div>
+  </div>
+  <div class="artistasCont"  >
+    <div *ngFor=" let a of arrArtistas">
+      <app-artistas2 [artista]="a"></app-artistas2>
+    </div>
+  
+  </div>

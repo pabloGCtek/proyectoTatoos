@@ -1,0 +1,16 @@
+<div class="contenedor">
+  <button (click)="mostrarTodos()">Todos</button>
+  <button (click)="filtrarPorArtista(1)">Artista 1</button>
+  <button (click)="filtrarPorArtista(2)">Artista 2</button>
+  <button (click)="filtrarPorArtista(3)">Artista 3</button>
+  <button (click)="filtrarPorArtista(4)">Artista 4</button>
+</div>
+<div class="contenedor2">
+  <div *ngFor="let fotos of tattoFiltradas">
+    <div class="card">
+          <a [routerLink]="['/tatto',fotos.idTatto]">
+          <img class="imagen" [src]="fotos.imagen" [alt]="fotos.nombre">
+        </a>
+    </div>
+  </div>
+</div>

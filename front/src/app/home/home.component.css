@@ -1,0 +1,17 @@
+.d-block{
+
+  }
+.carousel{
+    height:400px;
+    overflow:hidden;
+}
+
+.artistasCont{
+  margin-top: 5%;
+  margin-bottom: 10%;
+  width: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content:center;
+}

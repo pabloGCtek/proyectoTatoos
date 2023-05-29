@@ -1,0 +1,20 @@
+<!--
+  <div class="card" *ngIf="tattoN">
+          <img class="imagen" [src]="imagen" >
+  </div>
+  <h2>{{nombre}}</h2>
+
+    -->
+    <div class="contenedor2">
+      <div class="card" *ngIf="tattoN" >
+        <p class="card-text">
+          Nombre artista:
+        <img class="imagen" [src]="imagen" >
+        <div class="card-body">
+          <p class="card-text">
+            Descripcion: {{descripcion}}</p>
+          <button (click)="regresar()">Regresar</button>
+        </div>
+      </div>
+    </div>
+

@@ -1,0 +1,36 @@
+
+.contenedor2{
+  width: inherit;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card{
+  width: 450px;
+  height: auto;
+  background-color:transparent;
+  border: 0;
+  border-radius: 5px;
+  margin: 12px;
+}
+.card .imagen{
+  width: 435px;
+  border-radius: 8px;
+  margin:5px;
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+}
+
+.card-body h3{
+  color: black;
+
+}
+.contenedor2 button{
+  background-color: #808080;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+}
