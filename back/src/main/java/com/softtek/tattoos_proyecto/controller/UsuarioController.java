@@ -2,7 +2,7 @@ package com.softtek.tattoos_proyecto.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import com.softtek.tattoos_proyecto.exceptions.UserNotFound;
+import com.softtek.tattoos_proyecto.exceptions.ObjectNotFound;
 import com.softtek.tattoos_proyecto.model.Usuario;
 import com.softtek.tattoos_proyecto.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UsuarioController {
     @GetMapping("/{emailNombre}/{clave}")
     public EntityModel<Usuario> iniSesion(@PathVariable String emailNombre, @PathVariable String clave){
         Usuario u = us.iniciarSesion(emailNombre,clave);
-        if(u == null) throw new UserNotFound("El usuario no existe");
+        if(u == null) throw new ObjectNotFound("El usuario no existe");
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).iniSesion(emailNombre,clave));
         return EntityModel.of(u).add(link.withRel("us-link"));
     }

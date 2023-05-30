@@ -1,9 +1,12 @@
 package com.softtek.tattoos_proyecto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,9 +16,15 @@ import java.util.Date;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_usuario;
+    @Column(name = "id_usuario")
+    private int idUsuario;
     private String nombre;
     private String email;
     private String contrasena;
-    private Date fecha_nacimiento;
+    @Column(name = "fecha_nacimiento")
+    private Date fechaNacimiento;
+    @JsonIgnoreProperties("usuarioCita")
+    @OneToMany(mappedBy = "usuarioCita", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Cita> citasUsuario;
 }

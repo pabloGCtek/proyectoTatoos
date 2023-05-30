@@ -24,7 +24,7 @@ public class ExceptionInterceptor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @ExceptionHandler(UserNotFound.class)
+    @ExceptionHandler(ObjectNotFound.class)
     public ResponseEntity<ErrorResponse> notFoundEx(
             Exception ex,
             WebRequest webRequest

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ITattooService {
     List<Tattoo> listTattoos();
+
+    Tattoo findTattoo(int idTattoo);
 }

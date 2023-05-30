@@ -1,9 +1,14 @@
 package com.softtek.tattoos_proyecto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -13,13 +18,22 @@ import lombok.NoArgsConstructor;
 public class Tattoo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_tattoo;
+    @Column(name = "id_tattoo")
+    private int idTattoo;
     private String nombre;
     private String descripcion;
     private String lugar;
     private String tamano;
     private String imagen;
-    private boolean tattoo_propio;
+    @Column(name = "tattoo_propio")
+    private boolean tattooPropio;
     private double precio;
-    private int id_artista;
+    @JsonIgnoreProperties("tattoos")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_artista")
+    private Artista artista;
+    @JsonIgnoreProperties("tattoo")
+    @OneToMany(mappedBy = "tattoo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Cita> citasTattoo;
 }

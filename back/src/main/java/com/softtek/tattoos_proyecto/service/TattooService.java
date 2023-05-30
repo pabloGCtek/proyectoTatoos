@@ -16,4 +16,9 @@ public class TattooService implements ITattooService{
     public List<Tattoo> listTattoos() {
         return tr.findAll();
     }
+
+    @Override
+    public Tattoo findTattoo(int idTattoo) {
+        return tr.findTattooByIdTattoo(idTattoo);
+    }
 }
