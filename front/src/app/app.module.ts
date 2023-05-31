@@ -15,6 +15,8 @@ import { UsuariosService } from './usuarios.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Artistas2Component } from './artistas2/artistas2.component';
 import { CarouselComponent } from './carousel/carousel.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { TerminosComponent } from './terminos/terminos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { CarouselComponent } from './carousel/carousel.component';
     LoginComponent,
     RegistroComponent,
     Artistas2Component,
-    CarouselComponent
+    CarouselComponent,
+    PerfilComponent,
+    TerminosComponent
 
   ],
   imports: [
