@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Artista } from '../clases/Artista';
-import { ArtistasService } from '../artistas.service';
-
+import { Artista } from 'src/assets/clases/Artista';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +7,8 @@ import { ArtistasService } from '../artistas.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  // constructor( private: ArtistasService){}
-  // arrArtistas: Artista[] = [new Artista(,"../assets/media/tatuador1.jpg"),new Artista("")];
-  // NgOnInit(){
-  //   alert(this.arrArtistas[0].nombre)
-  // }
+  ngOnInit(){
+    this.servicioArt.mostrarArtista().subscribe((val: any) => this.arrArtistas = val)
+    }  NgOnInit(){
+  }
 }

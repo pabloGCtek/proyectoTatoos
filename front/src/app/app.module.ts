@@ -17,6 +17,9 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { CitaTattooArtistaComponent } from './cita-tattoo-artista/cita-tattoo-artista.component';
 import { CitaTattooPropioComponent } from './cita-tattoo-propio/cita-tattoo-propio.component';
 import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { TerminosComponent } from './terminos/terminos.component';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
     CarouselComponent,
     CitaTattooArtistaComponent,
     CitaTattooPropioComponent,
-    PedirCitaComponent
+    PedirCitaComponent,
+    PerfilComponent,
+    TerminosComponent
 
   ],
   imports: [

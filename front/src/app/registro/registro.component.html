@@ -38,6 +38,11 @@
                 Por favor, introduce una fecha válida
             </div>
         </div>
+        <div class="form-group">
+            <label for="acepto_condiciones">He leido y acepto los<a [routerLink]="['/terminos']" target=”_blank” >Términos y condiciones de uso   </a></label>
+            <input type="checkbox" name="acepto_condiciones" id="acepto_condiciones" formControlName="acepto_condiciones" required>
+        </div>
+
         <div class="boton">
             <button type="submit" class="btn btn-primary" [disabled]="!formularioCompleto() || miFormulario.hasError('mismatch')">Registrarme</button>
         </div>
