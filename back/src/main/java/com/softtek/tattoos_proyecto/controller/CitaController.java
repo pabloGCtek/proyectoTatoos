@@ -26,12 +26,12 @@ public class CitaController {
 
     @GetMapping
     public ResponseEntity<List<Cita>> listCitas(){
-        return new ResponseEntity<>(cs.listCita(), HttpStatus.OK);
+        return new ResponseEntity<>(cs.listAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{idCita}")
     public EntityModel<Cita> findCita(@PathVariable int idCita){
-        Cita c = cs.findCita(idCita);
+        Cita c = cs.findObject(idCita);
         if(c == null) throw new ObjectNotFound("Cita no encontrada");
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findCita(idCita));
         return EntityModel.of(c).add(link.withRel("cita-link"));
