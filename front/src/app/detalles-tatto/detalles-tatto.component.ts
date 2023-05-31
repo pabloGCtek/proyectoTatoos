@@ -20,14 +20,14 @@ export class DetallesTattoComponent {
   constructor(private miServicio:GalleryService,
     private activarRuta: ActivatedRoute, private ruta: Router){
 
-      this.id=this.activarRuta.snapshot.params["id"]
-      let tattoN=this.miServicio.encontrarTatto(this.id)
-      if(tattoN!=undefined){
-      this.nombre=tattoN.nombre
-      this.idArtista=tattoN.idArtista
-      this.descripcion=tattoN.descripcion
-      this.imagen=tattoN.imagen
-      }
+      // this.id=this.activarRuta.snapshot.params["id"]
+      // let tattoN=this.miServicio.encontrarTatto(this.id)
+      // if(tattoN!=undefined){
+      // this.nombre=tattoN.nombre
+      // this.idArtista=tattoN.idArtista
+      // this.descripcion=tattoN.descripcion
+      // this.imagen=tattoN.imagen
+      // }
     }
 
     regresar(){

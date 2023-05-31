@@ -1,0 +1,14 @@
+h1, h3, .botones{
+    display: flex;
+    justify-content: space-around;
+}
+h1{
+    padding-top: 6rem;
+}
+h3, .botones{
+    margin-top: 6rem;
+}
+button{
+    width: 30%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
