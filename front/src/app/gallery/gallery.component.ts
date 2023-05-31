@@ -17,10 +17,12 @@ export class GalleryComponent {
   tattoFiltrado: Tattoo[]=[]
   tattoFiltrados: Artista[]=[]
   ngOnInit()
-  { this.tattos
+  {
+    this.tattoServicio.mostrarTatto().subscribe(data=>this.tattoFiltrado=data)
     this.mostrarTodos()
+    this.filtrarTodos()
     this.mostrarArtistas()
-    this.tattoFiltrado=this.tattos
+
   }
   mostrarTodos(): void{
    this.tattoServicio.mostrarTatto().subscribe(data=>this.tattos=data)

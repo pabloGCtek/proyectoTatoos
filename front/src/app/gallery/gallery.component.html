@@ -4,10 +4,10 @@
   <button (click)="filtrarPorArtista(i)">{{artista.nombre}}</button>
 </div>
 </div>
-<div class="contenedor2">
-  <div *ngFor="let fotos of tattoFiltrado">
-    <div class="card">
-          <a [routerLink]="['/tatto',fotos.idTatto]">
+<div class="contenedor2" >
+  <div *ngFor="let fotos of tattoFiltrado ">
+    <div class="card" *ngIf="!fotos.tattooPropio">
+          <a [routerLink]="['/tatto',fotos.idTattoo]">
           <img class="imagen" [src]="fotos.imagen" [alt]="fotos.nombre">
         </a>
     </div>
