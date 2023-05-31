@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
           <label for="fecha_cita">Elige una fecha</label>
-          <input type="date" formControlName="fecha_cita" id="fecha_cita" required>
+          <input type="date" formControlName="fecha_cita" id="fecha_cita" min={{fecha_actual}} required>
         </div>
         <div class="form-group">
           <label for="hora_cita">Elige una hora</label>

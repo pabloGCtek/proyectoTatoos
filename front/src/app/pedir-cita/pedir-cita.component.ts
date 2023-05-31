@@ -23,16 +23,15 @@ export class PedirCitaComponent {
   constructor(private miServicio:GalleryService,private usService: UsuariosService,
     private activarRuta: ActivatedRoute, private ruta: Router){
     this.id=this.activarRuta.snapshot.params["id"]
-      let tattoN=this.miServicio.encontrarTatto(this.id)
-      if(tattoN!=undefined){
-      this.nombre=tattoN.nombre
-      this.idArtista=tattoN.idArtista
-      this.descripcion=tattoN.descripcion
-      this.imagen=tattoN.imagen
+      // let tattoN=this.miServicio.encontrarTatto(this.id)
+      // if(tattoN!=undefined){
+      // this.nombre=tattoN.nombre
+      // this.idArtista=tattoN.idArtista
+      // this.descripcion=tattoN.descripcion
+      // this.imagen=tattoN.imagen
 
     this.miFormulario = new FormGroup({
       fecha_cita: new FormControl('', Validators.required),
     });
-      }
   }
 }

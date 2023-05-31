@@ -13,6 +13,9 @@ export class CitaTattooArtistaComponent {
   horasDisponibles: string[];
   imagen:string="";
   tattooSeleccionado:boolean=false;
+  
+  //obtencion de la fecha actual
+  fecha_actual:string = new Date().toISOString().split('T')[0];
 
   constructor(private servicioGaleria: GalleryService) {
     this.formularioCita = new FormGroup({
@@ -24,11 +27,6 @@ export class CitaTattooArtistaComponent {
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
-
-    let tattoo= this.servicioGaleria.encontrarTatto(1);
-      if(tattoo!=undefined){
-      this.imagen=tattoo.imagen
-      }
   }
 
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño

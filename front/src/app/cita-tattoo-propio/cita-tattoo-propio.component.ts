@@ -11,6 +11,9 @@ export class CitaTattooPropioComponent {
   turno: number=0;
   horasDisponibles: string[];
 
+  //obtencion de la fecha actual
+  fecha_actual:string = new Date().toISOString().split('T')[0];
+
   constructor() {
     this.formularioCita = new FormGroup({
       tamano: new FormControl(''),
@@ -102,4 +105,34 @@ export class CitaTattooPropioComponent {
       }
     }
   }
+
+  //Cambiar de color los dias del calendario
+  highlightedDates: Date[] = [
+    new Date(2023, 6, 1), // Junio 1, 2023
+    new Date(2023, 6, 4), // Junio 4, 2023
+  ];
+  getHighlightedDateStyle(date: Date): any {
+    const isHighlighted = this.highlightedDates.some(
+      highlightedDate => this.isSameDate(date, highlightedDate)
+    );
+  
+    if (isHighlighted) {
+      return {
+        backgroundColor: 'yellow',
+        fontWeight: 'bold'
+      };
+    }
+  
+    return {};
+  }
+  
+  isSameDate(date1: Date, date2: Date): boolean {
+    return (
+      date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear()
+    );
+  }
+  
+  
 }

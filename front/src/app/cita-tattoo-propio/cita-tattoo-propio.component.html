@@ -19,7 +19,8 @@
     </div>
     <div class="form-group">
         <label for="fecha_cita">Elige una fecha:</label>
-        <input type="date" name="fecha_cita" id="fecha_cita" formControlName="fecha_cita" required>
+        <input type="date" name="fecha_cita" id="fecha_cita" formControlName="fecha_cita" min={{fecha_actual}}
+        [style]="getHighlightedDateStyle(formularioCita.get('fecha_cita')?.value)" required>
     </div>
     <div class="form-group">
         <label for="hora_cita">Elige una hora</label>

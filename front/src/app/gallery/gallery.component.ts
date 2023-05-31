@@ -15,12 +15,12 @@ export class GalleryComponent {
 
   ngOnInit()
   {
-    this.tattos=this.miServicio.tattos
+    //this.tattos=this.miServicio.tattos
     this.mostrarTodos()
     // this.ruta.navigate([''])
   }
   mostrarTodos(){
-    this.tattoFiltradas=this.miServicio.mostrarTatto()
+    //this.tattoFiltradas=this.miServicio.mostrarTatto()
   }
   filtrarPorArtista(idArtista: number){
     this.tattoFiltradas=this.tattos.filter(tatto=>tatto.idArtista===idArtista)
