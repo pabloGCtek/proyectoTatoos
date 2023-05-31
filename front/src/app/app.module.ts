@@ -14,6 +14,9 @@ import { UsuariosService } from './usuarios.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Artistas2Component } from './artistas2/artistas2.component';
 import { CarouselComponent } from './carousel/carousel.component';
+import { CitaTattooArtistaComponent } from './cita-tattoo-artista/cita-tattoo-artista.component';
+import { CitaTattooPropioComponent } from './cita-tattoo-propio/cita-tattoo-propio.component';
+import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { CarouselComponent } from './carousel/carousel.component';
     LoginComponent,
     RegistroComponent,
     Artistas2Component,
-    CarouselComponent
+    CarouselComponent,
+    CitaTattooArtistaComponent,
+    CitaTattooPropioComponent,
+    PedirCitaComponent
 
   ],
   imports: [

@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Artista } from './clases/Artista';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
