@@ -1,20 +1,16 @@
-<!--
-  <div class="card" *ngIf="tattoN">
-          <img class="imagen" [src]="imagen" >
-  </div>
-  <h2>{{nombre}}</h2>
 
-    -->
     <div class="contenedor2">
       <div class="card" *ngIf="tattoN" >
         <p class="card-text">
-          Nombre artista:
-        <img class="imagen" [src]="imagen" >
+          Nombre artista:{{tattoN.artista.nombre}}
+        <img class="imagen" [src]="tattoN.imagen" >
         <div class="card-body">
           <p class="card-text">
-            Descripcion: {{descripcion}}</p>
-          <button (click)="regresar()">Regresar</button>
-        </div>
+            Descripcion: {{tattoN.descripcion}}</p>
+          </div>
+          <button (click)="regresar()">Volver a galeria</button>
+         <!--boton para pedir cita-->
+          <button (click)="regresar()">Pedir Cita</button>
       </div>
     </div>
 

@@ -7,6 +7,7 @@ import { Artista } from './clases/Artista';
   providedIn: 'root'
 })
 export class ArtistasService {
+
   constructor(private http: HttpClient) { }
   private artistaUrl: string ="http://localhost:8080/artistas"
 
@@ -15,4 +16,5 @@ export class ArtistasService {
 {
     return this.http.get<Artista[]>(this.artistaUrl)
 }
+
 }

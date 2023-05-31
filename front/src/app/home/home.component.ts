@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Artista } from 'src/assets/clases/Artista';
+import { Artista } from '../clases/Artista';
+import { ArtistasService } from '../artistas.service';
+
 
 @Component({
   selector: 'app-home',
@@ -7,8 +9,9 @@ import { Artista } from 'src/assets/clases/Artista';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  arrArtistas: Artista[] = [new Artista("pepe","Intro para el artista va aquí","../assets/media/tatuador1.jpg"),new Artista("Juana","Lorem ipsum y tal","../assets/media/tatuador2.jpg")];
-  NgOnInit(){
-    alert(this.arrArtistas[0].nombre)
-  }
+  // constructor( private: ArtistasService){}
+  // arrArtistas: Artista[] = [new Artista(,"../assets/media/tatuador1.jpg"),new Artista("")];
+  // NgOnInit(){
+  //   alert(this.arrArtistas[0].nombre)
+  // }
 }

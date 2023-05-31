@@ -12,6 +12,5 @@ export class Artista{
     this.bio=bio
     this.imagen=imagen
     this.tattoos=tattoos
-
   }
 }

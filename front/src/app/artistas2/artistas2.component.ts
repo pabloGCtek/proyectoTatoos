@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Artista } from 'src/assets/clases/Artista';
+import { Artista } from '../clases/Artista';
+
 
 @Component({
   selector: 'app-artistas2',
