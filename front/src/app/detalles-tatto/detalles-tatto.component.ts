@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GalleryService } from '../gallery.service';
-import { Tatto } from '../_modelo/Tattoo';
+import { Tattoo } from '../clases/Tattoo';
+import { Artista } from '../clases/Artista';
+
 
 @Component({
   selector: 'app-detalles-tatto',
@@ -9,27 +11,35 @@ import { Tatto } from '../_modelo/Tattoo';
   styleUrls: ['./detalles-tatto.component.css']
 })
 export class DetallesTattoComponent {
-  tattos: Tatto[]=[];
+  tattos: Tattoo[]=[];
   id: number=0;
   nombre:string="";
   imagen:string=""
-  idArtista:number=0;
+  artista:Artista
   descripcion:string=""
+  tattoN: Tattoo
 
-  tattoN: Tatto=new Tatto(0,"",0,"","");
-  constructor(private miServicio:GalleryService,
-    private activarRuta: ActivatedRoute, private ruta: Router){
+  constructor(private tattoServicio:GalleryService,
+    private activarRuta: ActivatedRoute, private ruta: Router){}
 
+    ngOnInit()
+    {
       this.id=this.activarRuta.snapshot.params["id"]
-      let tattoN=this.miServicio.encontrarTatto(this.id)
-      if(tattoN!=undefined){
-      this.nombre=tattoN.nombre
-      this.idArtista=tattoN.idArtista
-      this.descripcion=tattoN.descripcion
-      this.imagen=tattoN.imagen
-      }
+      let tattoN=this.tattoServicio.obtenerPorId(this.id)
+      // if(tattoN!=undefined){
+      // this.nombre=tattoN.nombre
+      // this.descripcion=tattoN.descripcion
+      // this.imagen=tattoN.imagen
+      // }
     }
 
+    mostrarTodos(): void{
+      this.tattoServicio.mostrarTatto().subscribe(data=>this.tattos=data)
+     }
+    obtenerPorId(id: number)
+    {
+      return  this.tattos.find((t)=>t.idTatto==id)
+    }
     regresar(){
       this.ruta.navigate(['gallery'])
     }
