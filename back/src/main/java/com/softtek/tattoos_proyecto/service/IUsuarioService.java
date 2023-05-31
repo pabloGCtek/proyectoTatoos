@@ -5,4 +5,5 @@ import com.softtek.tattoos_proyecto.model.Usuario;
 public interface IUsuarioService {
     Usuario insertUsuario(Usuario u);
     Usuario iniciarSesion(String emailNombre,String clave);
+    Usuario updateUsuario(Usuario u);
 }

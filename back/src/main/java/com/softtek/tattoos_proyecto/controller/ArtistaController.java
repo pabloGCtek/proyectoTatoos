@@ -25,12 +25,12 @@ public class ArtistaController {
 
     @GetMapping
     public ResponseEntity<List<Artista>> listArtista(){
-        return new ResponseEntity<>(as.listArtista(), HttpStatus.OK);
+        return new ResponseEntity<>(as.listAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{idArtista}")
     public EntityModel<Artista> findArtista(@PathVariable int idArtista){
-        Artista a = as.findArtista(idArtista);
+        Artista a = as.findObject(idArtista);
         if(a == null) throw new ObjectNotFound("No se ha encontrado el artista");
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findArtista(idArtista));
         return EntityModel.of(a).add(link.withRel("ar-link"));

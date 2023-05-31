@@ -1,11 +1,7 @@
 package com.softtek.tattoos_proyecto.service;
 
 import com.softtek.tattoos_proyecto.model.Tattoo;
+import com.softtek.tattoos_proyecto.repository.IBusquedasBasicas;
 
-import java.util.List;
-
-public interface ITattooService {
-    List<Tattoo> listTattoos();
-
-    Tattoo findTattoo(int idTattoo);
+public interface ITattooService extends IBusquedasBasicas<Tattoo, Integer> {
 }

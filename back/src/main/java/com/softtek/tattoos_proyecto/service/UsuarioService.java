@@ -21,4 +21,12 @@ public class UsuarioService implements IUsuarioService{
     public Usuario iniciarSesion(String emailNombre, String clave) {
         return ur.findUsuarioByNombreAndContrasenaOrEmailAndContrasena(emailNombre,clave,emailNombre,clave);
     }
+
+    @Override
+    public Usuario updateUsuario(Usuario u) {
+        Usuario userEditar = ur.getReferenceById(u.getIdUsuario());
+        if(userEditar != null) userEditar = u;
+        ur.save(userEditar);
+        return userEditar;
+    }
 }
