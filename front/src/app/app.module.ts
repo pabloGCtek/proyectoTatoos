@@ -20,6 +20,8 @@ import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TerminosComponent } from './terminos/terminos.component';
 
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,7 @@ import { TerminosComponent } from './terminos/terminos.component';
     CitaTattooPropioComponent,
     PedirCitaComponent,
     PerfilComponent,
-    TerminosComponent
+    TerminosComponent,
 
   ],
   imports: [
@@ -44,7 +46,8 @@ import { TerminosComponent } from './terminos/terminos.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BsDatepickerModule.forRoot()
   ],
   providers:
   [GalleryService,UsuariosService],

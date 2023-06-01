@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GalleryService } from '../gallery.service';
+import { ArtistasService } from '../artistas.service';
+import { Artista } from '../clases/Artista';
+import { Tattoo } from '../clases/Tattoo';
 
 @Component({
   selector: 'app-cita-tattoo-artista',
@@ -13,16 +16,17 @@ export class CitaTattooArtistaComponent {
   horasDisponibles: string[];
   imagen:string="";
   tattooSeleccionado:boolean=false;
+  esDomingo: boolean = false;
   
   //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
-  constructor(private servicioGaleria: GalleryService) {
+  constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl(''),
       tatuador: new FormControl(''),
       tatuaje: new FormControl(''),
-      fecha_cita: new FormControl(''),
+      fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
       hora_cita: new FormControl('')
     });
 
@@ -72,6 +76,20 @@ export class CitaTattooArtistaComponent {
     return hora.toString().padStart(2, '0') + ':00';
   }
 
+  //Desactivar dias de la semana
+  validarFecha(control: FormControl): { [key: string]: any } | null {
+    const fechaSeleccionada = new Date(control.value);
+    const diaSeleccionado = fechaSeleccionada.getDay();
+  
+    if (diaSeleccionado === 6) { // 6 representa el sábado (domingo es 0)
+      return { sabadoInvalido: true };
+    }
+  
+    return null;
+  }
+  
+  
+
   registrarCita(){
     alert("El valor de la hora es:" + this.formularioCita.get('hora_cita')?.value);
 
@@ -108,7 +126,35 @@ export class CitaTattooArtistaComponent {
       }
     }
   }
+  //Para mostrar una foto del tatuaje seleccionado
   seleccionarTatuaje() {
     this.tattooSeleccionado = true;
   }
+
+  //Filtros
+  tattoos: Tattoo[]=[]
+  artistas:Artista[]=[]
+  idArtista: number;
+  tattooFiltrado: Tattoo[]=[]
+  tattooFiltrados: Artista[]=[]
+  ngOnInit()
+  {
+    this.servicioGaleria.mostrarTatto().subscribe(data=>this.tattooFiltrado=data)
+    this.mostrarArtistas()
+  }
+  mostrarTodos(): void{
+    this.servicioGaleria.mostrarTatto().subscribe(data=>this.tattoos=data)
+   }
+   mostrarArtistas():void{
+     this.artistaServicio.mostrarArtista().subscribe(data=>this.artistas=data)
+   }
+   filtrarTodos(){
+     this.tattooFiltrado=this.tattoos
+   }
+   filtrarPorArtista(id: number){
+     this.tattooFiltrado=this.artistas[id].tattoos
+   }
+   filtrarPorTamano(tamano: string){
+     this.tattooFiltrado = this.tattoos.filter(tattoo => tattoo.tamano === tamano);
+   }
 }
