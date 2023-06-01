@@ -16,7 +16,6 @@ export class CitaTattooArtistaComponent {
   horasDisponibles: string[];
   imagen:string="";
   tattooSeleccionado:boolean=false;
-  esDomingo: boolean = false;
   
   //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cita-tattoo-propio',
@@ -19,7 +19,7 @@ export class CitaTattooPropioComponent {
       tamano: new FormControl(''),
       tatuador: new FormControl(''),
       tatuaje: new FormControl(''),
-      fecha_cita: new FormControl(''),
+      fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
       hora_cita: new FormControl('')
     });
 
@@ -64,6 +64,17 @@ export class CitaTattooPropioComponent {
 
     return horas;
   }
+//Desactivar dias de la semana
+validarFecha(control: FormControl): { [key: string]: any } | null {
+  const fechaSeleccionada = new Date(control.value);
+  const diaSeleccionado = fechaSeleccionada.getDay();
+
+  if (diaSeleccionado === 6) { // 6 representa el sábado (domingo es 0)
+    return { sabadoInvalido: true };
+  }
+
+  return null;
+}
 
   private formatearHora(hora: number): string {
     return hora.toString().padStart(2, '0') + ':00';
