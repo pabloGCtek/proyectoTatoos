@@ -13,7 +13,7 @@ export class ArtistasService {
   private artistaUrl: string ="http://localhost:8080/artistas"
 
   artistas: Artista[]=[]
-  mostrarArtista():Observable<Artista[]>
+  mostrarArtistas():Observable<Artista[]>
 {
     
     return this.http.get<Artista[]>(this.artistaUrl)

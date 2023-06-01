@@ -8,8 +8,6 @@ import { Tattoo } from './clases/Tattoo';
 export class GalleryService {
   private tatoUrl: string ="http://localhost:8080/tattoos"
 
-  private tatoUrl: string ="http://localhost:8080/tattoos"
-
   constructor(private http: HttpClient){}
 
   mostrarTatto():Observable<Tattoo[]>

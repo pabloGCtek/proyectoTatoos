@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Artista } from 'src/assets/clases/Artista';
+import { ArtistasService } from 'src/assets/servicios/artistas.service';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +8,11 @@ import { Artista } from 'src/assets/clases/Artista';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  arrArtistas: Artista[] = [];
+  constructor(private servicioArt: ArtistasService){
+
+  }
   ngOnInit(){
-    this.servicioArt.mostrarArtista().subscribe((val: any) => this.arrArtistas = val)
-    }  NgOnInit(){
+  this.servicioArt.mostrarArtistas().subscribe((val: any) => this.arrArtistas = val)
   }
 }
