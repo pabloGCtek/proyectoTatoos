@@ -15,6 +15,7 @@
 
 .card .imagen{
   width: 150px;
+  height: 190px;
   border-radius: 5px;
   margin:5px;
   box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
@@ -28,6 +29,7 @@
 {
   width: 50%;
   margin:auto;
+  display: flex;
 }
 .contenedor button{
   background-color: #808080;

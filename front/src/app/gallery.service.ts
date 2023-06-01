@@ -1,40 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Tatto } from './_modelo/Tattoo';
+import { Observable } from 'rxjs';
+import { Tattoo } from './clases/Tattoo';
 @Injectable({
   providedIn: 'root'
 })
 export class GalleryService {
+  private tatoUrl: string ="http://localhost:8080/tattoos"
 
-//  private tatoUrl=''
-// constructor(private http: HttpClient){}
+  private tatoUrl: string ="http://localhost:8080/tattoos"
 
- tattos: Tatto[]=[
- new Tatto(1,"foto1",1,"tatuatebonito1","/assets/media/diseño1.webp"),
- new Tatto(2,"foto2",2,"tatuatebonito1","/assets/media/diseño2.jpeg"),
- new Tatto(3,"foto3",3,"tatuatebonito1","/assets/media/diseño3.jpeg"),
- new Tatto(4,"foto4",4,"tatuatebonito1","/assets/media/diseño4.jpeg"),
- new Tatto(5,"foto5",1,"tatuatebonito1","/assets/media/diseño5.jpeg"),
- new Tatto(5,"foto5",2,"tatuatebonito1","/assets/media/diseño5.jpeg"),
- new Tatto(1,"foto1",1,"tatuatebonito1","/assets/media/diseño1.webp"),
- new Tatto(2,"foto2",2,"tatuatebonito1","/assets/media/diseño2.jpeg"),
- new Tatto(3,"foto3",3,"tatuatebonito1","/assets/media/diseño3.jpeg"),
- new Tatto(4,"foto4",4,"tatuatebonito1","/assets/media/diseño4.jpeg"),
- new Tatto(5,"foto5",1,"tatuatebonito1","/assets/media/diseño5.jpeg"),
- new Tatto(5,"foto5",2,"tatuatebonito1","/assets/media/diseño5.jpeg"),
- new Tatto(1,"foto1",1,"tatuatebonito1","/assets/media/diseño1.webp"),
- new Tatto(2,"foto2",2,"tatuatebonito1","/assets/media/diseño2.jpeg"),
- new Tatto(3,"foto3",3,"tatuatebonito1","/assets/media/diseño3.jpeg")
- ]
+  constructor(private http: HttpClient){}
 
-
-  mostrarTatto()
- {
-    return this.tattos
-}
-
-encontrarTatto(id:number){
-
- return this.tattos.find((t)=>t.idTatto==id)
+  mostrarTatto():Observable<Tattoo[]>
+  {
+      return this.http.get<Tattoo[]>(this.tatoUrl)
   }
+
+  obtenerPorId(id: number):Observable<Tattoo>{
+    return  this.http.get<Tattoo>(`${this.tatoUrl}/${id}`)
+  }
+
 }
+    // this.http.get<Tattoo[]>(this.tatoUrl)
+  //  return  this.tattos.find((t)=>t.idTatto==id)

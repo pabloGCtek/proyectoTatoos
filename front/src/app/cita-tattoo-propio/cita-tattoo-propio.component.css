@@ -1,0 +1,24 @@
+h1{
+    text-align: center;
+    padding-top: 6rem;
+}
+form{
+    text-align: end;
+}
+form, .boton{
+    margin-top: 4rem;
+}
+.form-group{
+    display: flex;
+    justify-content:center;
+    margin-top: 1rem;
+}
+input, select{
+    width: 15rem;
+    text-align: center;
+    margin-left: 2rem;
+}
+.boton{
+    display: flex;
+    justify-content: center;
+}

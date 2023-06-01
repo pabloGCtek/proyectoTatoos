@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { GalleryService } from '../gallery.service';
-import { Tatto } from '../_modelo/Tattoo';
+import { Tattoo } from '../clases/Tattoo';
+import { ArtistasService } from '../artistas.service';
+import { Artista } from '../clases/Artista';
 
 @Component({
   selector: 'app-gallery',
@@ -9,20 +10,33 @@ import { Tatto } from '../_modelo/Tattoo';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent {
-  constructor(private miServicio: GalleryService){}
-  tattos: Tatto[]=[]
-  tattoFiltradas:Tatto[]=[]
-
+  constructor(private artistaServicio: ArtistasService, private tattoServicio: GalleryService){}
+  tattos: Tattoo[]=[]
+  artistas:Artista[]=[]
+  idArtista: number;
+  tattoFiltrado: Tattoo[]=[]
+  tattoFiltrados: Artista[]=[]
   ngOnInit()
   {
-    this.tattos=this.miServicio.tattos
+    this.tattoServicio.mostrarTatto().subscribe(data=>this.tattoFiltrado=data)
     this.mostrarTodos()
-    // this.ruta.navigate([''])
+    this.filtrarTodos()
+    this.mostrarArtistas()
+
   }
-  mostrarTodos(){
-    this.tattoFiltradas=this.miServicio.mostrarTatto()
+  mostrarTodos(): void{
+   this.tattoServicio.mostrarTatto().subscribe(data=>this.tattos=data)
   }
-  filtrarPorArtista(idArtista: number){
-    this.tattoFiltradas=this.tattos.filter(tatto=>tatto.idArtista===idArtista)
+  mostrarArtistas():void{
+    this.artistaServicio.mostrarArtista().subscribe(data=>this.artistas=data)
   }
+  filtrarTodos(){
+    this.tattoFiltrado=this.tattos
+  }
+  filtrarPorArtista(id: number){
+    // a: Artista=this.artistas.filter(tatto=>tatto.idArtista=id)
+    this.tattoFiltrado=this.artistas[id].tattoos
+    // this.tattoFiltrados=this.artistas.filter(tatto=>this.idArtista=id)
+  }
+
 }
