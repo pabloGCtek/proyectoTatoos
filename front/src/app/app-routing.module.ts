@@ -20,6 +20,7 @@ const routes: Routes = [
   {path:'tatto/:id', component:DetallesTattoComponent},
   {path: 'pedir_cita', component:PedirCitaComponent},
   {path: 'cita_tattoo_artista', component:CitaTattooArtistaComponent},
+  {path: 'cita_tattoo_artista/:id', component:CitaTattooArtistaComponent},
   {path: 'cita_tattoo_propio', component:CitaTattooPropioComponent},
   {path:'terminos', component:TerminosComponent}
 ];

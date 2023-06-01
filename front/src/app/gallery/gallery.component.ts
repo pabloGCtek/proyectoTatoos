@@ -16,11 +16,13 @@ export class GalleryComponent {
   idArtista: number;
   tattoFiltrado: Tattoo[]=[]
   tattoFiltrados: Artista[]=[]
+  activeButton: string="Todos"
+  activeButton1: number=1
   ngOnInit()
   {
     this.tattoServicio.mostrarTatto().subscribe(data=>this.tattoFiltrado=data)
     this.mostrarTodos()
-    this.filtrarTodos()
+    this.filtrarTodos(this.activeButton)
     this.mostrarArtistas()
 
   }
@@ -30,14 +32,23 @@ export class GalleryComponent {
   mostrarArtistas():void{
     this.artistaServicio.mostrarArtista().subscribe(data=>this.artistas=data)
   }
-  filtrarTodos(){
+  filtrarTodos(todos: string){
     this.tattoFiltrado=this.tattos
+    if (this.activeButton !== todos) {
+      this.activeButton = todos;
+    }
   }
   filtrarPorArtista(id: number){
     this.tattoFiltrado=this.artistas[id].tattoos
+    if (this.activeButton1 !== id) {
+      this.activeButton1= id;
+    }
   }
   filtrarPorTamano(tamano: string){
     this.tattoFiltrado = this.tattos.filter(tatto => tatto.tamano === tamano);
+    if (this.activeButton !== tamano) {
+      this.activeButton = tamano;
+    }
   }
 
 }

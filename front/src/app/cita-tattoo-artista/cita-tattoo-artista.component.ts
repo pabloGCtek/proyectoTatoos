@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GalleryService } from '../gallery.service';
+import { ActivatedRoute } from '@angular/router';
+import { Tattoo } from '../clases/Tattoo';
+import { Artista } from '../clases/Artista';
 
 @Component({
   selector: 'app-cita-tattoo-artista',
@@ -13,11 +16,15 @@ export class CitaTattooArtistaComponent {
   horasDisponibles: string[];
   imagen:string="";
   tattooSeleccionado:boolean=false;
-  
+  id:number;
+  tattoN: Tattoo;
+  artista: Artista;
+  tamano:string;
   //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
-  constructor(private servicioGaleria: GalleryService) {
+  constructor(private tattoServicio:GalleryService,
+    private activarRuta: ActivatedRoute) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl(''),
       tatuador: new FormControl(''),
@@ -27,6 +34,16 @@ export class CitaTattooArtistaComponent {
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
+
+  }
+  ngOnInit()
+  {
+    this.id=this.activarRuta.snapshot.params["id"]
+    this.tattoServicio.obtenerPorId(this.id).subscribe(dato=>{
+      this.tattoN=dato
+      this.tamano=this.tattoN.tamano
+      this.imagen=this.tattoN.imagen
+      this.artista=this.tattoN.artista})
   }
 
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño

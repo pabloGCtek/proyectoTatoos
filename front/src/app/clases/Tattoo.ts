@@ -3,7 +3,6 @@ import { Artista } from "./Artista";
 export class Tattoo
 {
   idTattoo: number=0;
-
   nombre: string ="";
   descripcion: string="";
   lugar: string=""
@@ -12,6 +11,7 @@ export class Tattoo
   tattooPropio: boolean
   precio: number;
   artista: Artista;
+  // citasTattoo: Citas[]=[]
 
   constructor(idTatto: number, nombre:string,descripcion: string,lugar:string, tamano:string,imagen:string, tattoPropio: boolean, precio: number, artista:Artista){
     this.idTattoo=idTatto;

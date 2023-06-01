@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GalleryService } from '../gallery.service';
 import { Tattoo } from '../clases/Tattoo';
 import { Artista } from '../clases/Artista';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class DetallesTattoComponent {
   descripcion:string=""
   tattoN: Tattoo
   constructor(private tattoServicio:GalleryService,
-    private activarRuta: ActivatedRoute, private ruta: Router){}
+    private activarRuta: ActivatedRoute, private ruta: Router, private location: Location){}
 
     ngOnInit()
     {
@@ -38,14 +39,6 @@ export class DetallesTattoComponent {
       return this.tattos.find((t)=>t.idTattoo==id)
      }
     regresar(){
-      this.ruta.navigate(['gallery'])
+      this.location.back();
     }
-
 }
-
-// this.id=this.activarRuta.snapshot.params["id"]
-//         this.tattoServicio.obtenerPorId(this.id).subscribe(tattoo=>{
-//         this.nombre=tattoo.nombre
-//         this.imagen=tattoo.imagen
-//         this.descripcion=tattoo.descripcion}
-//        )

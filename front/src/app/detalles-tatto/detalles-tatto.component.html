@@ -1,16 +1,27 @@
 
     <div class="contenedor2">
-      <div class="card" *ngIf="tattoN" >
-        <p class="card-text">
-          Nombre artista:{{tattoN.artista.nombre}}
-        <img class="imagen" [src]="tattoN.imagen" >
-        <div class="card-body">
-          <p class="card-text">
-            Descripcion: {{tattoN.descripcion}}</p>
-          </div>
-          <button (click)="regresar()">Volver a galeria</button>
-         <!--boton para pedir cita-->
-          <button (click)="regresar()">Pedir Cita</button>
+      <div class="card" >
+          <h3>{{tattoN.nombre}}</h3>
+          <img class="imagen" [src]="imagen" >
       </div>
+      <div class="card detalle">
+        <div class="card-body">
+        <p>
+          <b> Artista:</b>{{tattoN.artista.nombre}}
+          <br>
+          <b> Descripción:</b> {{tattoN.descripcion}}
+          <br>
+          <b> Parte del cuerpo: </b>{{tattoN.lugar}}
+          <br>
+          <b> Tamaño: </b>{{tattoN.tamano}}
+          <br>
+          <b> Precio: </b>{{tattoN.precio}}€
+          <br>
+        </p>
+        </div>
+        <button (click)="regresar()">Volver a galeria</button>
+       <!--boton para pedir cita-->
+        <button [routerLink]="['/cita_tattoo_artista',tattoN.idTattoo]">Pedir Cita</button>
+    </div>
     </div>
 
