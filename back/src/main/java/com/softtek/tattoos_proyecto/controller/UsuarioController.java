@@ -2,10 +2,8 @@ package com.softtek.tattoos_proyecto.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import com.softtek.tattoos_proyecto.exceptions.ObjectNotFound;
 import com.softtek.tattoos_proyecto.model.Usuario;
 import com.softtek.tattoos_proyecto.service.IUsuarioService;
-import jakarta.persistence.PostUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -24,7 +22,7 @@ public class UsuarioController {
 
     @PostMapping("/registro")
     public ResponseEntity<Void> insertUsuario(@RequestBody Usuario u){
-        Usuario usu = us.insertUsuario(u);
+        Usuario usu = us.insertObject(u);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{emailNombre}/{clave}")
                 .buildAndExpand(usu.getEmail(), usu.getContrasena())
@@ -34,7 +32,7 @@ public class UsuarioController {
 
     @PostMapping("/modificacion")
     public ResponseEntity<Void> updateUsuario(@RequestBody Usuario u){
-        Usuario usu = us.updateUsuario(u);
+        Usuario usu = us.updateObject(u,u.getIdUsuario());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{emailNombre}/{clave}")
                 .buildAndExpand(usu.getEmail(), usu.getContrasena())
@@ -45,7 +43,6 @@ public class UsuarioController {
     @GetMapping("/{emailNombre}/{clave}")
     public EntityModel<Usuario> iniSesion(@PathVariable String emailNombre, @PathVariable String clave){
         Usuario u = us.iniciarSesion(emailNombre,clave);
-        if(u == null) throw new ObjectNotFound("El usuario no existe");
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).iniSesion(emailNombre,clave));
         return EntityModel.of(u).add(link.withRel("us-link"));
     }
