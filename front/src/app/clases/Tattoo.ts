@@ -13,11 +13,15 @@ export class Tattoo
   precio: number;
   artista: Artista;
 
-  constructor(idTatto: number, nombre:string,descripcion: string,imagen:string, artista:Artista){
+  constructor(idTatto: number, nombre:string,descripcion: string,lugar:string, tamano:string,imagen:string, tattoPropio: boolean, precio: number, artista:Artista){
     this.idTattoo=idTatto;
     this.nombre=nombre;
     this.descripcion=descripcion;
+    this.lugar=lugar;
+    this.tamano=tamano;
     this.imagen=imagen;
+    this.tattooPropio=tattoPropio;
+    this.precio=precio;
     this.artista=artista
   }
 }

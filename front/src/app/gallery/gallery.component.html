@@ -4,6 +4,14 @@
   <button (click)="filtrarPorArtista(i)">{{artista.nombre}}</button>
 </div>
 </div>
+<br>
+<div class="contenedor">
+  <div>
+    <button (click)="filtrarPorTamano('Grande')">Grande</button>
+    <button (click)="filtrarPorTamano('Mediano')">Mediano</button>
+    <button (click)="filtrarPorTamano('Pequeño')">Pequeño</button>
+</div>
+</div>
 <div class="contenedor2" >
   <div *ngFor="let fotos of tattoFiltrado ">
     <div class="card" *ngIf="!fotos.tattooPropio">

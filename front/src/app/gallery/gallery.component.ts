@@ -34,9 +34,10 @@ export class GalleryComponent {
     this.tattoFiltrado=this.tattos
   }
   filtrarPorArtista(id: number){
-    // a: Artista=this.artistas.filter(tatto=>tatto.idArtista=id)
     this.tattoFiltrado=this.artistas[id].tattoos
-    // this.tattoFiltrados=this.artistas.filter(tatto=>this.idArtista=id)
+  }
+  filtrarPorTamano(tamano: string){
+    this.tattoFiltrado = this.tattos.filter(tatto => tatto.tamano === tamano);
   }
 
 }
