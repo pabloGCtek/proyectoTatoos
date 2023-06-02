@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Artista } from 'src/assets/clases/Artista';
+import { Artista } from '../clases/Artista';
 import { ArtistasService } from 'src/assets/servicios/artistas.service';
 
 @Component({

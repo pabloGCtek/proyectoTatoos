@@ -10,6 +10,7 @@ import { CitaTattooArtistaComponent } from './cita-tattoo-artista/cita-tattoo-ar
 import { CitaTattooPropioComponent } from './cita-tattoo-propio/cita-tattoo-propio.component';
 import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { TerminosComponent } from './terminos/terminos.component';
+import { DetallesCitaComponent } from './detalles-cita/detalles-cita.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'pedir_cita', component:PedirCitaComponent},
   {path: 'cita_tattoo_artista', component:CitaTattooArtistaComponent},
   {path: 'cita_tattoo_propio', component:CitaTattooPropioComponent},
-  {path:'terminos', component:TerminosComponent}
+  {path:'terminos', component:TerminosComponent},
+  {path:'cita/:id',component:DetallesCitaComponent}
 ];
 
 @NgModule({

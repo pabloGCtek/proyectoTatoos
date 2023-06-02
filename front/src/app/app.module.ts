@@ -19,6 +19,8 @@ import { CitaTattooPropioComponent } from './cita-tattoo-propio/cita-tattoo-prop
 import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TerminosComponent } from './terminos/terminos.component';
+import { DetallesCitaComponent } from './detalles-cita/detalles-cita.component';
+import { CitasService } from './servicios/citas.service';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { TerminosComponent } from './terminos/terminos.component';
     CitaTattooPropioComponent,
     PedirCitaComponent,
     PerfilComponent,
-    TerminosComponent
+    TerminosComponent,
+    DetallesCitaComponent
 
   ],
   imports: [
@@ -46,8 +49,11 @@ import { TerminosComponent } from './terminos/terminos.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers:
-  [GalleryService,UsuariosService],
+  providers:[
+    GalleryService,
+    UsuariosService,
+    CitasService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
