@@ -4,7 +4,6 @@ import com.softtek.tattoos_proyecto.exceptions.ObjectNotFound;
 import com.softtek.tattoos_proyecto.repository.IGenericRepo;
 
 import java.util.List;
-import java.util.Optional;
 
 public abstract class CrudImpl<T,ID> {
     protected abstract IGenericRepo<T,ID> getRepo();

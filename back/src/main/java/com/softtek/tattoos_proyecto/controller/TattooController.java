@@ -1,11 +1,7 @@
 package com.softtek.tattoos_proyecto.controller;
 
-import com.softtek.tattoos_proyecto.exceptions.ObjectNotFound;
 import com.softtek.tattoos_proyecto.model.Tattoo;
-import com.softtek.tattoos_proyecto.model.Usuario;
 import com.softtek.tattoos_proyecto.service.ITattooService;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -13,11 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.io.File;
-import java.io.IOException;
 import java.net.URI;
-import java.util.Base64;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

@@ -1,6 +1,5 @@
 package com.softtek.tattoos_proyecto.controller;
 
-import com.softtek.tattoos_proyecto.exceptions.ObjectNotFound;
 import com.softtek.tattoos_proyecto.model.Cita;
 import com.softtek.tattoos_proyecto.service.ICitaService;
 import org.springframework.beans.factory.annotation.Autowired;
