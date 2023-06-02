@@ -20,8 +20,6 @@ import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TerminosComponent } from './terminos/terminos.component';
 
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
 
 @NgModule({
   declarations: [
@@ -46,8 +44,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    BsDatepickerModule.forRoot()
+    HttpClientModule
   ],
   providers:
   [GalleryService,UsuariosService],

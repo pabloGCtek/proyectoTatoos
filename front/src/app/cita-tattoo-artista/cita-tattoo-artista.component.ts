@@ -16,6 +16,7 @@ export class CitaTattooArtistaComponent {
   horasDisponibles: string[];
   imagen:string="";
   tattooSeleccionado:boolean=false;
+  idTatuador=1;
   
   //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];
@@ -36,6 +37,39 @@ export class CitaTattooArtistaComponent {
   cambiarHora() {
     const tamano = this.formularioCita.get('tamano')?.value;
     this.horasDisponibles = this.getHorasDisponibles(tamano);
+  }
+
+  //Metodo para cambiar los tatuajes en funcion del tatuador
+  cambiarTatuajesTatuador(){
+    if(this.formularioCita.get("tatuador")?.value ==='Ana'){
+      this.idTatuador=0;
+    }
+    else if(this.formularioCita.get("tatuador")?.value === 'Tony'){
+      this.idTatuador=1;
+    }
+    else if(this.formularioCita.get("tatuador")?.value === 'Carmela'){
+      this.idTatuador=2;
+    }
+    else if(this.formularioCita.get("tatuador")?.value === 'José'){
+      this.idTatuador=3;
+    }
+    this.filtrarPorArtista(this.idTatuador);
+  }
+  //Metodo para cambiar los tatuajes en funcion del tamaño
+  cambiarTatuajesTamano(){
+    if(this.formularioCita.get("tatuador")?.value ==='Ana'){
+      this.idTatuador=0;
+    }
+    else if(this.formularioCita.get("tatuador")?.value === 'Tony'){
+      this.idTatuador=1;
+    }
+    else if(this.formularioCita.get("tatuador")?.value === 'Carmela'){
+      this.idTatuador=2;
+    }
+    else if(this.formularioCita.get("tatuador")?.value === 'José'){
+      this.idTatuador=3;
+    }
+    this.filtrarPorTamano(this.formularioCita.get("tamano")?.value);
   }
 
   private getHorasDisponibles(tamano: string): string[] {
@@ -133,10 +167,9 @@ seleccionarTatuaje() {
   const tatuajeSeleccionadoNombre = this.formularioCita.get('tatuaje')?.value;
 
   this.servicioGaleria.obtenerPorNombre(tatuajeSeleccionadoNombre).subscribe(
-    (tatuaje) => {
+    (tatuaje:Tattoo) => {
       this.imagenTatuajeSeleccionado = tatuaje;
     },
-    
   );
 }
 
@@ -150,11 +183,11 @@ seleccionarTatuaje() {
   idArtista: number;
   tattooFiltrado: Tattoo[]=[]
   tattooFiltrados: Artista[]=[]
-  ngOnInit()
-  {
-    this.servicioGaleria.mostrarTatto().subscribe(data=>this.tattooFiltrado=data)
-    this.mostrarArtistas()
+  ngOnInit() {
+    this.mostrarTodos();
+    this.mostrarArtistas();
   }
+  
   mostrarTodos(): void{
     this.servicioGaleria.mostrarTatto().subscribe(data=>this.tattoos=data)
    }
@@ -168,6 +201,7 @@ seleccionarTatuaje() {
      this.tattooFiltrado=this.artistas[id].tattoos
    }
    filtrarPorTamano(tamano: string){
-     this.tattooFiltrado = this.tattoos.filter(tattoo => tattoo.tamano === tamano);
+     this.tattooFiltrado = this.tattooFiltrado.filter(tattoo => tattoo.tamano === tamano);
+     alert("tattooFiltrado[id] es: " + this.tattooFiltrado[tamano].idTattoo)
    }
 }
