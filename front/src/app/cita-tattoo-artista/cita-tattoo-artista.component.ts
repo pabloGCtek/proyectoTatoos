@@ -126,9 +126,23 @@ export class CitaTattooArtistaComponent {
     }
   }
   //Para mostrar una foto del tatuaje seleccionado
-  seleccionarTatuaje() {
-    this.tattooSeleccionado = true;
-  }
+  imagenTatuajeSeleccionado: Tattoo;
+
+seleccionarTatuaje() {
+  this.tattooSeleccionado = true;
+  const tatuajeSeleccionadoNombre = this.formularioCita.get('tatuaje')?.value;
+
+  this.servicioGaleria.obtenerPorNombre(tatuajeSeleccionadoNombre).subscribe(
+    (tatuaje) => {
+      this.imagenTatuajeSeleccionado = tatuaje;
+    },
+    
+  );
+}
+
+
+  
+  
 
   //Filtros
   tattoos: Tattoo[]=[]

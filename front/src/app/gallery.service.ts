@@ -18,6 +18,9 @@ export class GalleryService {
   obtenerPorId(id: number):Observable<Tattoo>{
     return  this.http.get<Tattoo>(`${this.tatoUrl}/${id}`)
   }
+  obtenerPorNombre(nombre: string):Observable<Tattoo>{
+    return  this.http.get<Tattoo>(`${this.tatoUrl}/${nombre}`)
+  }
 
 }
     // this.http.get<Tattoo[]>(this.tatoUrl)
