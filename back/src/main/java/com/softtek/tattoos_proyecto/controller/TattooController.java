@@ -50,4 +50,10 @@ public class TattooController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+    @GetMapping("filtroNombre/{nombreTattoo}")
+    public EntityModel<Tattoo> findTattooNombre(@PathVariable String nombreTattoo){
+        Tattoo t = ts.findTattooName(nombreTattoo);
+        WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findTattooNombre(nombreTattoo));
+        return EntityModel.of(t).add(link.withRel("tatt-link"));
+    }
 }

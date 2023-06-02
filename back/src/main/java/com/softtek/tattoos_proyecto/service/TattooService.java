@@ -15,4 +15,9 @@ public class TattooService extends CrudImpl<Tattoo,Integer> implements ITattooSe
     protected IGenericRepo<Tattoo, Integer> getRepo() {
         return tr;
     }
+
+    @Override
+    public Tattoo findTattooName(String nombre) {
+        return tr.findTattooByNombre(nombre);
+    }
 }
