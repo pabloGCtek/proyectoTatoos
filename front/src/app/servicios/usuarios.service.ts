@@ -19,7 +19,6 @@ export class UsuariosService {
   insert(user:any):Observable<any>{
     return this.http.post(`${this.url}/registro`,user)
   }
-
   inicioSesion(email: string, clave: string):Observable<Usuario>
   {
       return this.http.get<Usuario>(`${this.url}/${email}/${clave}`)

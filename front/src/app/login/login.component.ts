@@ -18,11 +18,7 @@ export class LoginComponent {
   constructor(public router:Router, private userService: UsuariosService, private localStorage: LocalStorageService){
     }
   ngOnInit(){
-
-    this.usuarioActivo=this.localStorage.logeado()
   }
-
-
   login(){
     this.userService.inicioSesion(this.email, this.contrasena)
       .subscribe(data=>{
@@ -30,10 +26,7 @@ export class LoginComponent {
             this.localStorage.login(data)
             this.router.navigateByUrl('/')
           }
-      console.log(data)
-      console.log(this.localStorage.logeado())
       })
-
 
     }
 

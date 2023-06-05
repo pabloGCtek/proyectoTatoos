@@ -12,6 +12,7 @@ import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { TerminosComponent } from './terminos/terminos.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
