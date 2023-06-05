@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { GalleryService } from '../gallery.service';
+
 import { ActivatedRoute } from '@angular/router';
 import { Tattoo } from '../clases/Tattoo';
 import { Artista } from '../clases/Artista';
+import { GalleryService } from '../servicios/gallery.service';
 
 @Component({
   selector: 'app-cita-tattoo-artista',

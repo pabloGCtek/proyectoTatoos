@@ -5,7 +5,7 @@ export class Artista{
   nombre:string=""
   bio:string=""
   imagen:string=""
-  tattoos:Tattoo[] = []
+  tattoos:Tattoo[]=[]
   constructor(idArtista: number, nombre:string,bio:string,imagen:string,tattoos: Tattoo[]){
     this.idArtista=idArtista
     this.nombre=nombre

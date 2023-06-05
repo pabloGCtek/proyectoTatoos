@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GalleryService } from '../gallery.service';
+
 import { Tattoo } from '../clases/Tattoo';
 import { Artista } from '../clases/Artista';
 import { Location } from '@angular/common';
+import { GalleryService } from '../servicios/gallery.service';
 
 
 @Component({

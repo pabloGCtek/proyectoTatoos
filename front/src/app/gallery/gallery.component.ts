@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { GalleryService } from '../gallery.service';
+
 import { Tattoo } from '../clases/Tattoo';
-import { ArtistasService } from '../artistas.service';
+
 import { Artista } from '../clases/Artista';
+import { ArtistasService } from '../servicios/artistas.service';
+import { GalleryService } from '../servicios/gallery.service';
 
 @Component({
   selector: 'app-gallery',
@@ -43,6 +45,7 @@ export class GalleryComponent {
     if (this.activeButton1 !== id) {
       this.activeButton1= id;
     }
+
   }
   filtrarPorTamano(tamano: string){
     this.tattoFiltrado = this.tattos.filter(tatto => tatto.tamano === tamano);
