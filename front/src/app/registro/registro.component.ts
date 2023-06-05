@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Usuario } from '../clases/Usuario';
-import { UsuariosService } from '../usuarios.service';
+import { UsuariosService } from '../servicios/usuarios.service';
 
 @Component({
   selector: 'app-registro',
@@ -20,7 +20,7 @@ export class RegistroComponent implements OnInit{
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       password2: new FormControl('', Validators.required),
       usuario: new FormControl('', Validators.required),
-      fecha_nacimiento: new FormControl('', Validators.required),
+      fechaNacimiento: new FormControl('', Validators.required),
     });
 
     this.miFormulario.get('password2')?.setValidators(this.passwordMatchValidator.bind(this)); // Necesario para mantener el contexto de this en la función passwordMatchValidator
@@ -42,7 +42,7 @@ export class RegistroComponent implements OnInit{
   }
   //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];
-  fecha_nacimiento:Date = new Date();
+  fechaNacimiento:Date = new Date();
   edad: number = 0;
   esMenor:boolean=false;
   ngOnInit(){}
@@ -52,13 +52,15 @@ export class RegistroComponent implements OnInit{
     this.user.email = this.miFormulario.get('email')?.value
     this.user.contrasena = this.miFormulario.get('password')?.value
     this.user.nombre = this.miFormulario.get('usuario')?.value
-    this.user.fecha_nacimiento = new Date(this.fecha_nacimiento)
+    this.user.fechaNacimiento = new Date(this.fechaNacimiento)
     console.log("Hola")
-    alert("Hola")
-    this.usService.insert(this.user).subscribe(u => console.log(u))
+    alert(this.user.nombre)
+    this.usService.insert(this.user).subscribe(u =>{
+      console.log("Registro exitoso",u);
+    }, error=>{console.error("Error", error)})
   }
   calcularEdad(){
-    const fechaNacimiento = new Date(this.fecha_nacimiento);
+    const fechaNacimiento = new Date(this.fechaNacimiento);
     const hoy = new Date();
     this.edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
     const mes = hoy.getMonth() - fechaNacimiento.getMonth();

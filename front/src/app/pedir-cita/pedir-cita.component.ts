@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GalleryService } from '../gallery.service';
-import { UsuariosService } from '../usuarios.service';
 import { Tattoo } from '../clases/Tattoo';
 import { Artista } from '../clases/Artista';
+import { GalleryService } from '../servicios/gallery.service';
+import { UsuariosService } from '../servicios/usuarios.service';
 
 @Component({
   selector: 'app-pedir-cita',

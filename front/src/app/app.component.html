@@ -3,9 +3,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="proyecto final">
     <meta name="author" content="Equipo 4">
-    <title>Ta tootal</title>
+    <title>Tatto</title>
   </head>
-  <body >    
+  <body >
     <header class="sticky-top">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
@@ -18,14 +18,27 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="gallery">Galería</a>
               </li>
-
+              <li class="nav-item">
+                <a class="nav-link"  routerLink="pedir_cita">Cita</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  *ngIf="usuarioActivo" routerLink="perfil">¡Bienvenido {{usuario.nombre}}!</a>
+              </li>
             </ul>
           </div>
-          <button class="btn btn-warning" type="button" routerLink="login">
+          <button class="btn btn-warning" type="button" *ngIf="usuarioActivo" (click)="logout()">
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
               <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
               <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-              
+              <a class="nav-link text-dark" >Cuenta</a>
+            </svg>
+            Logout
+          </button>
+          <button class="btn btn-warning" type="button" (click)="loginYperfil()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
+              <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+              <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+
               <a class="nav-link text-dark" >Cuenta</a>
             </svg>
             Cuenta
@@ -46,7 +59,7 @@
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a routerLink="" class="nav-link px-2 text-dark">Pag. Principal</a></li>
             <li class="nav-item"><a routerLink="gallery" class="nav-link px-2 text-dark">Galeria</a></li>
-            <li class="nav-item"><a routerLink="E" class="nav-link px-2 text-dark">Tercer link</a></li>
+            <li class="nav-item"><a routerLink="contact" class="nav-link px-2 text-dark">Contáctanos</a></li>
           </ul>
           <p class="text-center  text-dark">&copy; All rights reserved - 2023</p>
         </footer>
