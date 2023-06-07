@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tatto } from '../_modelo/Tattoo';
-import { GalleryService } from '../gallery.service';
-import { UsuariosService } from '../usuarios.service';
+import { Tattoo } from '../clases/Tattoo';
+import { Artista } from '../clases/Artista';
+import { GalleryService } from '../servicios/gallery.service';
+import { UsuariosService } from '../servicios/usuarios.service';
 
 @Component({
   selector: 'app-pedir-cita',
@@ -11,13 +12,13 @@ import { UsuariosService } from '../usuarios.service';
   styleUrls: ['./pedir-cita.component.css']
 })
 export class PedirCitaComponent {
-  tattos: Tatto[]=[];
+  tattos: Tattoo[]=[];
   id: number=0;
   nombre:string="";
   imagen:string=""
   idArtista:number=0;
   descripcion:string=""
-  tattoo: Tatto=new Tatto(0,"",0,"","");
+  tattoo: Tattoo;
 
   miFormulario: FormGroup;
   constructor(private miServicio:GalleryService,private usService: UsuariosService,

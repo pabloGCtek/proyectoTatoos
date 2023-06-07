@@ -1,7 +1,7 @@
 import { Artista } from "./Artista";
 export class Tattoo{
 
-  idTatto: number=0;
+  idTattoo: number=0;
 
   nombre: string ="";
 
@@ -22,9 +22,9 @@ export class Tattoo{
 
 
 
-  constructor(idTatto: number, nombre:string,idArtista:number,descripcion: string,imagen:string, artista:Artista){
+  constructor(idTattoo: number, nombre:string,descripcion: string,imagen:string, artista:Artista){
 
-    this.idTatto=idTatto;
+    this.idTattoo=idTattoo;
 
     this.nombre=nombre;
 

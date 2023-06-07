@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cita-tattoo-propio',
@@ -19,8 +19,9 @@ export class CitaTattooPropioComponent {
       tamano: new FormControl(''),
       tatuador: new FormControl(''),
       tatuaje: new FormControl(''),
-      fecha_cita: new FormControl(''),
-      hora_cita: new FormControl('')
+      fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
+      hora_cita: new FormControl(''),
+      imagen: new FormControl('')
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
@@ -64,6 +65,17 @@ export class CitaTattooPropioComponent {
 
     return horas;
   }
+//Desactivar dias de la semana
+validarFecha(control: FormControl): { [key: string]: any } | null {
+  const fechaSeleccionada = new Date(control.value);
+  const diaSeleccionado = fechaSeleccionada.getDay();
+
+  if (diaSeleccionado === 6) { // 6 representa el sábado (domingo es 0)
+    return { sabadoInvalido: true };
+  }
+
+  return null;
+}
 
   private formatearHora(hora: number): string {
     return hora.toString().padStart(2, '0') + ':00';
@@ -115,17 +127,17 @@ export class CitaTattooPropioComponent {
     const isHighlighted = this.highlightedDates.some(
       highlightedDate => this.isSameDate(date, highlightedDate)
     );
-  
+
     if (isHighlighted) {
       return {
         backgroundColor: 'yellow',
         fontWeight: 'bold'
       };
     }
-  
+
     return {};
   }
-  
+
   isSameDate(date1: Date, date2: Date): boolean {
     return (
       date1.getDate() === date2.getDate() &&
@@ -133,6 +145,6 @@ export class CitaTattooPropioComponent {
       date1.getFullYear() === date2.getFullYear()
     );
   }
-  
-  
+
+
 }

@@ -33,3 +33,10 @@ input, select{
     display: flex;
     justify-content: center;
 }
+.error{
+    margin: auto;
+    width:50%;
+    background-color: rgba(255, 51, 0, 0.973);
+    border-radius: 5px;
+    text-align: center;
+}

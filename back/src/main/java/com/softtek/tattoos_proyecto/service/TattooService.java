@@ -1,24 +1,23 @@
 package com.softtek.tattoos_proyecto.service;
 
 import com.softtek.tattoos_proyecto.model.Tattoo;
+import com.softtek.tattoos_proyecto.repository.IGenericRepo;
 import com.softtek.tattoos_proyecto.repository.ITattooRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class TattooService implements ITattooService{
+public class TattooService extends CrudImpl<Tattoo,Integer> implements ITattooService{
     @Autowired
     ITattooRepository tr;
 
     @Override
-    public List<Tattoo> listTattoos() {
-        return tr.findAll();
+    protected IGenericRepo<Tattoo, Integer> getRepo() {
+        return tr;
     }
 
     @Override
-    public Tattoo findTattoo(int idTattoo) {
-        return tr.findTattooByIdTattoo(idTattoo);
+    public Tattoo findTattooName(String nombre) {
+        return tr.findTattooByNombre(nombre);
     }
 }
