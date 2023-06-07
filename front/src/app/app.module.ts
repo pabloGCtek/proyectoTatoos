@@ -36,7 +36,7 @@ import { TerminosComponent } from './terminos/terminos.component';
     CitaTattooPropioComponent,
     PedirCitaComponent,
     PerfilComponent,
-    TerminosComponent
+    TerminosComponent,
 
   ],
   imports: [

@@ -14,4 +14,11 @@ export class UsuariosService {
   insert(user:Usuario):Observable<Object>{
     return this.httpC.post(`${this.url}/insertar`,user)
   }
+  inicioSesion(correoNombre:string, clave:string):Observable<Usuario>{
+    return this.httpC.get<Usuario>(`${this.url}/${correoNombre}/${clave}`)
+  }
+
+  update(user:Usuario):Observable<Usuario>{
+    return this.httpC.put<Usuario>(`${this.url}`,user)
+  }
 }

@@ -31,7 +31,6 @@ public class ArtistaController {
     @GetMapping("/{idArtista}")
     public EntityModel<Artista> findArtista(@PathVariable int idArtista){
         Artista a = as.findObject(idArtista);
-        if(a == null) throw new ObjectNotFound("No se ha encontrado el artista");
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findArtista(idArtista));
         return EntityModel.of(a).add(link.withRel("ar-link"));
     }

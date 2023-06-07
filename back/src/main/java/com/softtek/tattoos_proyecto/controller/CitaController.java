@@ -32,14 +32,13 @@ public class CitaController {
     @GetMapping("/{idCita}")
     public EntityModel<Cita> findCita(@PathVariable int idCita){
         Cita c = cs.findObject(idCita);
-        if(c == null) throw new ObjectNotFound("Cita no encontrada");
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findCita(idCita));
         return EntityModel.of(c).add(link.withRel("cita-link"));
     }
 
     @PostMapping
     public ResponseEntity<Void> insertCita(@RequestBody Cita cita){
-        Cita c = cs.insertCita(cita);
+        Cita c = cs.insertObject(cita);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{idCita}")
                 .buildAndExpand(c.getIdCita())
