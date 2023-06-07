@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tattoo } from './clases/Tattoo';
+import { Tattoo } from '../clases/Tattoo';
+
 @Injectable({
   providedIn: 'root'
 })
 export class GalleryService {
-  private tatoUrl: string ="http://localhost:8080/tattoos"
-
   private tatoUrl: string ="http://localhost:8080/tattoos"
 
   constructor(private http: HttpClient){}
@@ -20,7 +19,8 @@ export class GalleryService {
   obtenerPorId(id: number):Observable<Tattoo>{
     return  this.http.get<Tattoo>(`${this.tatoUrl}/${id}`)
   }
+  obtenerPorNombre(nombre: string):Observable<Tattoo>{
+    return  this.http.get<Tattoo>(`${this.tatoUrl}/${nombre}`)
+  }
 
 }
-    // this.http.get<Tattoo[]>(this.tatoUrl)
-  //  return  this.tattos.find((t)=>t.idTatto==id)

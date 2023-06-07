@@ -1,0 +1,23 @@
+.contenedor{
+  width: inherit;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-info{
+  width: 60%;
+  margin-top:40px;
+  border-radius: 10px;
+
+}
+.text{
+  width: 100%;
+  padding:10px ;
+ box-shadow: 0 0 30px rgba(222, 209, 209, 0.6);
+
+}
+.social-media svg{
+  margin: 10px;
+  justify-items: center;
+}

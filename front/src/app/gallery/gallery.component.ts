@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { GalleryService } from '../gallery.service';
 import { Tattoo } from '../clases/Tattoo';
-import { ArtistasService } from '../artistas.service';
 import { Artista } from '../clases/Artista';
+import { ArtistasService } from '../servicios/artistas.service';
+import { GalleryService } from '../servicios/gallery.service';
 
 @Component({
   selector: 'app-gallery',
@@ -16,11 +16,13 @@ export class GalleryComponent {
   idArtista: number;
   tattoFiltrado: Tattoo[]=[]
   tattoFiltrados: Artista[]=[]
+  activeButton: string="Todos"
+  activeButton1: number=1
   ngOnInit()
   {
     this.tattoServicio.mostrarTatto().subscribe(data=>this.tattoFiltrado=data)
     this.mostrarTodos()
-    this.filtrarTodos()
+    this.filtrarTodos(this.activeButton)
     this.mostrarArtistas()
 
   }
@@ -30,13 +32,24 @@ export class GalleryComponent {
   mostrarArtistas():void{
     this.artistaServicio.mostrarArtista().subscribe(data=>this.artistas=data)
   }
-  filtrarTodos(){
+  filtrarTodos(todos: string){
     this.tattoFiltrado=this.tattos
+    if (this.activeButton !== todos) {
+      this.activeButton = todos;
+    }
   }
   filtrarPorArtista(id: number){
-    // a: Artista=this.artistas.filter(tatto=>tatto.idArtista=id)
     this.tattoFiltrado=this.artistas[id].tattoos
-    // this.tattoFiltrados=this.artistas.filter(tatto=>this.idArtista=id)
+    if (this.activeButton1 !== id) {
+      this.activeButton1= id;
+    }
+
+  }
+  filtrarPorTamano(tamano: string){
+    this.tattoFiltrado = this.tattos.filter(tatto => tatto.tamano === tamano);
+    if (this.activeButton !== tamano) {
+      this.activeButton = tamano;
+    }
   }
 
 }

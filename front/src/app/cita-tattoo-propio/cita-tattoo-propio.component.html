@@ -1,5 +1,6 @@
 <h1>PIDE TU CITA</h1>
 <form [formGroup]="formularioCita" (ngSubmit)="registrarCita()">
+  <div *ngIf="formularioCita.get('fecha_cita')?.hasError('sabadoInvalido')" class="error">Los sábados cerramos por descanso</div>
     <div class="form-group">
         <label for="tamano">Tamaño</label>
         <select formControlName="tamano" id="tamano" (change)="cambiarHora()" required>
@@ -15,12 +16,11 @@
     <div class="form-group">
         <label for="subir_foto">Sube una foto de referencia (si tienes):</label>
         <!-- accept define las extensiones aceptadas. multiple permite seleccionar mas de una foto -->
-        <input type="file" name="subir_foto" id="subir_foto" accept=".jpg,.png,image/jpeg,image/png" multiple="multiple">    
+        <input type="file" formControlName="imagen" name="imagen" id="imagen" accept=".jpg,.png,image/jpeg,image/png" multiple="multiple">
     </div>
-    <div class="form-group">
-        <label for="fecha_cita">Elige una fecha:</label>
-        <input type="date" name="fecha_cita" id="fecha_cita" formControlName="fecha_cita" min={{fecha_actual}}
-        [style]="getHighlightedDateStyle(formularioCita.get('fecha_cita')?.value)" required>
+    <div class="form-group" >
+      <label for="fecha_cita">Elige una fecha</label>
+      <input type="date" formControlName="fecha_cita" id="fecha_cita" min={{fecha_actual}} required>
     </div>
     <div class="form-group">
         <label for="hora_cita">Elige una hora</label>
@@ -29,6 +29,6 @@
         </select>
       </div>
     <div class="boton">
-        <button type="submit" class="btn btn-warning">Pedir cita</button>
+        <button type="submit" class="btn btn-warning" [disabled]="formularioCita.get('fecha_cita')?.invalid">Pedir cita</button>
     </div>
 </form>
