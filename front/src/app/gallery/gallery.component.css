@@ -31,14 +31,14 @@
   margin:auto;
   display: flex;
 }
+
 .contenedor button{
-  background-color: #808080;
-  color: #ffffff;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
+  margin: 5px;
 }
-.contenedor button:hover{
-  background-color: #555555;
+.tamano button.active {
+  background-color:#cf9c05; /* Cambia este valor al color deseado */
+}
+.tamano{
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;
 }

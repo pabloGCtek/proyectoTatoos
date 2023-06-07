@@ -5,7 +5,30 @@
 -- Dumped from database version 15.2
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-06-01 10:14:59
+-- Started on 2023-06-01 17:26:42
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3359 (class 1262 OID 18273)
+-- Name: Tattoos_db_proyecto; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "Tattoos_db_proyecto" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Spanish_Spain.1252';
+
+
+ALTER DATABASE "Tattoos_db_proyecto" OWNER TO postgres;
+
+\connect "Tattoos_db_proyecto"
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -125,7 +148,7 @@ CREATE TABLE public.tattoos (
     descripcion character varying(150) NOT NULL,
     lugar character varying(20) NOT NULL,
     tamano character varying(20) NOT NULL,
-    imagen character varying(150) NOT NULL,
+    imagen text NOT NULL,
     tattoo_propio boolean NOT NULL,
     precio numeric(7,2) NOT NULL,
     id_artista integer NOT NULL
@@ -156,12 +179,10 @@ ALTER TABLE public.usuarios OWNER TO postgres;
 -- Data for Name: artistas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.artistas (id_artista, nombre, bio, imagen) FROM stdin;
-8	Ana	Ana es una talentosa tatuadora con una pasión por el arte corporal. Con más de 5 años de experiencia, ha dejado su huella en la industria con su estilo único y creativo. Sus diseños se caracterizan por su precisión y atención a los detalles, creando obras de arte personalizadas que reflejan la individualidad de sus clientes.	https://i.imgur.com/CEvCqcG.jpg
-6	Tony	Tony es un talentoso tatuador nacido en Alemania. Su pasión por el arte del tatuaje comenzó desde temprana edad, y ha dedicado su vida a perfeccionar su técnica y estilo. Con una amplia experiencia en diseños personalizados, Tony crea obras de arte únicas que reflejan la individualidad de cada cliente. A través de su trabajo, Tony busca no solo embellecer la piel de sus clientes, sino también dejar una marca duradera en sus vidas.	https://i.imgur.com/Yr0cMGQ.jpg
-7	Carmela	Carmela van der Meer es una tatuadora holandesa reconocida por su estilo distintivo, que combina líneas precisas y colores suaves. Destaca por su atención meticulosa a los detalles y su enfoque centrado en el cliente, creando tatuajes significativos y empoderadores. Su habilidad artística y compromiso con la satisfacción del cliente la han convertido en una destacada tatuadora en la escena del tatuaje holandés.	https://i.imgur.com/ECU5fpE.jpg
-5	José	Jose conocido como "Jose Ink", es un talentoso tatuador con un estilo distintivo que combina el realismo detallado y elementos surrealistas. Jose se destaca por su enfoque amable y profesional hacia sus clientes, dedicando tiempo a comprender sus historias y significados personales. Jose Ink continúa dejando su huella en la industria del tatuaje con su pasión, habilidad y compromiso con la excelencia.	https://i.imgur.com/AD3NFF8.jpg
-\.
+INSERT INTO public.artistas (id_artista, nombre, bio, imagen) VALUES (8, 'Ana', 'Ana es una talentosa tatuadora con una pasión por el arte corporal. Con más de 5 años de experiencia, ha dejado su huella en la industria con su estilo único y creativo. Sus diseños se caracterizan por su precisión y atención a los detalles, creando obras de arte personalizadas que reflejan la individualidad de sus clientes.', 'https://i.imgur.com/CEvCqcG.jpg');
+INSERT INTO public.artistas (id_artista, nombre, bio, imagen) VALUES (6, 'Tony', 'Tony es un talentoso tatuador nacido en Alemania. Su pasión por el arte del tatuaje comenzó desde temprana edad, y ha dedicado su vida a perfeccionar su técnica y estilo. Con una amplia experiencia en diseños personalizados, Tony crea obras de arte únicas que reflejan la individualidad de cada cliente. A través de su trabajo, Tony busca no solo embellecer la piel de sus clientes, sino también dejar una marca duradera en sus vidas.', 'https://i.imgur.com/Yr0cMGQ.jpg');
+INSERT INTO public.artistas (id_artista, nombre, bio, imagen) VALUES (7, 'Carmela', 'Carmela van der Meer es una tatuadora holandesa reconocida por su estilo distintivo, que combina líneas precisas y colores suaves. Destaca por su atención meticulosa a los detalles y su enfoque centrado en el cliente, creando tatuajes significativos y empoderadores. Su habilidad artística y compromiso con la satisfacción del cliente la han convertido en una destacada tatuadora en la escena del tatuaje holandés.', 'https://i.imgur.com/ECU5fpE.jpg');
+INSERT INTO public.artistas (id_artista, nombre, bio, imagen) VALUES (5, 'José', 'Jose conocido como "Jose Ink", es un talentoso tatuador con un estilo distintivo que combina el realismo detallado y elementos surrealistas. Jose se destaca por su enfoque amable y profesional hacia sus clientes, dedicando tiempo a comprender sus historias y significados personales. Jose Ink continúa dejando su huella en la industria del tatuaje con su pasión, habilidad y compromiso con la excelencia.', 'https://i.imgur.com/AD3NFF8.jpg');
 
 
 --
@@ -170,8 +191,6 @@ COPY public.artistas (id_artista, nombre, bio, imagen) FROM stdin;
 -- Data for Name: citas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.citas (id_cita, fecha, turno, id_usuario, id_artista, id_tattoo) FROM stdin;
-\.
 
 
 --
@@ -180,24 +199,22 @@ COPY public.citas (id_cita, fecha, turno, id_usuario, id_artista, id_tattoo) FRO
 -- Data for Name: tattoos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) FROM stdin;
-3	Flor trival	Una flor con un 3 muy bonito arriba y 3 puntos abajo	Antebrazo	Medio	https://i.imgur.com/WxYjs72.jpg	f	100.49	6
-4	Trival Azteca	Es un tatuaje trival azteca que podría llevar perfectamente The Rock	Hombro	Grande	https://i.imgur.com/gCnxN8i.jpg	f	550.00	8
-6	Pez	Es un pez	Omoplato	Medio	https://i.imgur.com/8j1g2BX.jpg	f	240.30	7
-7	Familia	2 Pajaros rodeando una cacho de tela con la palabra familia escrita	Antebrazo	Medio	https://i.imgur.com/RtmEqJe.jpg	f	150.00	5
-8	Leon	Efectivamente es un Leon	Hombro	Grande	https://i.imgur.com/mGF9h7G.jpg	f	570.00	6
-9	Arlequin	Cara con partes pintadas como un payaso (llorad fans de silksong)	Antebrazo	Grande	https://i.imgur.com/nXnUmdS.jpg	f	650.00	7
-5	Rostro del corazon	Es una cara con venas en la cabeza y flores. Esta llorando o algo así	Muslo	Grande	https://i.imgur.com/ZPE7hwn.jpg	t	600.00	6
-10	Alone	Rostro con letras y detalles en la cara.	Brazo	Mediano	https://i.imgur.com/ntbqTg3.jpg	f	250.00	5
-12	Gato	Felino con técnica de puntos, y lineas finas	Brazo	Mediano	https://i.imgur.com/XmIXD96.jpg	f	250.00	5
-11	Gorila	Rostro del rey gorila enfadado	Pierna	Grande	https://i.imgur.com/Om292Cu.jpg	f	600.50	8
-15	Florecer	Flores y manos dibujado con técnica de puntos, lineas finas y sombreado.	Brazo	Mediano	https://i.imgur.com/9T1EqNz.jpg	f	345.44	7
-16	Gufi	Versión maligna de gufi	Pierna	Mediano	https://i.imgur.com/Ty8cN4E.jpg	f	245.32	8
-17	Dragon	Dragon chino, animal mitológico.	Espalda	Grande	https://i.imgur.com/VIQaiTp.jpg	f	789.30	6
-18	Flor	Con sombras y colores, una flor hermosa	Hombro	Mediano	https://i.imgur.com/DfUsz4H.jpg	f	340.22	8
-19	Flor de loto	Lineas finas dibujan una delicada flor de loto	Pecho	Pequeño	https://i.imgur.com/a22MQ3Q.jpg	f	150.22	5
-20	Flor de loto	Pequeño for de lotos en lineas	Rostro	Pequeño	https://i.imgur.com/c7Yl3rd.jpg	f	100.20	6
-\.
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (3, 'Flor trival', 'Una flor con un 3 muy bonito arriba y 3 puntos abajo', 'Antebrazo', 'Medio', 'https://i.imgur.com/WxYjs72.jpg', false, 100.49, 6);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (6, 'Pez', 'Es un pez', 'Omoplato', 'Medio', 'https://i.imgur.com/8j1g2BX.jpg', false, 240.30, 7);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (7, 'Familia', '2 Pajaros rodeando una cacho de tela con la palabra familia escrita', 'Antebrazo', 'Medio', 'https://i.imgur.com/RtmEqJe.jpg', false, 150.00, 5);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (9, 'Arlequin', 'Cara con partes pintadas como un payaso (llorad fans de silksong)', 'Antebrazo', 'Grande', 'https://i.imgur.com/nXnUmdS.jpg', false, 650.00, 7);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (5, 'Rostro del corazon', 'Es una cara con venas en la cabeza y flores. Esta llorando o algo así', 'Muslo', 'Grande', 'https://i.imgur.com/ZPE7hwn.jpg', true, 600.00, 6);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (10, 'Alone', 'Rostro con letras y detalles en la cara.', 'Brazo', 'Mediano', 'https://i.imgur.com/ntbqTg3.jpg', false, 250.00, 5);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (11, 'Gorila', 'Rostro del rey gorila enfadado', 'Pierna', 'Grande', 'https://i.imgur.com/Om292Cu.jpg', false, 600.50, 8);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (15, 'Florecer', 'Flores y manos dibujado con técnica de puntos, lineas finas y sombreado.', 'Brazo', 'Mediano', 'https://i.imgur.com/9T1EqNz.jpg', false, 345.44, 7);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (16, 'Gufi', 'Versión maligna de gufi', 'Pierna', 'Mediano', 'https://i.imgur.com/Ty8cN4E.jpg', false, 245.32, 8);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (17, 'Dragon', 'Dragon chino, animal mitológico.', 'Espalda', 'Grande', 'https://i.imgur.com/VIQaiTp.jpg', false, 789.30, 6);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (18, 'Flor', 'Con sombras y colores, una flor hermosa', 'Hombro', 'Mediano', 'https://i.imgur.com/DfUsz4H.jpg', false, 340.22, 8);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (19, 'Flor de loto', 'Lineas finas dibujan una delicada flor de loto', 'Pecho', 'Pequeño', 'https://i.imgur.com/a22MQ3Q.jpg', false, 150.22, 5);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (20, 'Flor de loto', 'Pequeño for de lotos en lineas', 'Rostro', 'Pequeño', 'https://i.imgur.com/c7Yl3rd.jpg', false, 100.20, 6);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (4, 'Trival Azteca', 'Es un tatuaje trival azteca sombreado.', 'Hombro', 'Grande', 'https://i.imgur.com/gCnxN8i.jpg', false, 550.00, 8);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (12, 'Gato', 'Felino con técnica de puntos y lineas finas', 'Brazo', 'Mediano', 'https://i.imgur.com/XmIXD96.jpg', false, 250.00, 5);
+INSERT INTO public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tattoo_propio, precio, id_artista) VALUES (8, 'León', 'Efectivamente es un León', 'Hombro', 'Grande', 'https://i.imgur.com/mGF9h7G.jpg', false, 570.00, 6);
 
 
 --
@@ -206,17 +223,15 @@ COPY public.tattoos (id_tattoo, nombre, descripcion, lugar, tamano, imagen, tatt
 -- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.usuarios (id_usuario, nombre, email, contrasena, fecha_nacimiento) FROM stdin;
-1	Juan	juan@gmail.com	1234	2022-03-12
-2	Pepe	pepe@gmail.com	4321	2000-11-20
-3	Laura	laura@gmail.com	5678	2000-11-20
-4	Prueba	prueba@gmail.com	1234	2001-01-18
-5	Antonio	antonio@gmail.com	13568	2022-03-12
-\.
+INSERT INTO public.usuarios (id_usuario, nombre, email, contrasena, fecha_nacimiento) VALUES (1, 'Juan', 'juan@gmail.com', '1234', '2022-03-12');
+INSERT INTO public.usuarios (id_usuario, nombre, email, contrasena, fecha_nacimiento) VALUES (2, 'Pepe', 'pepe@gmail.com', '4321', '2000-11-20');
+INSERT INTO public.usuarios (id_usuario, nombre, email, contrasena, fecha_nacimiento) VALUES (3, 'Laura', 'laura@gmail.com', '5678', '2000-11-20');
+INSERT INTO public.usuarios (id_usuario, nombre, email, contrasena, fecha_nacimiento) VALUES (4, 'Prueba', 'prueba@gmail.com', '1234', '2001-01-18');
+INSERT INTO public.usuarios (id_usuario, nombre, email, contrasena, fecha_nacimiento) VALUES (5, 'Antonio', 'antonio@gmail.com', '13568', '2022-03-12');
 
 
 --
--- TOC entry 3359 (class 0 OID 0)
+-- TOC entry 3360 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: cont_id_artista; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -225,7 +240,7 @@ SELECT pg_catalog.setval('public.cont_id_artista', 8, true);
 
 
 --
--- TOC entry 3360 (class 0 OID 0)
+-- TOC entry 3361 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: cont_id_cita; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -234,7 +249,7 @@ SELECT pg_catalog.setval('public.cont_id_cita', 1, false);
 
 
 --
--- TOC entry 3361 (class 0 OID 0)
+-- TOC entry 3362 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: cont_id_tatoo; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -243,7 +258,7 @@ SELECT pg_catalog.setval('public.cont_id_tatoo', 9, true);
 
 
 --
--- TOC entry 3362 (class 0 OID 0)
+-- TOC entry 3363 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: cont_id_usuario; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -323,7 +338,7 @@ ALTER TABLE ONLY public.citas
     ADD CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES public.usuarios(id_usuario) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
--- Completed on 2023-06-01 10:14:59
+-- Completed on 2023-06-01 17:26:42
 
 --
 -- PostgreSQL database dump complete

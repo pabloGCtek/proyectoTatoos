@@ -1,15 +1,15 @@
-<div class="contenedor">
-  <button (click)="filtrarTodos()">Todos</button>
+<div class="contenedor tamano">
+  <button [ngClass]="{'active': activeButton === 'Todos'}" class="btn btn-warning" (click)="filtrarTodos('Todos')">Todos</button>
   <div *ngFor="let artista of artistas; let i = index">
-  <button (click)="filtrarPorArtista(i)">{{artista.nombre}}</button>
+  <button  class="btn btn-warning" (click)="filtrarPorArtista(i)">{{artista.nombre}}</button>
 </div>
 </div>
 <br>
-<div class="contenedor">
+<div class="contenedor tamano">
   <div>
-    <button (click)="filtrarPorTamano('Grande')">Grande</button>
-    <button (click)="filtrarPorTamano('Mediano')">Mediano</button>
-    <button (click)="filtrarPorTamano('Pequeño')">Pequeño</button>
+    <button [ngClass]="{'active': activeButton === 'Grande'}" class="btn btn-warning" (click)="filtrarPorTamano('Grande')">Grandes</button>
+    <button [ngClass]="{'active': activeButton === 'Mediano'}" class="btn btn-warning" (click)="filtrarPorTamano('Mediano')">Medianos</button>
+    <button [ngClass]="{'active': activeButton === 'Pequeño'}" class="btn btn-warning"(click)="filtrarPorTamano('Pequeño')">Pequeños</button>
 </div>
 </div>
 <div class="contenedor2" >

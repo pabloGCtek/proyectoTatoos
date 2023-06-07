@@ -5,12 +5,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { GalleryComponent } from './gallery/gallery.component';
-import { GalleryService } from './gallery.service';
 import { DetallesTattoComponent } from './detalles-tatto/detalles-tatto.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
-import { UsuariosService } from './usuarios.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Artistas2Component } from './artistas2/artistas2.component';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -19,6 +17,11 @@ import { CitaTattooPropioComponent } from './cita-tattoo-propio/cita-tattoo-prop
 import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TerminosComponent } from './terminos/terminos.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { GalleryService } from './servicios/gallery.service';
+import { UsuariosService } from './servicios/usuarios.service';
+import { LocalStorageService } from './servicios/local-storage.service';
 
 
 @NgModule({
@@ -44,10 +47,16 @@ import { TerminosComponent } from './terminos/terminos.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 6000,  // Duración predeterminada del mensaje en milisegundos
+      positionClass: 'toast-top-full-width',  // Posición del mensaje
+      preventDuplicates: true,  // Evita mostrar mensajes duplicados
+    }),
   ],
   providers:
-  [GalleryService,UsuariosService],
+  [GalleryService,UsuariosService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

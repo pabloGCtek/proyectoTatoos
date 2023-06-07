@@ -3,7 +3,6 @@ import { Artista } from "./Artista";
 export class Tattoo
 {
   idTattoo: number=0;
-
   nombre: string ="";
   descripcion: string="";
   lugar: string=""

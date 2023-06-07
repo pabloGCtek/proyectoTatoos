@@ -37,6 +37,16 @@ export class CitaTattooArtistaComponent {
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
+
+  }
+  ngOnInit()
+  {
+    this.id=this.activarRuta.snapshot.params["id"]
+    this.tattoServicio.obtenerPorId(this.id).subscribe(dato=>{
+      this.tattoN=dato
+      this.tamano=this.tattoN.tamano
+      this.imagen=this.tattoN.imagen
+      this.artista=this.tattoN.artista})
   }
 
   //Metodo para cambiar los tatuajes en funcion del tatuador
