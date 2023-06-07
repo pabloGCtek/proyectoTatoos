@@ -4,6 +4,10 @@ import { GalleryService } from '../gallery.service';
 import { ArtistasService } from '../artistas.service';
 import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
+import { Usuario } from '../clases/Usuario';
+import { UsuariosService } from '../usuarios.service';
+import { CitasService } from '../citas.service';
+import { Cita } from '../clases/Cita';
 
 @Component({
   selector: 'app-cita-tattoo-artista',
@@ -16,12 +20,14 @@ export class CitaTattooArtistaComponent {
   horasDisponibles: string[];
   imagen:string="";
   tattooSeleccionado:boolean=false;
-  idTatuador=1;
+  idTatuador=0;
+
   
   //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
-  constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService) {
+  constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
+    private usuarioServicio: UsuariosService, private citaServicio:CitasService) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl(''),
       tatuador: new FormControl(''),
@@ -31,12 +37,6 @@ export class CitaTattooArtistaComponent {
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
-  }
-
-  //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
-  cambiarHora() {
-    const tamano = this.formularioCita.get('tamano')?.value;
-    this.horasDisponibles = this.getHorasDisponibles(tamano);
   }
 
   //Metodo para cambiar los tatuajes en funcion del tatuador
@@ -57,31 +57,29 @@ export class CitaTattooArtistaComponent {
   }
   //Metodo para cambiar los tatuajes en funcion del tamaño
   cambiarTatuajesTamano(){
-    if(this.formularioCita.get("tatuador")?.value ==='Ana'){
-      this.idTatuador=0;
+    if(this.formularioCita.get("tamano")?.value ==='pequeño'){
     }
-    else if(this.formularioCita.get("tatuador")?.value === 'Tony'){
-      this.idTatuador=1;
+    else if(this.formularioCita.get("tamano")?.value === 'mediano'){
     }
-    else if(this.formularioCita.get("tatuador")?.value === 'Carmela'){
-      this.idTatuador=2;
-    }
-    else if(this.formularioCita.get("tatuador")?.value === 'José'){
-      this.idTatuador=3;
+    else if(this.formularioCita.get("tamano")?.value === 'grande'){
     }
     this.filtrarPorTamano(this.formularioCita.get("tamano")?.value);
   }
-
+  //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
+  cambiarHora() {
+    const tamano = this.formularioCita.get('tamano')?.value;
+    this.horasDisponibles = this.getHorasDisponibles(tamano);
+}
   private getHorasDisponibles(tamano: string): string[] {
     let horas: string[];
 
-    if (tamano == 'pequeño') {
+    if (tamano == 'Pequeño') {
       horas = this.generarHorasDisponibles(8, 12, 2).concat(this.generarHorasDisponibles(14, 16, 2));
     }
-    else if (tamano == 'mediano') {
+    else if (tamano == 'Mediano') {
       horas = this.generarHorasDisponibles(10, 14, 4).concat(this.generarHorasDisponibles(14, 18, 4));
     }
-    else if (tamano == 'grande') {
+    else if (tamano == 'Grande') {
       this.turno = 3;
       horas = this.generarHorasDisponibles(14, 20, 6);
     }
@@ -121,78 +119,116 @@ export class CitaTattooArtistaComponent {
     return null;
   }
   
+
+  registrarCita() {
+    if (this.formularioCita.get('tamano')?.value === 'Pequeño') {
+      if (this.formularioCita.get('hora_cita')?.value === '08:00') {
+        this.turno = 1;
+      } else if (this.formularioCita.get('hora_cita')?.value === '10:00') {
+        this.turno = 2;
+      } else if (this.formularioCita.get('hora_cita')?.value === '14:00') {
+        this.turno = 3;
+      }
+    } else if (this.formularioCita.get('tamano')?.value === 'Mediano') {
+      if (this.formularioCita.get('hora_cita')?.value === '10:00') {
+        this.turno = 2;
+      } else if (this.formularioCita.get('hora_cita')?.value === '14:00') {
+        this.turno = 3;
+      }
+    } else if (this.formularioCita.get('tamano')?.value === 'Grande') {
+      if (this.formularioCita.get('hora_cita')?.value === '14:00') {
+        this.turno = 3;
+      }
+    }
   
+    const cita = new Cita();
+    const artista = new Artista();
+  
+    // Obtener los valores del artista desde el servicio
+    const nombreArtista = this.formularioCita.get('tatuador')?.value;
+    this.artistaServicio.mostrarArtista().subscribe(
+      artistas => {
+        const artistaEncontrado = artistas.find(a => a.nombre == nombreArtista);
+        if (artistaEncontrado) {
+          alert("Hace asignacion");
+          artista.idArtista = artistaEncontrado.idArtista;
+          artista.bio = artistaEncontrado.bio;
+          artista.imagen = artistaEncontrado.imagen;
+          artista.tattoos = artistaEncontrado.tattoos;
+          artista.nombre = artistaEncontrado.nombre;
+          cita.artistaCita = artistaEncontrado;
+          // Alerta para la asignación del artista
+          alert("Asignación de artista completada");
+          // Resto del código...
+          // Obtener los tatuajes filtrados desde la base de datos
+          this.servicioGaleria.mostrarTatto().subscribe(
+            (tatuajes: Tattoo[]) => {
+              // Filtrar los tatuajes por nombre
+              const tattooFiltrado = tatuajes.filter(tatuaje => tatuaje.nombre == this.formularioCita.get('tatuaje')?.value);
+  
+              // Verificar si se encontró un tatuaje
+              if (tattooFiltrado.length > 0) {
+                const tatuajeSeleccionado = tattooFiltrado[0];
+  
+                // Obtener el resto de los atributos del tatuaje desde la base de datos
+                this.servicioGaleria.obtenerPorId(tatuajeSeleccionado.idTattoo).subscribe(
+                  (tattooObtenido: Tattoo) => {
+                    cita.tattoo = tattooObtenido; // Asignación de tattoo a la cita
+                    // Alerta para la asignación del tatuaje
+                    alert("Asignación de tatuaje completada");
+                    // Resto del código...
+                    this.usuarioServicio.inicioSesion('Juan', '1234');
+                    cita.fecha = this.formularioCita.get('fecha_cita')?.value;
+                    cita.turno = this.turno;
+                    this.citaServicio.insert(cita);
+                    alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
+                      "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.nombre);
+                    alert("artistaCita.nombre: " + cita.artistaCita.nombre);
+                  }
+                );
+              }
+            }
+          );
+        } else {
+          alert("Artista no encontrado");
+        }
+      },
+    );
+  }
+  
+  //Para mostrar una foto del tatuaje seleccionado
+  imagenTatuajeSeleccionado: String;
 
-  registrarCita(){
-    alert("El valor de la hora es:" + this.formularioCita.get('hora_cita')?.value);
+  seleccionarTatuaje() {
+    this.tattooSeleccionado = true;
+    const tatuajeSeleccionadoNombre = this.formularioCita.get('tatuaje')?.value;
 
-    if (this.formularioCita.get('tamano')?.value == 'pequeño') {
-
-      if(this.formularioCita.get('hora_cita')?.value === "08:00"){
-        this.turno=1;
-        alert("tatu pequeño a las 8, turno :" + this.turno);
-      }
-      else if(this.formularioCita.get('hora_cita')?.value === "10:00"){
-        this.turno=2;
-        alert("tatu pequeño a las 10, turno :" + this.turno);
-      }
-      else if(this.formularioCita.get('hora_cita')?.value === "14:00"){
-        this.turno=3;
-        alert("tatu pequeño a las 14, turno :" + this.turno);
-      }
-
-    }
-    else if (this.formularioCita.get('tamano')?.value === 'mediano') {
-      if(this.formularioCita.get('hora_cita')?.value === '10:00'){
-        this.turno=2;
-        alert("tatu mediano a las 10, turno :" + this.turno);
-      }
-      else if(this.formularioCita.get('hora_cita')?.value === '14:00'){
-        this.turno=3;
-        alert("tatu mediano a las 14, turno :" + this.turno);
-      }
-    }
-    else if (this.formularioCita.get('tamano')?.value === 'grande') {
-      if(this.formularioCita.get('hora_cita')?.value === '14:00'){
-        this.turno=3;
-        alert("tatu grande a las 14, turno :" + this.turno);
+    //Recorrer los tatuajes filtrados e igualar al nombre para obtener su imagen
+    for(let i=0;i<=this.tattooFiltrado.length;i++){
+      if(this.tattooFiltrado[i].nombre==tatuajeSeleccionadoNombre){
+        this.imagenTatuajeSeleccionado=this.tattooFiltrado[i].imagen
       }
     }
   }
-  //Para mostrar una foto del tatuaje seleccionado
-  imagenTatuajeSeleccionado: Tattoo;
-
-seleccionarTatuaje() {
-  this.tattooSeleccionado = true;
-  const tatuajeSeleccionadoNombre = this.formularioCita.get('tatuaje')?.value;
-
-  this.servicioGaleria.obtenerPorNombre(tatuajeSeleccionadoNombre).subscribe(
-    (tatuaje:Tattoo) => {
-      this.imagenTatuajeSeleccionado = tatuaje;
-    },
-  );
-}
-
-
-  
-  
 
   //Filtros
   tattoos: Tattoo[]=[]
   artistas:Artista[]=[]
   idArtista: number;
   tattooFiltrado: Tattoo[]=[]
-  tattooFiltrados: Artista[]=[]
+  usuario:Usuario;
   ngOnInit() {
     this.mostrarTodos();
     this.mostrarArtistas();
+    this.usuarioServicio.inicioSesion('Juan','1234').subscribe(data => this.usuario = data)
   }
   
   mostrarTodos(): void{
     this.servicioGaleria.mostrarTatto().subscribe(data=>this.tattoos=data)
    }
    mostrarArtistas():void{
-     this.artistaServicio.mostrarArtista().subscribe(data=>this.artistas=data)
+     this.artistaServicio.mostrarArtista().subscribe(data=>{this.artistas=data
+     this.tattooFiltrado=data[0].tattoos})
    }
    filtrarTodos(){
      this.tattooFiltrado=this.tattoos
@@ -201,7 +237,18 @@ seleccionarTatuaje() {
      this.tattooFiltrado=this.artistas[id].tattoos
    }
    filtrarPorTamano(tamano: string){
-     this.tattooFiltrado = this.tattooFiltrado.filter(tattoo => tattoo.tamano === tamano);
-     alert("tattooFiltrado[id] es: " + this.tattooFiltrado[tamano].idTattoo)
+    this.tattooFiltrado=this.filtrarArray(tamano, this.idTatuador);
+   }
+   filtrarArray(tamano: string, idArtista: number) : Tattoo[]{
+    
+    let arrayAux:Tattoo[]=[];
+    for(let i=0;i<this.artistas[idArtista].tattoos.length;i++){
+      if(this.artistas[idArtista].tattoos[i].tamano==tamano){
+        arrayAux.push(this.artistas[idArtista].tattoos[i]);
+      }
+    }
+    for(let i=0;i<arrayAux.length;i++){
+    }
+    return arrayAux;
    }
 }
