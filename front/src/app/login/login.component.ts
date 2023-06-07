@@ -1,8 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component} from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from '../clases/Usuario';
-import { ChangeDetectorRef } from '@angular/core';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
 @Component({
@@ -22,7 +20,7 @@ export class LoginComponent {
   login(){
     this.userService.inicioSesion(this.email, this.contrasena)
       .subscribe(data=>{
-          if(data && data.contrasena && data.email){
+          if(data && data.contrasena && data.email && data.nombre){
             this.localStorage.login(data)
             this.router.navigateByUrl('/')
           }

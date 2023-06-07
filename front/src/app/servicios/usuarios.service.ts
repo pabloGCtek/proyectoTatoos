@@ -17,8 +17,9 @@ export class UsuariosService {
   constructor(private http:HttpClient, public cookies: CookieService, private router: Router) { }
 
   insert(user:any):Observable<any>{
-    return this.http.post(`${this.url}/registro`,user)
+    return this.http.post(`${this.url}`,user)
   }
+  
   inicioSesion(email: string, clave: string):Observable<Usuario>
   {
       return this.http.get<Usuario>(`${this.url}/${email}/${clave}`)

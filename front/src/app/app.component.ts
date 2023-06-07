@@ -22,7 +22,7 @@ export class AppComponent {
       this.usuario=this.localStorageSer.usuarioLogeado()})
   }
 ngOnInit(){
-  // this.usuarioActivo=this.localStorageSer.logeado()
+  this.usuarioActivo=this.localStorageSer.logeado()
 }
 
 mostrarAviso() {

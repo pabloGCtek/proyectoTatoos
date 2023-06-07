@@ -20,7 +20,8 @@ export class CitaTattooPropioComponent {
       tatuador: new FormControl(''),
       tatuaje: new FormControl(''),
       fecha_cita: new FormControl(''),
-      hora_cita: new FormControl('')
+      hora_cita: new FormControl(''),
+      imagen: new FormControl('')
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
@@ -115,17 +116,17 @@ export class CitaTattooPropioComponent {
     const isHighlighted = this.highlightedDates.some(
       highlightedDate => this.isSameDate(date, highlightedDate)
     );
-  
+
     if (isHighlighted) {
       return {
         backgroundColor: 'yellow',
         fontWeight: 'bold'
       };
     }
-  
+
     return {};
   }
-  
+
   isSameDate(date1: Date, date2: Date): boolean {
     return (
       date1.getDate() === date2.getDate() &&
@@ -133,6 +134,6 @@ export class CitaTattooPropioComponent {
       date1.getFullYear() === date2.getFullYear()
     );
   }
-  
-  
+
+
 }

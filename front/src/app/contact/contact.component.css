@@ -4,17 +4,20 @@
   display: flex;
   justify-content: center;
 }
+
 .contact-info{
-  background-color: black;
-  width: 50%;
-  margin-top: 50px;
+  width: 60%;
+  margin-top:40px;
   border-radius: 10px;
-}
-.h2{
-  align-items: center;
+
 }
 .text{
   width: 100%;
   padding:10px ;
- justify-content: center;
+ box-shadow: 0 0 30px rgba(222, 209, 209, 0.6);
+
+}
+.social-media svg{
+  margin: 10px;
+  justify-items: center;
 }

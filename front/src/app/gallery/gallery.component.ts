@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-
 import { Tattoo } from '../clases/Tattoo';
-
 import { Artista } from '../clases/Artista';
 import { ArtistasService } from '../servicios/artistas.service';
 import { GalleryService } from '../servicios/gallery.service';
