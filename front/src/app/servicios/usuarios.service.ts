@@ -23,4 +23,7 @@ export class UsuariosService {
   {
       return this.http.get<Usuario>(`${this.url}/${email}/${clave}`)
   }
+  modificaUsuario(us: Usuario){
+
+  }
 }

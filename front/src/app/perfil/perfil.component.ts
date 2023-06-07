@@ -1,23 +1,33 @@
+
+
 import { Component } from '@angular/core';
 import { Usuario } from '../clases/Usuario';
-import { Router } from '@angular/router';
-import { LocalStorageService } from '../servicios/local-storage.service';
+import { UsuariosService } from '../servicios/usuarios.service';
+
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+selector: 'app-perfil',
+templateUrl: './perfil.component.html',
+styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent {
-  usuario: Usuario
-  formatoDate:string;
-  constructor(private localStorageSer: LocalStorageService, private router: Router){
-  }
+usuario: Usuario;
 
-  ngOnInit(){
-    this.usuario=this.localStorageSer.usuarioLogeado()
-    const date= new Date(this.usuario.fechaNacimiento)
-     this.formatoDate= date.toLocaleDateString();
-    }
 
+constructor(private sUsuario: UsuariosService){
+
+
+}
+ngOnInit(){
+ this.sUsuario.inicioSesion("Juan","1234").subscribe((val: any) => this.usuario = val)
+ } checkContraseña():boolean{
+return true
+}
+guardarMods(){
+if(this.checkContraseña()){
+
+  this.sUsuario.modificaUsuario(this.usuario);
+  
+ }
+}
 }
