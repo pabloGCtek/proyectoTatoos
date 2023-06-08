@@ -8,6 +8,7 @@ import { Usuario } from '../clases/Usuario';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { Cita } from '../clases/Cita';
 import { CitasService } from '../servicios/citas.service';
+import { LocalStorageService } from '../servicios/local-storage.service';
 
 @Component({
   selector: 'app-cita-tattoo-artista',
@@ -27,13 +28,13 @@ export class CitaTattooArtistaComponent {
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
   constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
-    private usuarioServicio: UsuariosService, private citaServicio:CitasService) {
+    private usuarioServicio: UsuariosService, private citaServicio:CitasService, private localStorage:LocalStorageService) {
     this.formularioCita = new FormGroup({
-      tamano: new FormControl(''),
-      tatuador: new FormControl(''),
-      tatuaje: new FormControl(''),
+      tamano: new FormControl('', Validators.required),
+      tatuador: new FormControl('', Validators.required),
+      tatuaje: new FormControl('', Validators.required),
       fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
-      hora_cita: new FormControl('')
+      hora_cita: new FormControl('', Validators.required)
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
@@ -122,6 +123,7 @@ export class CitaTattooArtistaComponent {
   
 
   registrarCita() {
+    //Cambiar el turno en funcion de la hora elegida
     if (this.formularioCita.get('tamano')?.value === 'Pequeño') {
       if (this.formularioCita.get('hora_cita')?.value === '08:00') {
         this.turno = 1;
@@ -179,11 +181,13 @@ export class CitaTattooArtistaComponent {
                     alert("Asignación de tatuaje completada");
                     // Resto del código...
                     this.usuarioServicio.inicioSesion('Juan', '1234');
+                    cita.idCita=3;
+                    cita.usuarioCita = this.localStorage.usuarioLogeado();
                     cita.fecha = this.formularioCita.get('fecha_cita')?.value;
                     cita.turno = this.turno;
                     this.citaServicio.insert(cita);
                     alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
-                      "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.nombre);
+                      "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
                     alert("artistaCita.nombre: " + cita.artistaCita.nombre);
                   }
                 );
@@ -197,8 +201,9 @@ export class CitaTattooArtistaComponent {
     );
   }
   
-  //Para mostrar una foto del tatuaje seleccionado
+  //Para mostrar una foto del tatuaje seleccionado y su precio
   imagenTatuajeSeleccionado: String;
+  precioTatuajeSeleccionado: number;
 
   seleccionarTatuaje() {
     this.tattooSeleccionado = true;
@@ -208,6 +213,7 @@ export class CitaTattooArtistaComponent {
     for(let i=0;i<=this.tattooFiltrado.length;i++){
       if(this.tattooFiltrado[i].nombre==tatuajeSeleccionadoNombre){
         this.imagenTatuajeSeleccionado=this.tattooFiltrado[i].imagen
+        this.precioTatuajeSeleccionado=this.tattooFiltrado[i].precio
       }
     }
   }
@@ -252,4 +258,26 @@ export class CitaTattooArtistaComponent {
     }
     return arrayAux;
    }
+
+   formCompleto:boolean = false;
+   //Funcion que deshabilita el boton hasta que estén todos los campos rellenos
+  formularioCompleto(): boolean {
+    if (this.formCompleto) {
+      return (
+        this.formularioCita.get('tatuador')?.value &&
+        this.formularioCita.get('tamano')?.value &&
+        this.formularioCita.get('tatuaje')?.value &&
+        this.formularioCita.get('fecha_cita')?.value &&
+        this.formularioCita.get('hora_cita')?.value
+      );
+    } else {
+      return (
+        this.formularioCita.get('tatuador')?.value &&
+        this.formularioCita.get('tamano')?.value &&
+        this.formularioCita.get('tatuaje')?.value &&
+        this.formularioCita.get('fecha_cita')?.value &&
+        this.formularioCita.get('hora_cita')?.value
+      );
+    }
+  }
 }
