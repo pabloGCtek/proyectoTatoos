@@ -51,15 +51,12 @@ export class RegistroComponent implements OnInit{
 
   enviarRegistro(){
     if(this.miFormulario.valid){
-    this.calcularEdad();
     this.user.email = this.miFormulario.get('email')?.value
     this.user.contrasena = this.miFormulario.get('password')?.value
     this.user.nombre = this.miFormulario.get('usuario')?.value
     this.user.fechaNacimiento =this.miFormulario.get('fecha_nacimiento')?.value
-    console.log("Hola")
     this.usService.insert(this.user).subscribe(u =>
-    this.route.navigateByUrl('/login')
-    )
+    this.route.navigateByUrl('/login'))
     }
     else{
       alert('error en el formulario')
