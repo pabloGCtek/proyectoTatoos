@@ -8,6 +8,7 @@ import { Usuario } from '../clases/Usuario';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { CitasService } from '../citas.service';
 import { Cita } from '../clases/Cita';
+import { CitasService } from '../servicios/citas.service';
 
 @Component({
   selector: 'app-cita-tattoo-artista',

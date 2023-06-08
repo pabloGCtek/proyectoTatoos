@@ -1,8 +1,6 @@
 package com.softtek.tattoos_proyecto.controller;
 
-import com.softtek.tattoos_proyecto.exceptions.ObjectNotFound;
 import com.softtek.tattoos_proyecto.model.Artista;
-import com.softtek.tattoos_proyecto.model.Tattoo;
 import com.softtek.tattoos_proyecto.service.IArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;

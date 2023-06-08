@@ -21,11 +21,13 @@ public class Artista {
     private String nombre;
     private String bio;
     private String imagen;
-    @JsonIgnoreProperties("artista")
+
+    @JsonIgnoreProperties(value = "artista", allowSetters = true)
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Tattoo> tattoos;
-    @JsonIgnoreProperties("artistaCita")
+    
+    @JsonIgnoreProperties(value = "artistaCita", allowSetters = true)
     @OneToMany(mappedBy = "artistaCita", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Cita> citasArtista;

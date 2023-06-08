@@ -7,7 +7,6 @@ import java.util.Optional;
 
 @NoRepositoryBean
 public interface IGenericRepo<T,ID> extends JpaRepository<T,ID> {
-    //T getReferenceById(int id);
     @Override
     Optional<T> findById(ID id);
 }

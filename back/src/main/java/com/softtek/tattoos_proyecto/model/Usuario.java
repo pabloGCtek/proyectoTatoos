@@ -23,7 +23,8 @@ public class Usuario {
     private String contrasena;
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
-    @JsonIgnoreProperties("usuarioCita")
+
+    @JsonIgnoreProperties(value = "usuarioCita", allowSetters = true)
     @OneToMany(mappedBy = "usuarioCita", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Cita> citasUsuario;

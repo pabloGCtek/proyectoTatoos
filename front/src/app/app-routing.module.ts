@@ -13,6 +13,8 @@ import { TerminosComponent } from './terminos/terminos.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AppComponent } from './app.component';
+import { DetallesCitaComponent } from './detalles-cita/detalles-cita.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,7 +28,8 @@ const routes: Routes = [
   {path: 'cita_tattoo_artista', component:CitaTattooArtistaComponent, canActivate: [AuthGuard]},
   {path: 'cita_tattoo_artista/:id', component:CitaTattooArtistaComponent, canActivate: [AuthGuard]},
   {path: 'cita_tattoo_propio', component:CitaTattooPropioComponent, canActivate: [AuthGuard]},
-  {path:'terminos', component:TerminosComponent}
+  {path:'terminos', component:TerminosComponent},
+  {path:'cita/:id',component:DetallesCitaComponent}
 ];
 
 @NgModule({
