@@ -71,7 +71,7 @@ export class CitaTattooArtistaComponent {
   cambiarHora() {
     const tamano = this.formularioCita.get('tamano')?.value;
     this.horasDisponibles = this.getHorasDisponibles(tamano);
-}
+  }
   private getHorasDisponibles(tamano: string): string[] {
     let horas: string[];
 
@@ -145,7 +145,6 @@ export class CitaTattooArtistaComponent {
     }
   
     const cita = new Cita();
-    const artista = new Artista();
   
     // Obtener los valores del artista desde el servicio
     const nombreArtista = this.formularioCita.get('tatuador')?.value;
@@ -154,11 +153,6 @@ export class CitaTattooArtistaComponent {
         const artistaEncontrado = artistas.find(a => a.nombre == nombreArtista);
         if (artistaEncontrado) {
           alert("Hace asignacion");
-          artista.idArtista = artistaEncontrado.idArtista;
-          artista.bio = artistaEncontrado.bio;
-          artista.imagen = artistaEncontrado.imagen;
-          artista.tattoos = artistaEncontrado.tattoos;
-          artista.nombre = artistaEncontrado.nombre;
           cita.artistaCita = artistaEncontrado;
           // Alerta para la asignación del artista
           alert("Asignación de artista completada");
@@ -254,13 +248,11 @@ export class CitaTattooArtistaComponent {
         arrayAux.push(this.artistas[idArtista].tattoos[i]);
       }
     }
-    for(let i=0;i<arrayAux.length;i++){
-    }
     return arrayAux;
-   }
+  }
 
-   formCompleto:boolean = false;
-   //Funcion que deshabilita el boton hasta que estén todos los campos rellenos
+  formCompleto:boolean = false;
+  //Funcion que deshabilita el boton hasta que estén todos los campos rellenos
   formularioCompleto(): boolean {
     if (this.formCompleto) {
       return (
