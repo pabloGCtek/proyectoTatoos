@@ -1,3 +1,4 @@
+import { Cita } from "./Cita"
 import { Tattoo } from "./Tattoo"
 
 export class Artista{
@@ -6,4 +7,5 @@ export class Artista{
   bio:string=""
   imagen:string=""
   tattoos:Tattoo[] = []
+  citasArtista:Cita[] = []
 }

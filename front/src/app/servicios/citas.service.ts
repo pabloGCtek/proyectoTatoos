@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Cita } from '../clases/Cita';
 import { Observable } from 'rxjs';
-import { Cita } from './clases/Cita';
 
 @Injectable({
   providedIn: 'root'

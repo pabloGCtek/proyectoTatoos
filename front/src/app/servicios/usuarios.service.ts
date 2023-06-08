@@ -16,8 +16,9 @@ export class UsuariosService {
 
   constructor(private http:HttpClient, public cookies: CookieService, private router: Router) { }
 
-  insert(user:any):Observable<any>{
-    return this.http.post(`${this.url}`,user)
+  insert(user:Usuario):Observable<any>{
+    console.log(user)
+    return this.http.post(`${this.url}/registro`,user)
   }
   
   inicioSesion(email: string, clave: string):Observable<Usuario>
@@ -26,5 +27,5 @@ export class UsuariosService {
   }
   modificaUsuario(us: Usuario){
 
-  }
+  } 
 }

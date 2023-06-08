@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { GalleryService } from '../gallery.service';
-import { ArtistasService } from '../artistas.service';
+import { GalleryService } from '../servicios/gallery.service';
+import { ArtistasService } from '../servicios/artistas.service';
 import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
 import { Usuario } from '../clases/Usuario';
-import { UsuariosService } from '../usuarios.service';
-import { CitasService } from '../citas.service';
+import { UsuariosService } from '../servicios/usuarios.service';
 import { Cita } from '../clases/Cita';
+import { CitasService } from '../servicios/citas.service';
 
 @Component({
   selector: 'app-cita-tattoo-artista',
@@ -38,15 +38,6 @@ export class CitaTattooArtistaComponent {
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
 
-  }
-  ngOnInit()
-  {
-    this.id=this.activarRuta.snapshot.params["id"]
-    this.tattoServicio.obtenerPorId(this.id).subscribe(dato=>{
-      this.tattoN=dato
-      this.tamano=this.tattoN.tamano
-      this.imagen=this.tattoN.imagen
-      this.artista=this.tattoN.artista})
   }
 
   //Metodo para cambiar los tatuajes en funcion del tatuador
