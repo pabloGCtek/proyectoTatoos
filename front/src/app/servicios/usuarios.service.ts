@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
-import { CookieService } from 'ngx-cookie-service';
 import { Route, Router, Routes } from '@angular/router';
 import { Usuario } from '../clases/Usuario';
 
@@ -14,7 +13,7 @@ export class UsuariosService {
   private url:String = "http://localhost:8080/usuarios"
 
 
-  constructor(private http:HttpClient, public cookies: CookieService, private router: Router) { }
+  constructor(private http:HttpClient, private router: Router) { }
 
   insert(user:Usuario):Observable<any>{
     console.log(user)

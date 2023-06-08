@@ -6,6 +6,7 @@ import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
 import { Usuario } from '../clases/Usuario';
 import { UsuariosService } from '../servicios/usuarios.service';
+import { CitasService } from '../citas.service';
 import { Cita } from '../clases/Cita';
 import { CitasService } from '../servicios/citas.service';
 
@@ -219,6 +220,12 @@ export class CitaTattooArtistaComponent {
   tattooFiltrado: Tattoo[]=[]
   usuario:Usuario;
   ngOnInit() {
+    // this.id=this.activarRuta.snapshot.params["id"]
+    // this.tattoServicio.obtenerPorId(this.id).subscribe(dato=>{
+    //   this.tattoN=dato
+    //   this.tamano=this.tattoN.tamano
+    //   this.imagen=this.tattoN.imagen
+    //   this.artista=this.tattoN.artista})
     this.mostrarTodos();
     this.mostrarArtistas();
     this.usuarioServicio.inicioSesion('Juan','1234').subscribe(data => this.usuario = data)
