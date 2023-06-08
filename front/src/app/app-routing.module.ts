@@ -13,6 +13,7 @@ import { TerminosComponent } from './terminos/terminos.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AppComponent } from './app.component';
+import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-detalle.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'cita_tattoo_artista', component:CitaTattooArtistaComponent, canActivate: [AuthGuard]},
   {path: 'cita_tattoo_artista/:id', component:CitaTattooArtistaComponent, canActivate: [AuthGuard]},
   {path: 'cita_tattoo_propio', component:CitaTattooPropioComponent, canActivate: [AuthGuard]},
+  {path: 'cita_tattoo_detalle/:id', component:CitaTattooDetalleComponent, canActivate: [AuthGuard]},
   {path:'terminos', component:TerminosComponent}
 ];
 

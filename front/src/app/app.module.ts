@@ -22,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { GalleryService } from './servicios/gallery.service';
 import { UsuariosService } from './servicios/usuarios.service';
 import { LocalStorageService } from './servicios/local-storage.service';
+import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-detalle.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { LocalStorageService } from './servicios/local-storage.service';
     PedirCitaComponent,
     PerfilComponent,
     TerminosComponent,
+    CitaTattooDetalleComponent,
 
   ],
   imports: [

@@ -19,7 +19,7 @@ export class UsuariosService {
   insert(user:any):Observable<any>{
     return this.http.post(`${this.url}`,user)
   }
-  
+
   inicioSesion(email: string, clave: string):Observable<Usuario>
   {
       return this.http.get<Usuario>(`${this.url}/${email}/${clave}`)
@@ -27,4 +27,6 @@ export class UsuariosService {
   modificaUsuario(us: Usuario){
 
   }
+
+  
 }

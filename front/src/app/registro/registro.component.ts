@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { Usuario } from '../clases/Usuario';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registro',
@@ -15,7 +16,7 @@ export class RegistroComponent implements OnInit{
   contrasenasCoinciden: boolean = true;
 
 
-  constructor(private usService: UsuariosService, private route: Router) {
+  constructor(private usService: UsuariosService, private route: Router,private toastr: ToastrService) {
     this.user = new Usuario();
     this.miFormulario = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -78,6 +79,7 @@ export class RegistroComponent implements OnInit{
     if(this.edad<18){
       this.esMenor=true
     }
+    alert(this.edad)
   }
 
   //Funcion que deshabilita el boton hasta que estén todos los campos rellenos
@@ -103,5 +105,8 @@ export class RegistroComponent implements OnInit{
         this.contrasenasCoinciden
       );
     }
+  }
+  mostrarAviso() {
+    this.toastr.info('Recuerda que si eres menor de edad, necesitas llevar autorización el dia de la cita.', 'Aviso');
   }
 }

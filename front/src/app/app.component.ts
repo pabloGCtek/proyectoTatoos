@@ -13,20 +13,39 @@ export class AppComponent {
   title = 'proyectoTatoos';
   usuario: Usuario
   usuarioActivo:boolean;
+  edad: number = 0;
+  esMenor:boolean=false;
   constructor(private localStorageSer: LocalStorageService, private router: Router,private toastr: ToastrService){
     setInterval(() => {
       this.mostrarAviso();
-    }, 50000);
+    }, 10000);
     this.localStorageSer.datosDesesion$.subscribe(usuarioA=>{
       this.usuarioActivo=usuarioA;
       this.usuario=this.localStorageSer.usuarioLogeado()})
+
+
   }
 ngOnInit(){
   this.usuarioActivo=this.localStorageSer.logeado()
 }
+mostrarAviso()
+{
+  this.usuario=this.localStorageSer.usuarioLogeado()
+  const fechaNacimientoDate = new Date(this.usuario.fechaNacimiento);
+  const fechaActual = new Date();
 
-mostrarAviso() {
-  this.toastr.info('Recuerda que si eres menor de edad, necesitas llevar autorización el dia de la cita.', 'Aviso');
+  let edad = fechaActual.getFullYear() - fechaNacimientoDate.getFullYear();
+  const mesActual = fechaActual.getMonth() + 1;
+  const diaActual = fechaActual.getDate();
+  const mesNacimiento = fechaNacimientoDate.getMonth() + 1;
+  const diaNacimiento = fechaNacimientoDate.getDate();
+
+  if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
+    edad--;
+  }
+  if(edad<18){
+    this.toastr.info('Eres menor de edad, recuerda que para tatuarte debes llevar autorización', 'Aviso');
+  }
 }
 
   logout(){

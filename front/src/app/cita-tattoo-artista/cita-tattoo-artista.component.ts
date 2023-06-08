@@ -5,11 +5,14 @@ import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
 import { Usuario } from '../clases/Usuario';
 
-import { CitasService } from '../citas.service';
+
 import { Cita } from '../clases/Cita';
 import { GalleryService } from '../servicios/gallery.service';
 import { ArtistasService } from '../servicios/artistas.service';
 import { UsuariosService } from '../servicios/usuarios.service';
+import { LocalStorageService } from '../servicios/local-storage.service';
+import { CitasService } from '../servicios/citas.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cita-tattoo-artista',
@@ -23,13 +26,19 @@ export class CitaTattooArtistaComponent {
   imagen:string="";
   tattooSeleccionado:boolean=false;
   idTatuador=0;
+  idTattoo:number;
+  tattoN:Tattoo
 
 
-  //obtencion de la fecha actual probando
+  //obtencion de la fecha actual 
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
-  constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
-    private usuarioServicio: UsuariosService, private citaServicio:CitasService) {
+  constructor(private servicioGaleria: GalleryService,
+    private artistaServicio: ArtistasService,
+    private usuarioServicio: UsuariosService,
+    private citaServicio:CitasService,
+    private localStorage: LocalStorageService,
+    private activarRuta: ActivatedRoute) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl(''),
       tatuador: new FormControl(''),
@@ -41,15 +50,7 @@ export class CitaTattooArtistaComponent {
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
 
   }
-  // ngOnInit()
-  // {
-  //   this.id=this.activarRuta.snapshot.params["id"]
-  //   this.tattoServicio.obtenerPorId(this.id).subscribe(dato=>{
-  //     this.tattoN=dato
-  //     this.tamano=this.tattoN.tamano
-  //     this.imagen=this.tattoN.imagen
-  //     this.artista=this.tattoN.artista})
-  // }
+
     ngOnInit() {
     this.mostrarTodos();
     this.mostrarArtistas();
@@ -195,11 +196,14 @@ export class CitaTattooArtistaComponent {
                     alert("Asignación de tatuaje completada");
                     // Resto del código...
                     this.usuarioServicio.inicioSesion('Juan', '1234');
+                    this.usuario=this.localStorage.usuarioLogeado()
                     cita.fecha = this.formularioCita.get('fecha_cita')?.value;
                     cita.turno = this.turno;
-                    this.citaServicio.insert(cita);
-                    alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
-                      "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.nombre);
+                    cita.usuarioCita=this.usuario
+                    this.citaServicio.insert(cita).subscribe(dato=>
+                      console.log(dato));
+                      alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
+                      "\nfecha: " + cita.fecha + "\nusuario: " + this.usuario.nombre);
                     alert("artistaCita.nombre: " + cita.artistaCita.nombre);
                   }
                 );
