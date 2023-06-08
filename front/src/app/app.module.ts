@@ -17,6 +17,9 @@ import { CitaTattooPropioComponent } from './cita-tattoo-propio/cita-tattoo-prop
 import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TerminosComponent } from './terminos/terminos.component';
+import { ToastrModule } from 'ngx-toastr';
+import { UsuariosService } from './servicios/usuarios.service';
+import { GalleryService } from './servicios/gallery.service';
 
 
 @NgModule({
@@ -43,7 +46,7 @@ import { TerminosComponent } from './terminos/terminos.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 6000,  // Duración predeterminada del mensaje en milisegundos
       positionClass: 'toast-top-full-width',  // Posición del mensaje
