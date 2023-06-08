@@ -3,7 +3,6 @@ package com.softtek.tattoos_proyecto.service;
 import com.softtek.tattoos_proyecto.model.Usuario;
 import com.softtek.tattoos_proyecto.repository.IGenericRepo;
 import com.softtek.tattoos_proyecto.repository.IUsuarioRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
