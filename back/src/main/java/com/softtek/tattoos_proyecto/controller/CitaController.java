@@ -44,4 +44,10 @@ public class CitaController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteCita(@RequestBody Cita cita){
+        Cita c = cs.deleteObject(cita, cita.getIdCita());
+        return ResponseEntity.noContent().build();
+    }
 }
