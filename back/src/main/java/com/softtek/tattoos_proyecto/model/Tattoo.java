@@ -27,11 +27,13 @@ public class Tattoo {
     @Column(name = "tattoo_propio")
     private boolean tattooPropio;
     private double precio;
-    @JsonIgnoreProperties("tattoos")
+
+    @JsonIgnoreProperties(value = "tattoos", allowSetters = true)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_artista")
     private Artista artista;
-    @JsonIgnoreProperties("tattoo")
+
+    @JsonIgnoreProperties(value = "tattoo", allowSetters = true)
     @OneToMany(mappedBy = "tattoo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Cita> citasTattoo;
