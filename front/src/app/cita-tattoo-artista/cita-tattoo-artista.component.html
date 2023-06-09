@@ -38,5 +38,9 @@
       </div>
 
     </form>
-    <img *ngIf="tattooSeleccionado" class="imagen" [src]="imagenTatuajeSeleccionado">
+    <div *ngIf="tattooSeleccionado">
+      <img  class="imagen" [src]="imagenTatuajeSeleccionado">
+      <p class="precio">Precio: {{precioTatuajeSeleccionado}}€</p>
+    </div>
+    
 </div>

@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Tattoo } from '../clases/Tattoo';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ImagenAStringService {
 
-  constructor() { }
+export class ImagenAStringService {
+  private url:String = "http://localhost:8080/tattoos"
+
+  constructor(private httpC:HttpClient) { }
 
   getBase64(file:File):Promise<string>{
     return new Promise<string> ((resolve,reject)=> {
@@ -14,6 +19,9 @@ export class ImagenAStringService {
       reader.onload = () => resolve(reader.result?.toString() || '');
       reader.onerror = error => reject(error);
     })
+  }
+  insertarTattoo(tattoo:Tattoo):Observable<Object>{
+    return this.httpC.post(`${this.url}`,tattoo)
   }
   /**
    * Cosas a escribir fuera del servicio:

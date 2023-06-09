@@ -12,5 +12,5 @@ export class Tattoo
   tattooPropio: boolean
   precio: number;
   artista: Artista;
-  citasTattoo:Cita[]=[]
+  citasTattoo:Cita[] = []
 }

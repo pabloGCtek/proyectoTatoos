@@ -1,56 +1,139 @@
 <h5 class="form-title">REGISTRO</h5>
-    <form #nombre_formulario="ngForm" [formGroup]="miFormulario" (ngSubmit)="enviarRegistro()">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="email" placeholder="Introduce tu email" required>
-            <div class="alert alert-danger mt-2" *ngIf="miFormulario.get('email')?.invalid && (miFormulario.get('email')?.dirty || miFormulario.get('email')?.touched)">
-                Por favor, introduce un email válido
-              </div>
-        </div>
-        <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Introduce tu contraseña" required>
-            <div class="alert alert-danger mt-2" [hidden]="miFormulario.get('password')?.value || miFormulario.get('password')?.pristine || miFormulario.get('password')?.hasError('pattern')">
-              <p class="aviso">Tome en cuenta que  la contraseña:
-                Debe ser no menor a 8 carácteres.
-                Debe contener al menos una letra minúscula.
-                Debe contener al menos una letra mayúscula.
-                Debe contener al menos un número.</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password2">Repetir contraseña</label>
-            <input type="password" class="form-control" id="password2" formControlName="password2" placeholder="Repite tu contraseña" required>
-            <div class="alert alert-danger mt-2" [hidden]="miFormulario.get('password2')?.value || miFormulario.get('password2')?.pristine">
-                Por favor, introduce una contraseña válida
-            </div>
-            <div class="alert alert-danger mt-2" *ngIf="miFormulario.get('password2')?.hasError('mismatch')">
-                Las contraseñas no coinciden
-              </div>
-
-        </div>
-        <div class="form-group">
-            <label for="usuario">Nombre de usuario</label>
-            <input type="text" class="form-control" id="usuario" formControlName="usuario" placeholder="Introuduce tu nombre de usuario" required>
-            <div class="alert alert-danger mt-2" [hidden]="miFormulario.get('usuario')?.value || miFormulario.get('usuario')?.pristine">
-                Por favor, introduce un usuario válido
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="fecha_nacimiento">Fecha de nacimiento</label>
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" formControlName="fecha_nacimiento" max={{fecha_actual}} required>
-            <!-- <div class="alert alert-danger mt-2" [hidden]="miFormulario.get('fecha_nacimiento')?.value || miFormulario.get('fecha_nacimiento')?.pristine">
+<form
+  #nombre_formulario="ngForm"
+  [formGroup]="miFormulario"
+  (ngSubmit)="enviarRegistro()"
+>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      aria-describedby="emailHelp"
+      formControlName="email"
+      placeholder="Introduce tu email"
+      required
+    />
+    <div
+      class="alert alert-danger mt-2"
+      *ngIf="
+        miFormulario.get('email')?.invalid &&
+        (miFormulario.get('email')?.dirty || miFormulario.get('email')?.touched)
+      "
+    >
+      Por favor, introduce un email válido
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Contraseña</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+      placeholder="Introduce tu contraseña"
+      required
+    />
+    <div
+      class="alert alert-danger mt-2"
+      [hidden]="
+        miFormulario.get('password')?.value ||
+        miFormulario.get('password')?.pristine ||
+        miFormulario.get('password')?.hasError('pattern')
+      "
+    >
+      <p class="aviso">
+        Tome en cuenta que la contraseña: Debe ser no menor a 8 carácteres. Debe
+        contener al menos una letra minúscula. Debe contener al menos una letra
+        mayúscula. Debe contener al menos un número.
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password2">Repetir contraseña</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password2"
+      formControlName="password2"
+      placeholder="Repite tu contraseña"
+      required
+    />
+    <div
+      class="alert alert-danger mt-2"
+      [hidden]="
+        miFormulario.get('password2')?.value ||
+        miFormulario.get('password2')?.pristine
+      "
+    >
+      Por favor, introduce una contraseña válida
+    </div>
+    <div
+      class="alert alert-danger mt-2"
+      *ngIf="miFormulario.get('password2')?.hasError('mismatch')"
+    >
+      Las contraseñas no coinciden
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="usuario">Nombre de usuario</label>
+    <input
+      type="text"
+      class="form-control"
+      id="usuario"
+      formControlName="usuario"
+      placeholder="Introuduce tu nombre de usuario"
+      required
+    />
+    <div
+      class="alert alert-danger mt-2"
+      [hidden]="
+        miFormulario.get('usuario')?.value ||
+        miFormulario.get('usuario')?.pristine
+      "
+    >
+      Por favor, introduce un usuario válido
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fecha_nacimiento">Fecha de nacimiento</label>
+    <input
+      type="date"
+      name="fecha_nacimiento"
+      id="fecha_nacimiento"
+      formControlName="fecha_nacimiento"
+      max="{{ fecha_actual }}"
+      required
+    />
+    <!-- <div class="alert alert-danger mt-2" [hidden]="miFormulario.get('fecha_nacimiento')?.value || miFormulario.get('fecha_nacimiento')?.pristine">
                 Por favor, introduce una fecha válida
             </div> -->
-        </div>
-        <div class="form-group">
-            <label for="acepto_condiciones">He leido y acepto los<a [routerLink]="['/terminos']" target=”_blank” >Términos y condiciones de uso   </a></label>
-            <input type="checkbox" name="acepto_condiciones" id="acepto_condiciones" formControlName="acepto_condiciones" required>
-        </div>
+  </div>
+  <div class="form-group">
+    <label for="acepto_condiciones"
+      >He leido y acepto los<a [routerLink]="['/terminos']" target="”_blank”"
+        >Términos y condiciones de uso
+      </a></label
+    >
+    <input
+      type="checkbox"
+      name="acepto_condiciones"
+      id="acepto_condiciones"
+      formControlName="acepto_condiciones"
+      required
+    />
+  </div>
 
-        <div class="boton">
-            <button type="submit" class="btn btn-primary" [disabled]="!formularioCompleto() || miFormulario.hasError('mismatch')">Registrarme</button>
-        </div>
-    </form>
+  <div class="boton">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!formularioCompleto() || miFormulario.hasError('mismatch')"
+    >
+      Registrarme
+    </button>
+  </div>
+</form>
 <a class="ya_cuenta" [routerLink]="['/login']">¿Ya tienes cuenta?</a>
 <p></p>

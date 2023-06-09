@@ -30,7 +30,8 @@ const routes: Routes = [
   {path: 'cita_tattoo_propio', component:CitaTattooPropioComponent, canActivate: [AuthGuard]},
   {path: 'cita_tattoo_detalle/:id', component:CitaTattooDetalleComponent, canActivate: [AuthGuard]},
   {path:'terminos', component:TerminosComponent},
-  {path:'detalle-cita', component:DetallesCitaComponent}
+  {path:'detalle-cita', component:DetallesCitaComponent},
+  {path:'cita/:id',component:DetallesCitaComponent}
 ];
 
 @NgModule({

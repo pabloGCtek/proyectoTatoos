@@ -47,20 +47,17 @@ export class RegistroComponent implements OnInit{
   fecha_actual:string = new Date().toISOString().split('T')[0];
   fecha_nacimiento:Date = new Date();
   edad: number = 0;
-  esMenor:boolean=false;
+  formularioRelleno:boolean=false;
   ngOnInit(){}
 
   enviarRegistro(){
     if(this.miFormulario.valid){
-    // this.calcularEdad();
     this.user.email = this.miFormulario.get('email')?.value
     this.user.contrasena = this.miFormulario.get('password')?.value
     this.user.nombre = this.miFormulario.get('usuario')?.value
     this.user.fechaNacimiento =this.miFormulario.get('fecha_nacimiento')?.value
-    console.log("Hola")
     this.usService.insert(this.user).subscribe(u =>
-    this.route.navigateByUrl('/login')
-    )
+    this.route.navigateByUrl('/login'))
     }
     else{
       alert('error en el formulario')
@@ -68,7 +65,7 @@ export class RegistroComponent implements OnInit{
 
   }
   formularioCompleto(): boolean {
-    if (this.esMenor) {
+    if (this.formularioRelleno) {
       return (
         this.miFormulario.get('email')?.value &&
         this.miFormulario.get('password')?.value &&
@@ -89,8 +86,5 @@ export class RegistroComponent implements OnInit{
         this.contrasenasCoinciden
       );
     }
-  }
-  mostrarAviso() {
-    this.toastr.info('Recuerda que si eres menor de edad, necesitas llevar autorización el dia de la cita.', 'Aviso');
   }
 }

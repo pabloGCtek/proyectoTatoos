@@ -17,12 +17,13 @@ import { CitaTattooPropioComponent } from './cita-tattoo-propio/cita-tattoo-prop
 import { PedirCitaComponent } from './pedir-cita/pedir-cita.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TerminosComponent } from './terminos/terminos.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { GalleryService } from './servicios/gallery.service';
 import { UsuariosService } from './servicios/usuarios.service';
+import { GalleryService } from './servicios/gallery.service';
+import { ImagenAStringService } from './servicios/imagen-astring.service';
 import { LocalStorageService } from './servicios/local-storage.service';
 import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-detalle.component';
+import { ArtistasService } from './servicios/artistas.service';
 
 
 @NgModule({
@@ -41,8 +42,7 @@ import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-de
     PedirCitaComponent,
     PerfilComponent,
     TerminosComponent,
-    CitaTattooDetalleComponent,
-
+    CitaTattooDetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +50,7 @@ import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-de
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 6000,  // Duración predeterminada del mensaje en milisegundos
       positionClass: 'toast-top-right',  // Posición del mensaje
@@ -58,7 +58,7 @@ import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-de
     }),
   ],
   providers:
-  [GalleryService,UsuariosService, LocalStorageService],
+  [GalleryService, UsuariosService, ImagenAStringService, LocalStorageService, ArtistasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

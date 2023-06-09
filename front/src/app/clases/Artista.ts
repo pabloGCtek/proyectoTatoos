@@ -7,5 +7,5 @@ export class Artista{
   bio:string=""
   imagen:string=""
   tattoos:Tattoo[] = []
-  citasArtista:Cita[]=[]
+  citasArtista:Cita[] = []
 }

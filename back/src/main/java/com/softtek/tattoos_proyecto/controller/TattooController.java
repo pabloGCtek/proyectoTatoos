@@ -48,4 +48,11 @@ public class TattooController {
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findTattooNombre(nombreTattoo));
         return EntityModel.of(t).add(link.withRel("tatt-link"));
     }
+
+    @GetMapping("ultimoTattoo")
+    public EntityModel<Tattoo> findTattooLast(){
+        Tattoo t = ts.findLastTattoo();
+        WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findTattooLast());
+        return EntityModel.of(t).add(link.withRel("tatt-link"));
+    }
 }

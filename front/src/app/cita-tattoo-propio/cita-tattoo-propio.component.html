@@ -11,12 +11,13 @@
       </div>
     <div class="form-group">
         <label for="descripcion" required>Descríbenos tu tatuaje:</label>
-        <input type="text" name="descripcion" id="descripcion" placeholder="Escribe aquí">
+        <input formControlName="descripcion" type="text" name="descripcion" id="descripcion" placeholder="Escribe aquí">
     </div>
     <div class="form-group">
         <label for="subir_foto">Sube una foto de referencia (si tienes):</label>
         <!-- accept define las extensiones aceptadas. multiple permite seleccionar mas de una foto -->
-        <input type="file" formControlName="imagen" name="imagen" id="imagen" accept=".jpg,.png,image/jpeg,image/png" multiple="multiple">
+        <input type="file" formControlName="imagen" name="imagen" id="imagen" accept=".jpg,.png,image/jpeg,image/png"
+         multiple="multiple" (change)="handleFileInput($event)">
     </div>
     <div class="form-group" >
       <label for="fecha_cita">Elige una fecha</label>
