@@ -7,4 +7,6 @@ public interface ICrud<T,ID>{
     T findObject(ID id);
     T insertObject(T object);
     T updateObject(T object, ID id);
+
+    T deleteObject(T object, ID id);
 }

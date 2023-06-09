@@ -22,7 +22,6 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Void> insertUsuario(@RequestBody Usuario u){
-        System.out.println("AAAAAA");
         Usuario usu = us.insertObject(u);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{emailNombre}/{clave}")

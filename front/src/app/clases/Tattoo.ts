@@ -1,4 +1,5 @@
 import { Artista } from "./Artista";
+import { Cita } from "./Cita";
 
 export class Tattoo
 {
@@ -11,4 +12,5 @@ export class Tattoo
   tattooPropio: boolean
   precio: number;
   artista: Artista;
+  citasTattoo:Cita[] = []
 }
