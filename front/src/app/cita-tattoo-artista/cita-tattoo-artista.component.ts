@@ -6,7 +6,6 @@ import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
 import { Usuario } from '../clases/Usuario';
 import { UsuariosService } from '../servicios/usuarios.service';
-import { CitasService } from '../citas.service';
 import { Cita } from '../clases/Cita';
 import { CitasService } from '../servicios/citas.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
@@ -176,11 +175,10 @@ export class CitaTattooArtistaComponent {
                     alert("Asignación de tatuaje completada");
                     // Resto del código...
                     this.usuarioServicio.inicioSesion('Juan', '1234');
-                    cita.idCita=3;
                     cita.usuarioCita = this.localStorage.usuarioLogeado();
                     cita.fecha = this.formularioCita.get('fecha_cita')?.value;
                     cita.turno = this.turno;
-                    this.citaServicio.insert(cita);
+                    this.citaServicio.insert(cita).subscribe(data => {alert(data);});
                     alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
                       "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
                     alert("artistaCita.nombre: " + cita.artistaCita.nombre);

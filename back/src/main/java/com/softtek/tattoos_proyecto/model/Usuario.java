@@ -1,13 +1,18 @@
 package com.softtek.tattoos_proyecto.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idUsuario"
+)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -26,6 +31,5 @@ public class Usuario {
 
     @JsonIgnoreProperties(value = "usuarioCita", allowSetters = true)
     @OneToMany(mappedBy = "usuarioCita", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Cita> citasUsuario;
 }

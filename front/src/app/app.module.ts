@@ -20,6 +20,9 @@ import { TerminosComponent } from './terminos/terminos.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UsuariosService } from './servicios/usuarios.service';
 import { GalleryService } from './servicios/gallery.service';
+import { ImagenAStringService } from './servicios/imagen-astring.service';
+import { LocalStorageService } from './servicios/local-storage.service';
+import { ArtistasService } from './servicios/artistas.service';
 
 
 @NgModule({
@@ -54,7 +57,7 @@ import { GalleryService } from './servicios/gallery.service';
     }),
   ],
   providers:
-  [GalleryService,UsuariosService],
+  [GalleryService, UsuariosService, ImagenAStringService, LocalStorageService, ArtistasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
