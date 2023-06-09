@@ -20,7 +20,7 @@ public class UsuarioController {
     @Autowired
     IUsuarioService us;
 
-    @PostMapping("/registro")
+    @PostMapping
     public ResponseEntity<Void> insertUsuario(@RequestBody Usuario u){
         Usuario usu = us.insertObject(u);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -30,7 +30,7 @@ public class UsuarioController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PostMapping("/modificacion")
+    @PutMapping
     public ResponseEntity<Void> updateUsuario(@RequestBody Usuario u){
         Usuario usu = us.updateObject(u,u.getIdUsuario());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

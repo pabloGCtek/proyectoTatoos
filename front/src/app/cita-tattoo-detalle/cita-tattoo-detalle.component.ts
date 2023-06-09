@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators,FormBuilder } from '@angular/forms';
-
 import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
 import { Usuario } from '../clases/Usuario';
-
-
 import { Cita } from '../clases/Cita';
 import { GalleryService } from '../servicios/gallery.service';
 import { ArtistasService } from '../servicios/artistas.service';

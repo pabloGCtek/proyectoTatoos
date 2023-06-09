@@ -30,22 +30,22 @@ ngOnInit(){
 }
 mostrarAviso()
 {
-  this.usuario=this.localStorageSer.usuarioLogeado()
-  const fechaNacimientoDate = new Date(this.usuario.fechaNacimiento);
-  const fechaActual = new Date();
+  // this.usuario=this.localStorageSer.usuarioLogeado()
+  // const fechaNacimientoDate = new Date(this.usuario.fechaNacimiento);
+  // const fechaActual = new Date();
 
-  let edad = fechaActual.getFullYear() - fechaNacimientoDate.getFullYear();
-  const mesActual = fechaActual.getMonth() + 1;
-  const diaActual = fechaActual.getDate();
-  const mesNacimiento = fechaNacimientoDate.getMonth() + 1;
-  const diaNacimiento = fechaNacimientoDate.getDate();
+  // let edad = fechaActual.getFullYear() - fechaNacimientoDate.getFullYear();
+  // const mesActual = fechaActual.getMonth() + 1;
+  // const diaActual = fechaActual.getDate();
+  // const mesNacimiento = fechaNacimientoDate.getMonth() + 1;
+  // const diaNacimiento = fechaNacimientoDate.getDate();
 
-  if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
-    edad--;
-  }
-  if(edad<18){
+  // if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
+  //   edad--;
+  // }
+  // if(edad<18){
     this.toastr.info('Eres menor de edad, recuerda que para tatuarte debes llevar autorización', 'Aviso');
-  }
+  // }
 }
 
   logout(){
