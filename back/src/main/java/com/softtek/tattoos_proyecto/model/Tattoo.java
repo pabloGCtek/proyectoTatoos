@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class Tattoo {
     @JoinColumn(name = "id_artista")
     private Artista artista;
 
+    @BatchSize(size = 3)
     @JsonIgnoreProperties(value = "tattoo", allowSetters = true)
     @OneToMany(mappedBy = "tattoo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
