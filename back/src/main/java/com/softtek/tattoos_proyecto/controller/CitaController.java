@@ -50,4 +50,11 @@ public class CitaController {
         Cita c = cs.deleteObject(cita, cita.getIdCita());
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("ultimaCita")
+    public EntityModel<Cita> findCitaLast(){
+        Cita c = cs.findLastCita();
+        WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findCitaLast());
+        return EntityModel.of(c).add(link.withRel("tatt-link"));
+    }
 }
