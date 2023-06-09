@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Artista } from 'src/assets/clases/Artista';
-import { ArtistasService } from 'src/assets/servicios/artistas.service';
+
 import { LocalStorageService } from '../servicios/local-storage.service';
+import { ArtistasService } from '../servicios/artistas.service';
+import { Artista } from '../clases/Artista';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,6 @@ export class HomeComponent {
   }
   ngOnInit(){
   this.usuarioActivo=this.localStorage.logeado()
-  this.servicioArt.mostrarArtistas().subscribe((val: any) => this.arrArtistas = val)
+  this.servicioArt.mostrarArtista().subscribe((val: any) => this.arrArtistas = val)
   }
 }

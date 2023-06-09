@@ -58,10 +58,6 @@ export class CitaTattooDetalleComponent {
         });
 
 
-
-        // { value: this.tattoN.artista.nombre, disabled: true }
-    // this.horasDisponibles = this.getHorasDisponibles('');
-
   }
 
     ngOnInit() {
@@ -72,6 +68,7 @@ export class CitaTattooDetalleComponent {
     const tamano = this.tattoN.tamano
     this.horasDisponibles = this.getHorasDisponibles(tamano);
 }
+// metodo para obtener el turno segun horas seleccionadas
   private getHorasDisponibles(tamano: string): string[] {
     let horas: string[];
 
@@ -142,7 +139,6 @@ export class CitaTattooDetalleComponent {
       }
     }
     const cita: Cita= new Cita
-    this.usuario
     cita.fecha=this.formularioCita.get("fecha_cita")?.value
     cita.turno=this.turno
     cita.usuarioCita=this.usuario

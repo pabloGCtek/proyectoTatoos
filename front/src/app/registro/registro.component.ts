@@ -52,7 +52,7 @@ export class RegistroComponent implements OnInit{
 
   enviarRegistro(){
     if(this.miFormulario.valid){
-    this.calcularEdad();
+    // this.calcularEdad();
     this.user.email = this.miFormulario.get('email')?.value
     this.user.contrasena = this.miFormulario.get('password')?.value
     this.user.nombre = this.miFormulario.get('usuario')?.value
@@ -67,22 +67,6 @@ export class RegistroComponent implements OnInit{
     }
 
   }
-  calcularEdad(){
-    const fechaNacimiento = new Date(this.fecha_nacimiento);
-    const hoy = new Date();
-    this.edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
-    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-      this.edad--;
-    }
-    // Comprobacion de mayor de edad
-    if(this.edad<18){
-      this.esMenor=true
-    }
-    alert(this.edad)
-  }
-
-  //Funcion que deshabilita el boton hasta que estén todos los campos rellenos
   formularioCompleto(): boolean {
     if (this.esMenor) {
       return (

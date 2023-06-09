@@ -53,7 +53,7 @@ import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-de
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 6000,  // Duración predeterminada del mensaje en milisegundos
-      positionClass: 'toast-top-full-width',  // Posición del mensaje
+      positionClass: 'toast-top-right',  // Posición del mensaje
       preventDuplicates: true,  // Evita mostrar mensajes duplicados
     }),
   ],
