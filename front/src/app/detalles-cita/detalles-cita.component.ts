@@ -10,16 +10,14 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 })
 export class DetallesCitaComponent {
 
-  @Input() cita: Cita;
+
 
   id:number
   fecha: string
   turno: number;
   ultimaCita: Cita
+  cita:Cita
   constructor(private citaService:CitasService, private activarRuta:ActivatedRoute,private ruta:Router){
-    this.cita = new Cita()
-    this.id = 0
-    this.fecha = ""
 
   }
 
