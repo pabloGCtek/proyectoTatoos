@@ -46,7 +46,7 @@ export class RegistroComponent implements OnInit{
   fecha_actual:string = new Date().toISOString().split('T')[0];
   fecha_nacimiento:Date = new Date();
   edad: number = 0;
-  esMenor:boolean=false;
+  formularioRelleno:boolean=false;
   ngOnInit(){}
 
   enviarRegistro(){
@@ -63,23 +63,10 @@ export class RegistroComponent implements OnInit{
     }
 
   }
-  calcularEdad(){
-    const fechaNacimiento = new Date(this.fecha_nacimiento);
-    const hoy = new Date();
-    this.edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
-    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-      this.edad--;
-    }
-    // Comprobacion de mayor de edad
-    if(this.edad<18){
-      this.esMenor=true
-    }
-  }
 
   //Funcion que deshabilita el boton hasta que estén todos los campos rellenos
   formularioCompleto(): boolean {
-    if (this.esMenor) {
+    if (this.formularioRelleno) {
       return (
         this.miFormulario.get('email')?.value &&
         this.miFormulario.get('password')?.value &&

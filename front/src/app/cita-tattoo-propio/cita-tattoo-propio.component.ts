@@ -35,6 +35,14 @@ export class CitaTattooPropioComponent {
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
   }
+  arrayCitas:Cita[] = [];
+  ngOnInit(){
+    this.citaServicio.obtenerTodasCitas().subscribe(data => {this.arrayCitas=data
+      for(let i:number=0;i<this.arrayCitas.length;i++){
+        alert("Turno: " + this.arrayCitas[i].fecha)
+      }}
+      );
+  }
 
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
   cambiarHora() {
@@ -67,7 +75,7 @@ export class CitaTattooPropioComponent {
     let horaActual = horaInicio;
 
     while (horaActual < horaFin) {
-      const horaFormateada = this.formatearHora(horaActual);
+      const horaFormateada = horaActual.toString().padStart(2, '0') + ':00';
       horas.push(horaFormateada);
       horaActual += intervalo;
     }
@@ -86,13 +94,10 @@ export class CitaTattooPropioComponent {
     return null;
   }
 
-  private formatearHora(hora: number): string {
-    return hora.toString().padStart(2, '0') + ':00';
-  }
-
   file:File
   tattoo:Tattoo = new Tattoo();
 
+  //metodo para cambiar el formato de la imagen a uno que acepte la BBDD
   handleFileInput(event:Event){
     const target= event.target as HTMLInputElement
     this.file = (target.files as FileList)[0]
@@ -141,7 +146,6 @@ export class CitaTattooPropioComponent {
   
           // Crear el objeto Tattoo
           
-
           this.tattoo.artista = artistaEncontrado
           this.tattoo.nombre = "";
           this.tattoo.descripcion = this.formularioCita.get('descripcion')?.value;
@@ -155,7 +159,7 @@ export class CitaTattooPropioComponent {
           } else if (this.tattoo.tamano === "grande") {
             this.tattoo.precio = 400;
           }
-          
+
           // Insertar tatuaje
           this.imagenServicio.insertarTattoo(this.tattoo).subscribe(data => {alert("Subscribe de insertar tatoo" + data);
         
@@ -172,5 +176,12 @@ export class CitaTattooPropioComponent {
         }
       }
     );
+  }
+
+
+  obtenerTurnosCreados(){
+    for(let i:number=0;i<this.arrayCitas.length;i++){
+      alert("Turno: " + this.arrayCitas[i].turno)
+    }
   }
 }

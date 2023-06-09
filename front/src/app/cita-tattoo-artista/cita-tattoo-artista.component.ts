@@ -97,16 +97,12 @@ export class CitaTattooArtistaComponent {
     let horaActual = horaInicio;
 
     while (horaActual < horaFin) {
-      const horaFormateada = this.formatearHora(horaActual);
+      const horaFormateada = horaActual.toString().padStart(2, '0') + ':00';
       horas.push(horaFormateada);
       horaActual += intervalo;
     }
 
     return horas;
-  }
-
-  private formatearHora(hora: number): string {
-    return hora.toString().padStart(2, '0') + ':00';
   }
 
   //Desactivar dias de la semana

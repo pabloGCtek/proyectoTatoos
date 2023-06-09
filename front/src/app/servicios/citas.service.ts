@@ -18,5 +18,7 @@ export class CitasService {
   obtenerPorId(id: number):Observable<Cita>{
     return  this.httpC.get<Cita>(`${this.url}/${id}`)
   }
-  
+  obtenerTodasCitas():Observable<Cita[]>{
+    return this.httpC.get<Cita[]>(`${this.url}`);
+  }
 }
