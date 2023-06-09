@@ -20,4 +20,9 @@ public class TattooService extends CrudImpl<Tattoo,Integer> implements ITattooSe
     public Tattoo findTattooName(String nombre) {
         return tr.findTattooByNombre(nombre);
     }
+
+    @Override
+    public Tattoo findLastTattoo() {
+        return tr.findLastTattoo();
+    }
 }
