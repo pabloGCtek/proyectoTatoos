@@ -34,7 +34,7 @@
         </select>
       </div>
       <div class="boton">
-        <button type="submit" class="btn btn-warning" [disabled]="formularioCita.get('fecha_cita')?.invalid">Pedir cita</button>
+        <button type="submit" class="btn btn-warning"  [routerLink]="['/detalle-cita']"  [disabled]="formularioCita.get('fecha_cita')?.invalid">Pedir cita</button>
       </div>
 
     </form>
@@ -42,5 +42,5 @@
       <img  class="imagen" [src]="imagenTatuajeSeleccionado">
       <p class="precio">Precio: {{precioTatuajeSeleccionado}}€</p>
     </div>
-    
+
 </div>

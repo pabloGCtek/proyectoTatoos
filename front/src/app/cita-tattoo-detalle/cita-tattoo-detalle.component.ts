@@ -9,7 +9,7 @@ import { ArtistasService } from '../servicios/artistas.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
 import { CitasService } from '../servicios/citas.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 @Component({
   selector: 'app-cita-tattoo-detalle',
   templateUrl: './cita-tattoo-detalle.component.html',
@@ -36,7 +36,7 @@ export class CitaTattooDetalleComponent {
   //obtencion de la fecha actual probando
   fecha_actual:string = new Date().toISOString().split('T')[0];
     constructor(private servicioGaleria: GalleryService,
-    private formBuilder: FormBuilder,
+    private route: Router,
     private citaServicio:CitasService,
     private localStorage: LocalStorageService,
     private activarRuta: ActivatedRoute) {
@@ -147,6 +147,7 @@ export class CitaTattooDetalleComponent {
     this.citaServicio.insert(cita).subscribe(dato=>
       console.log(dato));
       alert("fecha:"+cita.fecha+" turno "+cita.turno+" cliente "+cita.usuarioCita.nombre+" tattoo "+cita.tattoo.nombre+" del artista: "+cita.artistaCita.nombre)
-  }
+      this.route.navigateByUrl('/detalle-cita')
+    }
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Cita } from '../clases/Cita';
 import { CitasService } from '../servicios/citas.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -9,21 +9,27 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['./detalles-cita.component.css']
 })
 export class DetallesCitaComponent {
-  cita: Cita
+
+  @Input() cita: Cita;
+
   id:number
   fecha: string
+  turno: number;
+  ultimaCita: Cita
   constructor(private citaService:CitasService, private activarRuta:ActivatedRoute,private ruta:Router){
     this.cita = new Cita()
     this.id = 0
     this.fecha = ""
+
   }
 
   ngOnInit(){
-    this.id=this.activarRuta.snapshot.params["id"]
-    this.citaService.obtenerPorId(this.id).subscribe(c=>{
-      this.cita=c
-    })
-    this.fecha = this.cita.fecha.toLocaleDateString()
+    this.obtenerUltimaCita();
+  }
+
+  obtenerUltimaCita(){
+    this.citaService.obtenerUltimaCita().subscribe((cita:any)=>this.ultimaCita=cita)
+      this.fecha = this.cita.fecha.toLocaleDateString()
   }
   regresar(){
     this.ruta.navigate(['gallery'])

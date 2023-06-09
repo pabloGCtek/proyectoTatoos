@@ -143,9 +143,9 @@ export class CitaTattooPropioComponent {
         const artistaEncontrado = artistas.find(a => a.idArtista == IDartista);
         if (artistaEncontrado) {
           cita.artistaCita = artistaEncontrado;
-  
+
           // Crear el objeto Tattoo
-          
+
           this.tattoo.artista = artistaEncontrado
           this.tattoo.nombre = "";
           this.tattoo.descripcion = this.formularioCita.get('descripcion')?.value;
@@ -162,14 +162,14 @@ export class CitaTattooPropioComponent {
 
           // Insertar tatuaje
           this.imagenServicio.insertarTattoo(this.tattoo).subscribe(data => {alert("Subscribe de insertar tatoo" + data);
-        
+
           // Crear la cita
           this.servicioGaleria.encontrarUltimoTattoo().subscribe(data => {cita.tattoo=data
           cita.usuarioCita = this.localStorage.usuarioLogeado(),
           cita.fecha = this.formularioCita.get('fecha_cita')?.value,
           cita.turno = this.turno,
           this.citaServicio.insert(cita).subscribe(data => {alert(data);});
-          alert("artistaCita: " + cita.artistaCita.nombre + "\nturno: " + cita.turno + 
+          alert("artistaCita: " + cita.artistaCita.nombre + "\nturno: " + cita.turno +
             "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);},
         );
         });

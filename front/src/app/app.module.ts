@@ -25,6 +25,7 @@ import { ImagenAStringService } from './servicios/imagen-astring.service';
 import { LocalStorageService } from './servicios/local-storage.service';
 import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-detalle.component';
 import { ArtistasService } from './servicios/artistas.service';
+import { DetallesCitaComponent } from './detalles-cita/detalles-cita.component';
 
 
 
@@ -45,7 +46,8 @@ import { ArtistasService } from './servicios/artistas.service';
     PerfilComponent,
     TerminosComponent,
     CitaCardComponent,
-    CitaTattooDetalleComponent
+    CitaTattooDetalleComponent,
+    DetallesCitaComponent
 
   ],
   imports: [

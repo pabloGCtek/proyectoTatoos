@@ -1,22 +1,22 @@
-<div class="contenedor2">
-    <div class="card" *ngIf="cita" >
-      <p class="card-text">
-        Detalles de la cita:
-      <p class="card-text">
-        Id: {{cita.idCita}}
-      <p class="card-text">
-        Fecha: {{fecha}}
-      <p class="card-text">
-        Turno: {{cita.turno}}
-      <p class="card-text">
-        Artista: {{cita.artistaCita.nombre}}
-      <p class="card-text">
-        Tattoo:
-      <img class="imagen" [src]="cita.tattoo.imagen" >
-      <p class="card-text">
-        Descripcion: {{cita.tattoo.descripcion}}</p>
-        <button (click)="regresar()">Volver a galeria</button>
-       <!--boton para pedir cita-->
-        <!-- <button (click)="regresar()">Pedir Cita</button> -->
-    </div>
+<div class="contenedor2" >
+  <h2>¡TU CITA ESTÁ CONFIRMADA!</h2>
+  <div class="card" >
+    <p class="card-text">
+      Detalles de la cita:
+    <p class="card-text">
+      Id: {{ultimaCita.idCita}}
+    <p class="card-text">
+      Fecha: {{ultimaCita.fecha | date}}
+    <p class="card-text">
+      Turno: {{ultimaCita.turno}}
+    <p class="card-text">
+      Artista: {{ultimaCita.artistaCita.nombre}}
+    <p class="card-text">
+      Tattoo:
+      aefsjsdkj
+    <img class="imagen" [src]="ultimaCita.tattoo.imagen" >
+    <p class="card-text">
+      Descripcion: {{ultimaCita.tattoo.descripcion}}</p>
+      <button (click)="regresar()">Volver a galeria</button>
+  </div>
   </div>
