@@ -18,7 +18,7 @@ export class UsuariosService {
   insert(user:Usuario):Observable<any>{
     return this.http.post(`${this.url}`,user)
   }
-  
+
   inicioSesion(email: string, clave: string):Observable<Usuario>
   {
     this.usActual = this.http.get<Usuario>(`${this.url}/${email}/${clave}`)
@@ -27,4 +27,5 @@ export class UsuariosService {
   modificaUsuario(us: Usuario):Observable<any>{
     return this.http.put(`${this.url}`,us)
   } 
+
 }

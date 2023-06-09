@@ -22,6 +22,7 @@ import { UsuariosService } from './servicios/usuarios.service';
 import { GalleryService } from './servicios/gallery.service';
 import { ImagenAStringService } from './servicios/imagen-astring.service';
 import { LocalStorageService } from './servicios/local-storage.service';
+import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-detalle.component';
 import { ArtistasService } from './servicios/artistas.service';
 
 
@@ -40,8 +41,8 @@ import { ArtistasService } from './servicios/artistas.service';
     CitaTattooPropioComponent,
     PedirCitaComponent,
     PerfilComponent,
-    TerminosComponent
-
+    TerminosComponent,
+    CitaTattooDetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,7 @@ import { ArtistasService } from './servicios/artistas.service';
     //BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 6000,  // Duración predeterminada del mensaje en milisegundos
-      positionClass: 'toast-top-full-width',  // Posición del mensaje
+      positionClass: 'toast-top-right',  // Posición del mensaje
       preventDuplicates: true,  // Evita mostrar mensajes duplicados
     }),
   ],

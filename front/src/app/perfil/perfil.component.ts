@@ -14,6 +14,7 @@ templateUrl: './perfil.component.html',
 styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent {
+
 usuario: Usuario;
 miFormulario: FormGroup;
 contrasenasCoinciden: boolean = true;
@@ -48,6 +49,7 @@ this.usuario= this.localStorage.usuarioLogeado()
  alert(this.usuario.email)
  }
 guardarMods(){
+
   if(this.miFormulario.valid){
     alert("Formulario bien")
     this.usuario.email = this.miFormulario.get('email')?.value

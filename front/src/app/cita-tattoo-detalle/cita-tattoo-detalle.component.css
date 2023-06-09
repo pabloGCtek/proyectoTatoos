@@ -1,0 +1,42 @@
+h1{
+  text-align: center;
+  padding-top: 6rem;
+}
+.container{
+  display: flex;
+  justify-content: space-around;
+}
+img{
+  margin-left: 4rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 5px;
+  margin:5px;
+}
+form{
+  text-align: end;
+}
+form, .boton{
+  margin-top: 4rem;
+}
+.form-group{
+  display: flex;
+  justify-content:center;
+  margin-top: 1rem;
+}
+input, select{
+  width: 15rem;
+  text-align: center;
+  margin-left: 2rem;
+}
+.boton{
+  display: flex;
+  justify-content: center;
+}
+.error{
+  margin: auto;
+  width:50%;
+  background-color: rgba(255, 51, 0, 0.973);
+  border-radius: 5px;
+  text-align: center;
+}

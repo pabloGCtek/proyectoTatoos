@@ -24,10 +24,12 @@ public class Artista {
     private String imagen;
 
     @JsonIgnoreProperties(value = "artista", allowSetters = true)
+
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tattoo> tattoos;
 
     @JsonIgnoreProperties(value = "artistaCita", allowSetters = true)
+
     @OneToMany(mappedBy = "artistaCita", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Cita> citasArtista;
