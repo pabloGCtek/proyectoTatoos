@@ -1,89 +1,160 @@
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
 <div class="container w-75">
-<div class="row flex-lg-nowrap">
-<div class="col ">
-<div class="row">
-<div class="col mb-3">
-<div class="card">
-<div class="card-body">
-<div class="e-profile">
-<div class="row">
-<div class="col d-flex flex-column flex-sm-row justify-content-center mb-3">
-<div class="text-center text-sm-left mb-2 mb-sm-0">
-<h6>Hola:</h6>
-<h3 class="pt-sm-2 pb-1 my-0 text-nowrap">{{usuario.nombre}}</h3>
-</div>
-</div>
-</div>
-<ul class="nav nav-tabs">
-<li class="nav-item"><a href="" class="active nav-link">Opciones</a></li>
-</ul>
-<div class="tab-content pt-3">
-<div class="tab-pane active">
-<form class="form" novalidate="">
-<div class="row">
-<div class="col">
-<div class="row">
-<div class="col">
-<div class="form-group">
-<label>Username</label>
-<input class="form-control" type="text" name="username" placeholder="n_usuario" value="{{usuario.nombre}}">
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col">
-<div class="form-group">
-<label>Email</label>
-<input class="form-control" type="text" placeholder="user@example.com" value="{{usuario.email}}">
-</div>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-12 col-sm-6 mb-3">
- <div class="mb-2"><b>Cambiar contrañesa</b></div>
-<div class="row">
- <div class="col">
-<div class="form-group">
-<label>Contraseña actual</label>
-<input class="form-control" type="password">
- </div>
- </div>
- </div>
- <div class="row">
- <div class="col">
-<div class="form-group">
-<label>Nueva Contraseña</label>
-<input class="form-control" type="password">
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col">
-<div class="form-group">
-<label>Confirmar contraseña</label>
-<input class="form-control" type="password"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col d-flex justify-content-end">
-<button class="btn btn-primary" type="submit">Save Changes</button>
-</div>
-</div>
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
- </div>
- </div>
+  <div class="row flex-lg-nowrap">
+    <div class="col">
+      <div class="row">
+        <div class="col mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="e-profile">
+                <div class="row">
+                  <div
+                    class="col d-flex flex-column flex-sm-row justify-content-center mb-3"
+                  >
+                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                      <h6>Hola:</h6>
+                      <h3 class="pt-sm-2 pb-1 my-0 text-nowrap">
+                        {{ usuario.nombre }}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <p>Opciones</p>
+                  </li>
+                </ul>
+                <div class="tab-content pt-3">
+                  <div class="tab-pane active">
+                    <form
+                        #nombre_formulario="ngForm"
+                        [formGroup]="miFormulario"
+                        (ngSubmit)="guardarMods()"
+>
+                      <div class="row">
+                        <div class="col">
+                          <div class="row">
+                            <div class="col">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input
+                                      type="email"
+                                      class="form-control"
+                                      id="email"
+                                      aria-describedby="emailHelp"
+                                      formControlName="email"
+                                      placeholder="Intro nuevo email"
+                                      [ngModel]="usuario.email"
+                                    />
+                                    <div
+                                      class="alert alert-danger mt-2"
+                                      *ngIf="
+                                        miFormulario.get('email')?.invalid &&
+                                        (miFormulario.get('email')?.dirty || miFormulario.get('email')?.touched)
+                                      "
+                                    >
+                                      Por favor, introduce un email válido
+                                    </div>
+                                  </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-sm-6 mb-3">
+                            <div class="mb-2"><b>Cambiar contrañesa</b></div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Contraseña actual</label>
+                                  <input class="form-control" type="password" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                    <label for="password">Contraseña</label>
+                                    <input
+                                      type="password"
+                                      class="form-control"
+                                      id="password"
+                                      formControlName="password"
+                                      placeholder="Introduce tu contraseña"
+                                      required
+                                    />
+                                    <div
+                                      class="alert alert-danger mt-2"
+                                      [hidden]="
+                                        miFormulario.get('password')?.value ||
+                                        miFormulario.get('password')?.pristine ||
+                                        miFormulario.get('password')?.hasError('pattern')
+                                      "
+                                    >
+                                      <p class="aviso">
+                                        Tome en cuenta que la contraseña: Debe ser no menor a 8 carácteres. Debe
+                                        contener al menos una letra minúscula. Debe contener al menos una letra
+                                        mayúscula. Debe contener al menos un número.
+                                      </p>
+                                    </div>
+                                  </div>
 
-
-</div>
-</div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                    <label for="password2">Repetir contraseña</label>
+                                    <input
+                                      type="password"
+                                      class="form-control"
+                                      id="password2"
+                                      formControlName="password2"
+                                      placeholder="Repite la nueva contraseña"
+                                      
+                                    />
+                                    <div
+                                      class="alert alert-danger mt-2"
+                                      [hidden]="
+                                        miFormulario.get('password2')?.value ||
+                                        miFormulario.get('password2')?.pristine
+                                      "
+                                    >
+                                      Por favor, introduce una contraseña válida
+                                    </div>
+                                    <div
+                                      class="alert alert-danger mt-2"
+                                      *ngIf="miFormulario.get('password2')?.hasError('mismatch')"
+                                    >
+                                      Las contraseñas no coinciden
+                                    </div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col d-flex justify-content-end">
+                            <button class="btn btn-primary" type="submit">
+                              Guardar Cambios
+                            </button>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                    </form>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
