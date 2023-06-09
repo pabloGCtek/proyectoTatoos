@@ -20,10 +20,12 @@ import { TerminosComponent } from './terminos/terminos.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UsuariosService } from './servicios/usuarios.service';
 import { GalleryService } from './servicios/gallery.service';
+import { CitaCardComponent } from './cita-card/cita-card.component';
 import { ImagenAStringService } from './servicios/imagen-astring.service';
 import { LocalStorageService } from './servicios/local-storage.service';
 import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-detalle.component';
 import { ArtistasService } from './servicios/artistas.service';
+
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { ArtistasService } from './servicios/artistas.service';
     PedirCitaComponent,
     PerfilComponent,
     TerminosComponent,
+    CitaCardComponent,
     CitaTattooDetalleComponent
+
   ],
   imports: [
     BrowserModule,

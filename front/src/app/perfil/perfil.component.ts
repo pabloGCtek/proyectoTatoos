@@ -46,12 +46,10 @@ constructor(private sUsuario: UsuariosService, private route: Router, private lo
 
 ngOnInit(){
 this.usuario= this.localStorage.usuarioLogeado()
- alert(this.usuario.email)
  }
 guardarMods(){
 
   if(this.miFormulario.valid){
-    alert("Formulario bien")
     this.usuario.email = this.miFormulario.get('email')?.value
     this.usuario.contrasena = this.miFormulario.get('password')?.value
     this.sUsuario.modificaUsuario(this.usuario).subscribe(u =>
