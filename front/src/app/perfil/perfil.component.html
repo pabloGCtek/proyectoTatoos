@@ -148,13 +148,18 @@
                         </div>
                       </div>
                     </form>
-                        </div>
-                      </div>
+                    </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="listacitas">
+      <div *ngFor=" let c of usuario.citasUsuario">
+        <app-cita-card [cita]="c"></app-cita-card>
       </div>
     </div>

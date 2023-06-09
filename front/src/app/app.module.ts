@@ -20,6 +20,7 @@ import { TerminosComponent } from './terminos/terminos.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UsuariosService } from './servicios/usuarios.service';
 import { GalleryService } from './servicios/gallery.service';
+import { CitaCardComponent } from './cita-card/cita-card.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { GalleryService } from './servicios/gallery.service';
     CitaTattooPropioComponent,
     PedirCitaComponent,
     PerfilComponent,
-    TerminosComponent
+    TerminosComponent,
+    CitaCardComponent
 
   ],
   imports: [
