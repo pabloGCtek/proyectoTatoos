@@ -7,6 +7,7 @@ import { GalleryService } from '../servicios/gallery.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { Tattoo } from '../clases/Tattoo';
+import { ImagenAStringService } from '../servicios/imagen-astring.service';
 
 @Component({
   selector: 'app-cita-tattoo-propio',
@@ -22,7 +23,8 @@ export class CitaTattooPropioComponent {
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
   constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
-    private usuarioServicio: UsuariosService, private citaServicio:CitasService, private localStorage:LocalStorageService) {
+    private usuarioServicio: UsuariosService, private citaServicio:CitasService,
+    private localStorage:LocalStorageService, private imagenServicio: ImagenAStringService) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl(''),
       descripcion: new FormControl(''),
@@ -88,6 +90,15 @@ export class CitaTattooPropioComponent {
     return hora.toString().padStart(2, '0') + ':00';
   }
 
+  file:File
+  tattoo:Tattoo = new Tattoo();
+
+  handleFileInput(event:Event){
+    const target= event.target as HTMLInputElement
+    this.file = (target.files as FileList)[0]
+    this.imagenServicio.getBase64(this.file).then(data=>this.tattoo.imagen = data)
+  }
+
   registrarCita(){
 
     if (this.formularioCita.get('tamano')?.value == 'pequeño') {
@@ -127,34 +138,34 @@ export class CitaTattooPropioComponent {
         const artistaEncontrado = artistas.find(a => a.idArtista == IDartista);
         if (artistaEncontrado) {
           cita.artistaCita = artistaEncontrado;
-          // Alerta para la asignación del artista
-          alert("ID aleatorio: " + artistaEncontrado.idArtista + " , nombre: " + artistaEncontrado.nombre);
   
           // Crear el objeto Tattoo
-          const tattoo = new Tattoo();
-          tattoo.idTattoo = Math.floor(Math.random() * (100 - 21 + 1)) + 21;
-          tattoo.nombre = "";
-          tattoo.descripcion = this.formularioCita.get('descripcion')?.value;
-          tattoo.lugar = "";
-          tattoo.tamano = this.formularioCita.get('tamano')?.value;
-          tattoo.imagen = this.formularioCita.get('imagen')?.value;
-          tattoo.tattooPropio = true;
-          if (tattoo.tamano === "pequeño") {
-            tattoo.precio = 50;
-          } else if (tattoo.tamano === "mediano") {
-            tattoo.precio = 200;
-          } else if (tattoo.tamano === "grande") {
-            tattoo.precio = 400;
+          this.tattoo.idTattoo=0;
+          this.tattoo.artista = artistaEncontrado
+          this.tattoo.nombre = "";
+          this.tattoo.descripcion = this.formularioCita.get('descripcion')?.value;
+          this.tattoo.lugar = "";
+          this.tattoo.tamano = this.formularioCita.get('tamano')?.value;
+          this.tattoo.tattooPropio = true;
+          if (this.tattoo.tamano === "pequeño") {
+            this.tattoo.precio = 50;
+          } else if (this.tattoo.tamano === "mediano") {
+            this.tattoo.precio = 200;
+          } else if (this.tattoo.tamano === "grande") {
+            this.tattoo.precio = 400;
           }
-          cita.tattoo = tattoo;
+          
+
+          // Insertar tatuaje
+          this.imagenServicio.insertarTattoo(this.tattoo).subscribe(data => {alert(data);});
   
           // Crear la cita
-          cita.idCita = 3;
+          cita.tattoo = this.tattoo;
           cita.usuarioCita = this.localStorage.usuarioLogeado();
           cita.fecha = this.formularioCita.get('fecha_cita')?.value;
           cita.turno = this.turno;
-          this.citaServicio.insert(cita);
-          alert("artistaCita: " + cita.artistaCita.nombre + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo.imagen +
+          this.citaServicio.insert(cita).subscribe(data => {alert(data);});
+          alert("artistaCita: " + cita.artistaCita.nombre + "\nturno: " + cita.turno + 
             "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
         }
       }
