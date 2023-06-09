@@ -14,6 +14,7 @@ templateUrl: './perfil.component.html',
 styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent {
+
 usuario: Usuario;
 miFormulario: FormGroup;
 contrasenasCoinciden: boolean = true;
@@ -47,6 +48,7 @@ ngOnInit(){
 this.usuario= this.localStorage.usuarioLogeado()
  }
 guardarMods(){
+
   if(this.miFormulario.valid){
     this.usuario.email = this.miFormulario.get('email')?.value
     this.usuario.contrasena = this.miFormulario.get('password')?.value

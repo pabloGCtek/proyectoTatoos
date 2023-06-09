@@ -1,0 +1,40 @@
+<h1>PIDE TU CITA</h1>
+<div class="container">
+  <form [formGroup]="formularioCita" (ngSubmit)="registrarCita()">
+    <div *ngIf="formularioCita.get('fecha_cita')?.hasError('sabadoInvalido')" class="error">Los sábados cerramos por descanso</div>
+      <div class="form-group">
+        <label for="tatuador">Tatuador</label>
+        <input formControlName="tatuador" id="tatuador"  required>
+      </div>
+      <div class="form-group">
+        <label for="tamano">Tamaño</label>
+        <input formControlName="tamano" id="tamano"   required>
+      </div>
+      <div class="form-group">
+        <label for="lugar">Parte del cuerpo</label>
+        <input formControlName="lugar" id="lugar"  required>
+      </div>
+      <div class="form-group">
+        <label for="tatuaje">Tatuaje</label>
+        <input formControlName="tatuaje" id="tatuaje"  required>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input  formControlName="precio" id="precio"  required>
+      </div>
+      <div class="form-group" >
+        <label for="fecha_cita">Elige una fecha</label>
+        <input type="date" formControlName="fecha_cita" id="fecha_cita" min={{fecha_actual}} (change)="cambiarHora()" required>
+      </div>
+      <div class="form-group">
+        <label for="hora_cita">Elige una hora</label>
+        <select formControlName="hora_cita" id="hora_cita">
+          <option *ngFor="let hora of horasDisponibles" [value]="hora">{{ hora }}</option>
+        </select>
+      </div>
+      <div class="boton">
+        <button type="submit" class="btn btn-warning" [routerLink]="['/detalle-cita',]" [disabled]="formularioCita.get('fecha_cita')?.invalid">Pedir cita</button>
+      </div>
+    </form>
+    <img  class="imagen" [src]="tattoN.imagen">
+</div>

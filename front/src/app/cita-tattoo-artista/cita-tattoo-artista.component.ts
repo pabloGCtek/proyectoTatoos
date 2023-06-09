@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Cita } from '../clases/Cita';
 import { GalleryService } from '../servicios/gallery.service';
+import { UsuariosService } from '../servicios/usuarios.service';
+import { LocalStorageService } from '../servicios/local-storage.service';
+import { ActivatedRoute } from '@angular/router';
 import { ArtistasService } from '../servicios/artistas.service';
 import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
-import { Usuario } from '../clases/Usuario';
-import { UsuariosService } from '../servicios/usuarios.service';
-import { Cita } from '../clases/Cita';
+import { Usuario } from '../clases/Usuario'
 import { CitasService } from '../servicios/citas.service';
 
 @Component({
@@ -21,23 +23,34 @@ export class CitaTattooArtistaComponent {
   imagen:string="";
   tattooSeleccionado:boolean=false;
   idTatuador=0;
+  idTattoo:number;
+  tattoN:Tattoo
 
-  
-  //obtencion de la fecha actual
+
+  //obtencion de la fecha actual 
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
-  constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
-    private usuarioServicio: UsuariosService, private citaServicio:CitasService) {
+  constructor(private servicioGaleria: GalleryService,
+    private artistaServicio: ArtistasService,
+    private usuarioServicio: UsuariosService,
+    private citaServicio:CitasService,
+    private localStorage: LocalStorageService,
+    private activarRuta: ActivatedRoute) {
     this.formularioCita = new FormGroup({
-      tamano: new FormControl(''),
-      tatuador: new FormControl(''),
-      tatuaje: new FormControl(''),
+      tamano: new FormControl('', Validators.required),
+      tatuador: new FormControl('', Validators.required),
+      tatuaje: new FormControl('', Validators.required),
       fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
-      hora_cita: new FormControl('')
+      hora_cita: new FormControl('', Validators.required)
     });
 
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
 
+  }
+    ngOnInit() {
+    this.mostrarTodos();
+    this.mostrarArtistas();
+    this.usuarioServicio.inicioSesion('Juan','1234').subscribe(data => this.usuario = data)
   }
 
   //Metodo para cambiar los tatuajes en funcion del tatuador
@@ -70,7 +83,7 @@ export class CitaTattooArtistaComponent {
   cambiarHora() {
     const tamano = this.formularioCita.get('tamano')?.value;
     this.horasDisponibles = this.getHorasDisponibles(tamano);
-}
+  }
   private getHorasDisponibles(tamano: string): string[] {
     let horas: string[];
 
@@ -96,7 +109,7 @@ export class CitaTattooArtistaComponent {
     let horaActual = horaInicio;
 
     while (horaActual < horaFin) {
-      const horaFormateada = this.formatearHora(horaActual);
+      const horaFormateada = horaActual.toString().padStart(2, '0') + ':00';
       horas.push(horaFormateada);
       horaActual += intervalo;
     }
@@ -104,24 +117,21 @@ export class CitaTattooArtistaComponent {
     return horas;
   }
 
-  private formatearHora(hora: number): string {
-    return hora.toString().padStart(2, '0') + ':00';
-  }
-
   //Desactivar dias de la semana
   validarFecha(control: FormControl): { [key: string]: any } | null {
     const fechaSeleccionada = new Date(control.value);
     const diaSeleccionado = fechaSeleccionada.getDay();
-  
+
     if (diaSeleccionado === 6) { // 6 representa el sábado (domingo es 0)
       return { sabadoInvalido: true };
     }
-  
+
     return null;
   }
-  
+
 
   registrarCita() {
+    //Cambiar el turno en funcion de la hora elegida
     if (this.formularioCita.get('tamano')?.value === 'Pequeño') {
       if (this.formularioCita.get('hora_cita')?.value === '08:00') {
         this.turno = 1;
@@ -141,10 +151,10 @@ export class CitaTattooArtistaComponent {
         this.turno = 3;
       }
     }
-  
+
     const cita = new Cita();
     const artista = new Artista();
-  
+
     // Obtener los valores del artista desde el servicio
     const nombreArtista = this.formularioCita.get('tatuador')?.value;
     this.artistaServicio.mostrarArtista().subscribe(
@@ -152,11 +162,6 @@ export class CitaTattooArtistaComponent {
         const artistaEncontrado = artistas.find(a => a.nombre == nombreArtista);
         if (artistaEncontrado) {
           alert("Hace asignacion");
-          artista.idArtista = artistaEncontrado.idArtista;
-          artista.bio = artistaEncontrado.bio;
-          artista.imagen = artistaEncontrado.imagen;
-          artista.tattoos = artistaEncontrado.tattoos;
-          artista.nombre = artistaEncontrado.nombre;
           cita.artistaCita = artistaEncontrado;
           // Alerta para la asignación del artista
           alert("Asignación de artista completada");
@@ -166,11 +171,11 @@ export class CitaTattooArtistaComponent {
             (tatuajes: Tattoo[]) => {
               // Filtrar los tatuajes por nombre
               const tattooFiltrado = tatuajes.filter(tatuaje => tatuaje.nombre == this.formularioCita.get('tatuaje')?.value);
-  
+
               // Verificar si se encontró un tatuaje
               if (tattooFiltrado.length > 0) {
                 const tatuajeSeleccionado = tattooFiltrado[0];
-  
+
                 // Obtener el resto de los atributos del tatuaje desde la base de datos
                 this.servicioGaleria.obtenerPorId(tatuajeSeleccionado.idTattoo).subscribe(
                   (tattooObtenido: Tattoo) => {
@@ -179,11 +184,12 @@ export class CitaTattooArtistaComponent {
                     alert("Asignación de tatuaje completada");
                     // Resto del código...
                     this.usuarioServicio.inicioSesion('Juan', '1234');
+                    cita.usuarioCita = this.localStorage.usuarioLogeado();
                     cita.fecha = this.formularioCita.get('fecha_cita')?.value;
                     cita.turno = this.turno;
-                    this.citaServicio.insert(cita);
+                    this.citaServicio.insert(cita).subscribe(data => {alert(data);});
                     alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
-                      "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.nombre);
+                      "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
                     alert("artistaCita.nombre: " + cita.artistaCita.nombre);
                   }
                 );
@@ -196,9 +202,9 @@ export class CitaTattooArtistaComponent {
       },
     );
   }
-  
-  //Para mostrar una foto del tatuaje seleccionado
+  //Para mostrar una foto del tatuaje seleccionado y su precio
   imagenTatuajeSeleccionado: String;
+  precioTatuajeSeleccionado: number;
 
   seleccionarTatuaje() {
     this.tattooSeleccionado = true;
@@ -208,6 +214,7 @@ export class CitaTattooArtistaComponent {
     for(let i=0;i<=this.tattooFiltrado.length;i++){
       if(this.tattooFiltrado[i].nombre==tatuajeSeleccionadoNombre){
         this.imagenTatuajeSeleccionado=this.tattooFiltrado[i].imagen
+        this.precioTatuajeSeleccionado=this.tattooFiltrado[i].precio
       }
     }
   }
@@ -218,12 +225,7 @@ export class CitaTattooArtistaComponent {
   idArtista: number;
   tattooFiltrado: Tattoo[]=[]
   usuario:Usuario;
-  ngOnInit() {
-    this.mostrarTodos();
-    this.mostrarArtistas();
-    this.usuarioServicio.inicioSesion('Juan','1234').subscribe(data => this.usuario = data)
-  }
-  
+
   mostrarTodos(): void{
     this.servicioGaleria.mostrarTatto().subscribe(data=>this.tattoos=data)
    }
@@ -241,15 +243,35 @@ export class CitaTattooArtistaComponent {
     this.tattooFiltrado=this.filtrarArray(tamano, this.idTatuador);
    }
    filtrarArray(tamano: string, idArtista: number) : Tattoo[]{
-    
+
     let arrayAux:Tattoo[]=[];
     for(let i=0;i<this.artistas[idArtista].tattoos.length;i++){
       if(this.artistas[idArtista].tattoos[i].tamano==tamano){
         arrayAux.push(this.artistas[idArtista].tattoos[i]);
       }
     }
-    for(let i=0;i<arrayAux.length;i++){
-    }
     return arrayAux;
-   }
+  }
+
+  formCompleto:boolean = false;
+  //Funcion que deshabilita el boton hasta que estén todos los campos rellenos
+  formularioCompleto(): boolean {
+    if (this.formCompleto) {
+      return (
+        this.formularioCita.get('tatuador')?.value &&
+        this.formularioCita.get('tamano')?.value &&
+        this.formularioCita.get('tatuaje')?.value &&
+        this.formularioCita.get('fecha_cita')?.value &&
+        this.formularioCita.get('hora_cita')?.value
+      );
+    } else {
+      return (
+        this.formularioCita.get('tatuador')?.value &&
+        this.formularioCita.get('tamano')?.value &&
+        this.formularioCita.get('tatuaje')?.value &&
+        this.formularioCita.get('fecha_cita')?.value &&
+        this.formularioCita.get('hora_cita')?.value
+      );
+    }
+  }
 }

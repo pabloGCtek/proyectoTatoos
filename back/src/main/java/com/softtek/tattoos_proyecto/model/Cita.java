@@ -20,15 +20,18 @@ public class Cita {
     private int idCita;
     private Date fecha;
     private int turno;
-    @JsonIgnoreProperties("citasUsuario")
+
+    @JsonIgnoreProperties(value = "citasUsuario", allowSetters = true)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
     private Usuario usuarioCita;
-    @JsonIgnoreProperties("citasArtista")
+
+    @JsonIgnoreProperties(value = "citasArtista", allowSetters = true)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_artista")
     private Artista artistaCita;
-    @JsonIgnoreProperties("artistasTattoo")
+
+    @JsonIgnoreProperties(value = "artistasTattoo", allowSetters = true)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tattoo")
     private Tattoo tattoo;

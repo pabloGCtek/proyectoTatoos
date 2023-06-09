@@ -21,6 +21,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { UsuariosService } from './servicios/usuarios.service';
 import { GalleryService } from './servicios/gallery.service';
 import { CitaCardComponent } from './cita-card/cita-card.component';
+import { ImagenAStringService } from './servicios/imagen-astring.service';
+import { LocalStorageService } from './servicios/local-storage.service';
+import { CitaTattooDetalleComponent } from './cita-tattoo-detalle/cita-tattoo-detalle.component';
+import { ArtistasService } from './servicios/artistas.service';
+
 
 
 @NgModule({
@@ -39,7 +44,8 @@ import { CitaCardComponent } from './cita-card/cita-card.component';
     PedirCitaComponent,
     PerfilComponent,
     TerminosComponent,
-    CitaCardComponent
+    CitaCardComponent,
+    CitaTattooDetalleComponent
 
   ],
   imports: [
@@ -51,12 +57,12 @@ import { CitaCardComponent } from './cita-card/cita-card.component';
     //BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 6000,  // Duración predeterminada del mensaje en milisegundos
-      positionClass: 'toast-top-full-width',  // Posición del mensaje
+      positionClass: 'toast-top-right',  // Posición del mensaje
       preventDuplicates: true,  // Evita mostrar mensajes duplicados
     }),
   ],
   providers:
-  [GalleryService,UsuariosService],
+  [GalleryService, UsuariosService, ImagenAStringService, LocalStorageService, ArtistasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
