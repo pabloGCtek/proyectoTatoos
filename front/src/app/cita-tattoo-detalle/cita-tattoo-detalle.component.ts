@@ -61,7 +61,6 @@ export class CitaTattooDetalleComponent {
   }
 
     ngOnInit() {
-
   }
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
   cambiarHora() {

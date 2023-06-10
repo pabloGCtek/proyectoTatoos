@@ -1,22 +1,41 @@
 <div class="contenedor2" >
-  <h2>¡TU CITA ESTÁ CONFIRMADA!</h2>
   <div class="card" >
-    <p class="card-text">
-      Detalles de la cita:
-    <p class="card-text">
-      Id: {{ultimaCita.idCita}}
-    <p class="card-text">
-      Fecha: {{ultimaCita.fecha | date}}
-    <p class="card-text">
-      Turno: {{ultimaCita.turno}}
-    <p class="card-text">
-      Artista: {{ultimaCita.artistaCita.nombre}}
-    <p class="card-text">
-      Tattoo:
-      aefsjsdkj
+    <h3>¡TU CITA ESTÁ CONFIRMADA!</h3>
+    <span class="card-text">
+     Cliente:
+    </span>
+    {{usuario.nombre}}
+     <span class="card-text">
+      Identificador de cliente:
+    </span>
+     {{usuario.idUsuario}}
+    <span class="card-text">
+      Número identificador de cita:
+    </span>
+    {{ultimaCita.idCita}}
+      <span class="card-text">
+      Fecha y hora:
+    </span>
+    {{ultimaCita.fecha | date}}
+    <p class="card-text" *ngIf="ultimaCita.turno==1">
+      8:00hrs
+    </p>
+    <p class="card-text" *ngIf="ultimaCita.turno==2">
+       10:00hrs
+    </p>
+    <p class="card-text" *ngIf="ultimaCita.turno==3">
+      14:00hrs
+    </p>
+    <span class="card-text">
+      Artista:
+    </span>
+      {{ultimaCita.artistaCita.nombre}}
+    <span class="card-text">
+         Descripcion:
+    </span>
+    {{ultimaCita.tattoo.descripcion}}
+</div>
     <img class="imagen" [src]="ultimaCita.tattoo.imagen" >
-    <p class="card-text">
-      Descripcion: {{ultimaCita.tattoo.descripcion}}</p>
-      <button (click)="regresar()">Volver a galeria</button>
-  </div>
-  </div>
+  <div class="boton">
+    <button class="btn btn-warning"(click)="regresar()">Volver a galeria</button>
+</div>

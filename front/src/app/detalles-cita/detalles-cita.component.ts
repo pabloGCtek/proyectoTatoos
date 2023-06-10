@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Cita } from '../clases/Cita';
 import { CitasService } from '../servicios/citas.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { LocalStorageService } from '../servicios/local-storage.service';
+import { Usuario } from '../clases/Usuario';
 
 @Component({
   selector: 'app-detalles-cita',
@@ -9,25 +11,28 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['./detalles-cita.component.css']
 })
 export class DetallesCitaComponent {
-
-
-
-  id:number
   fecha: string
-  turno: number;
   ultimaCita: Cita
   cita:Cita
-  constructor(private citaService:CitasService, private activarRuta:ActivatedRoute,private ruta:Router){
-
+  hora:string
+  turno:number
+  usuario: Usuario
+  constructor(private citaService:CitasService, private activarRuta:ActivatedRoute,private ruta:Router, private localStorage: LocalStorageService){
+    this.usuario=this.localStorage.usuarioLogeado()
   }
-
+//recibir la ultima cita en el momento de cargar la página
   ngOnInit(){
     this.obtenerUltimaCita();
+
   }
 
   obtenerUltimaCita(){
+
     this.citaService.obtenerUltimaCita().subscribe((cita:any)=>this.ultimaCita=cita)
-      this.fecha = this.cita.fecha.toLocaleDateString()
+    this.fecha = this.cita.fecha.toLocaleDateString()
+
+
+
   }
   regresar(){
     this.ruta.navigate(['gallery'])

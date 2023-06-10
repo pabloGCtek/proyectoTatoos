@@ -18,7 +18,7 @@ export class AppComponent {
   constructor(private localStorageSer: LocalStorageService, private router: Router,private toastr: ToastrService){
     setInterval(() => {
       this.mostrarAviso();
-    }, 10000);
+    }, 7000);
     this.localStorageSer.datosDesesion$.subscribe(usuarioA=>{
       this.usuarioActivo=usuarioA;
       this.usuario=this.localStorageSer.usuarioLogeado()})
@@ -31,7 +31,7 @@ mostrarAviso()
 {
   const fechaNacimiento = new Date(this.usuario.fechaNacimiento);
   const hoy = new Date();
-  const legalAge: number = 18; // Edad legal
+  const edadLegal: number = 18; // Edad legal
   let edad: number = hoy.getFullYear() - fechaNacimiento.getFullYear();
   const mes: number = hoy.getMonth() - fechaNacimiento.getMonth();
 
@@ -39,14 +39,13 @@ mostrarAviso()
     edad--;
   }
   if(this.localStorageSer.logeado())
-  { if(edad<legalAge)
+  { if(edad<edadLegal)
     {
       this.toastr.info('Eres menor de edad, recuerda que para tatuarte debes llevar autorización', 'Aviso');
     }
     }
 
 }
-
 
   logout(){
     this.localStorageSer.logout()
@@ -56,9 +55,9 @@ mostrarAviso()
   loginYperfil(){
     if(this.usuarioActivo==true)
     {
-      this.router.navigateByUrl('/perfil')
+      this.router.navigateByUrl('perfil')
     }
     else
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('login')
   }
 }
