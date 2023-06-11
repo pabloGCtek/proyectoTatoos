@@ -4,7 +4,7 @@ import { Cita } from '../clases/Cita';
 import { GalleryService } from '../servicios/gallery.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArtistasService } from '../servicios/artistas.service';
 import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
@@ -35,7 +35,7 @@ export class CitaTattooArtistaComponent {
     private usuarioServicio: UsuariosService,
     private citaServicio:CitasService,
     private localStorage: LocalStorageService,
-    private activarRuta: ActivatedRoute) {
+    private router: Router) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl('', Validators.required),
       tatuador: new FormControl('', Validators.required),
@@ -47,10 +47,11 @@ export class CitaTattooArtistaComponent {
     this.horasDisponibles = this.getHorasDisponibles('pequeño');
 
   }
-    ngOnInit() {
+  arrayCitas:Cita[] = [];
+  ngOnInit() {
     this.mostrarTodos();
     this.mostrarArtistas();
-    this.usuarioServicio.inicioSesion('Juan','1234').subscribe(data => this.usuario = data)
+    this.citaServicio.obtenerTodasCitas().subscribe(data => {this.arrayCitas=data});
   }
 
   //Metodo para cambiar los tatuajes en funcion del tatuador
@@ -131,7 +132,13 @@ export class CitaTattooArtistaComponent {
 
 
   registrarCita() {
-    //Cambiar el turno en funcion de la hora elegida
+    // Verifica si la cita ya existe
+    let citaExistente = this.verificarCitaExistente();
+    if(citaExistente){
+      alert("Lo sentimos, ya existe una cita en esa hora y dia. Por favor, elige otra.");
+    }
+    else{
+      //Cambiar el turno en funcion de la hora elegida
     if (this.formularioCita.get('tamano')?.value === 'Pequeño') {
       if (this.formularioCita.get('hora_cita')?.value === '08:00') {
         this.turno = 1;
@@ -161,11 +168,7 @@ export class CitaTattooArtistaComponent {
       artistas => {
         const artistaEncontrado = artistas.find(a => a.nombre == nombreArtista);
         if (artistaEncontrado) {
-          alert("Hace asignacion");
           cita.artistaCita = artistaEncontrado;
-          // Alerta para la asignación del artista
-          alert("Asignación de artista completada");
-          // Resto del código...
           // Obtener los tatuajes filtrados desde la base de datos
           this.servicioGaleria.mostrarTatto().subscribe(
             (tatuajes: Tattoo[]) => {
@@ -180,17 +183,12 @@ export class CitaTattooArtistaComponent {
                 this.servicioGaleria.obtenerPorId(tatuajeSeleccionado.idTattoo).subscribe(
                   (tattooObtenido: Tattoo) => {
                     cita.tattoo = tattooObtenido; // Asignación de tattoo a la cita
-                    // Alerta para la asignación del tatuaje
-                    alert("Asignación de tatuaje completada");
-                    // Resto del código...
                     this.usuarioServicio.inicioSesion('Juan', '1234');
                     cita.usuarioCita = this.localStorage.usuarioLogeado();
                     cita.fecha = this.formularioCita.get('fecha_cita')?.value;
                     cita.turno = this.turno;
-                    this.citaServicio.insert(cita).subscribe(data => {alert(data);});
-                    alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
-                      "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
-                    alert("artistaCita.nombre: " + cita.artistaCita.nombre);
+                    this.citaServicio.insert(cita).subscribe(data => {});
+                    this.router.navigateByUrl('/detalle-cita');
                   }
                 );
               }
@@ -201,6 +199,7 @@ export class CitaTattooArtistaComponent {
         }
       },
     );
+    }
   }
   //Para mostrar una foto del tatuaje seleccionado y su precio
   imagenTatuajeSeleccionado: String;
@@ -227,7 +226,17 @@ export class CitaTattooArtistaComponent {
   usuario:Usuario;
 
   mostrarTodos(): void{
-    this.servicioGaleria.mostrarTatto().subscribe(data=>this.tattoos=data)
+    this.servicioGaleria.mostrarTatto().subscribe(data=>{this.tattoos=data
+      // condicion para que no muestre los tatuajes subidos por usuarios asignados a ese tatuador
+    for (let i = this.tattooFiltrado.length - 1; i >= 0; i--) {
+      if (this.tattooFiltrado[i].tattooPropio) {
+        alert("Tatuaje propio encontrado: " + this.tattooFiltrado[i].nombre);
+        this.tattooFiltrado.splice(i, 1);
+      }
+    }
+    })
+    
+    
    }
    mostrarArtistas():void{
      this.artistaServicio.mostrarArtista().subscribe(data=>{this.artistas=data
@@ -238,6 +247,13 @@ export class CitaTattooArtistaComponent {
    }
    filtrarPorArtista(id: number){
      this.tattooFiltrado=this.artistas[id].tattoos
+    // condicion para que no muestre los tatuajes subidos por usuarios asignados a ese tatuador
+    for (let i = this.tattooFiltrado.length - 1; i >= 0; i--) {
+      if (this.tattooFiltrado[i].tattooPropio) {
+        alert("Tatuaje propio encontrado: " + this.tattooFiltrado[i].nombre);
+        this.tattooFiltrado.splice(i, 1);
+      }
+    }
    }
    filtrarPorTamano(tamano: string){
     this.tattooFiltrado=this.filtrarArray(tamano, this.idTatuador);
@@ -273,5 +289,53 @@ export class CitaTattooArtistaComponent {
         this.formularioCita.get('hora_cita')?.value
       );
     }
+  }
+
+  verificarCitaExistente() :boolean {
+    const fechaCita = this.formularioCita.get('fecha_cita')?.value;
+    let turnoAux: number = 0;
+    // Asigna el valor correcto a `turnoAux` según el tamaño y la hora de la cita
+    if (this.formularioCita.get('tamano')?.value == 'Pequeño') {
+
+      if(this.formularioCita.get('hora_cita')?.value === "08:00"){
+        turnoAux=1;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === "10:00"){
+        turnoAux=2;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === "14:00"){
+        turnoAux=3;
+      }
+
+    }
+    else if (this.formularioCita.get('tamano')?.value === 'Mediano') {
+      if(this.formularioCita.get('hora_cita')?.value === '10:00'){
+        turnoAux=2;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === '14:00'){
+        turnoAux=3;
+      }
+    }
+    else if (this.formularioCita.get('tamano')?.value === 'Grande') {
+      if(this.formularioCita.get('hora_cita')?.value === '14:00'){
+        turnoAux=3;
+      }
+    }
+    // Verifica si la cita ya existe en arrayCitas
+    let coincidenciaEncontrada = false;
+    for(let i = 0; i < this.arrayCitas.length; i++){
+      const fecha = new Date(this.arrayCitas[i].fecha);
+      const year = fecha.getFullYear();
+      const month = fecha.getMonth() + 1;
+      const day = fecha.getDate();
+      const fechaFormateada = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      if(fechaFormateada === fechaCita && this.arrayCitas[i].turno === turnoAux){
+      //   alert("COINCIDEN arraycita.fecha: " + fechaFormateada + " turno" + this.arrayCitas[i].turno
+      //   + "\nformulariocita: " + fechaCita + "formularioturno: " + turnoAux)
+        coincidenciaEncontrada = true;
+        break;
+      }
+    }
+    return coincidenciaEncontrada;
   }
 }

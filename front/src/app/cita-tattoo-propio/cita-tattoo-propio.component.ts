@@ -8,6 +8,7 @@ import { LocalStorageService } from '../servicios/local-storage.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { Tattoo } from '../clases/Tattoo';
 import { ImagenAStringService } from '../servicios/imagen-astring.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cita-tattoo-propio',
@@ -24,12 +25,13 @@ export class CitaTattooPropioComponent {
 
   constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
     private usuarioServicio: UsuariosService, private citaServicio:CitasService,
-    private localStorage:LocalStorageService, private imagenServicio: ImagenAStringService) {
+    private localStorage:LocalStorageService, private imagenServicio: ImagenAStringService,
+    private router: Router) {
     this.formularioCita = new FormGroup({
-      tamano: new FormControl(''),
-      descripcion: new FormControl(''),
+      tamano: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
       fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
-      hora_cita: new FormControl(''),
+      hora_cita: new FormControl('', Validators.required),
       imagen: new FormControl('')
     });
 
@@ -172,14 +174,14 @@ export class CitaTattooPropioComponent {
           cita.usuarioCita = this.localStorage.usuarioLogeado(),
           cita.fecha = this.formularioCita.get('fecha_cita')?.value,
           cita.turno = this.turno,
-          this.citaServicio.insert(cita).subscribe(data => {});}
+          this.citaServicio.insert(cita).subscribe(data => {});
+          this.router.navigateByUrl('/detalle-cita');}
         );
         });
         }
       }
     );
     }
-    
   }
 
 

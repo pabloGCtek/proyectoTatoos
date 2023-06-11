@@ -33,7 +33,9 @@
         </select>
       </div>
       <div class="boton">
-        <button type="submit" class="btn btn-warning" [routerLink]="['/detalle-cita',]" [disabled]="formularioCita.get('fecha_cita')?.invalid">Pedir cita</button>
+        <button type="submit" class="btn btn-warning" [disabled]="formularioCita.get('tatuador')?.invalid || formularioCita.get('tamano')?.invalid
+        || formularioCita.get('tatuaje')?.invalid || formularioCita.get('fecha_cita')?.invalid
+        || formularioCita.get('hora_cita')?.invalid">Pedir cita</button>
       </div>
     </form>
     <img  class="imagen" [src]="tattoN.imagen">
