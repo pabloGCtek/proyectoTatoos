@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Usuario } from './clases/Usuario';
-import { Route, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from './servicios/local-storage.service';
 

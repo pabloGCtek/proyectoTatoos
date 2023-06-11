@@ -23,16 +23,11 @@ export class DetallesCitaComponent {
 //recibir la ultima cita en el momento de cargar la página
   ngOnInit(){
     this.obtenerUltimaCita();
-
   }
 
   obtenerUltimaCita(){
-
     this.citaService.obtenerUltimaCita().subscribe((cita:any)=>this.ultimaCita=cita)
     this.fecha = this.cita.fecha.toLocaleDateString()
-
-
-
   }
   regresar(){
     this.ruta.navigate(['gallery'])

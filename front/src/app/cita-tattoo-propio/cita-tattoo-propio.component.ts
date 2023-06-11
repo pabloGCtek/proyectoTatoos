@@ -8,6 +8,7 @@ import { LocalStorageService } from '../servicios/local-storage.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { Tattoo } from '../clases/Tattoo';
 import { ImagenAStringService } from '../servicios/imagen-astring.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cita-tattoo-propio',
@@ -24,6 +25,7 @@ export class CitaTattooPropioComponent {
 
   constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
     private usuarioServicio: UsuariosService, private citaServicio:CitasService,
+    private route: Router,
     private localStorage:LocalStorageService, private imagenServicio: ImagenAStringService) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl(''),
@@ -37,11 +39,11 @@ export class CitaTattooPropioComponent {
   }
   arrayCitas:Cita[] = [];
   ngOnInit(){
-    this.citaServicio.obtenerTodasCitas().subscribe(data => {this.arrayCitas=data
-      for(let i:number=0;i<this.arrayCitas.length;i++){
-        alert("Turno: " + this.arrayCitas[i].fecha)
-      }}
-      );
+    // this.citaServicio.obtenerTodasCitas().subscribe(data => {this.arrayCitas=data
+    //   for(let i:number=0;i<this.arrayCitas.length;i++){
+    //     alert("Turno: " + this.arrayCitas[i].fecha)
+    //   }}
+    //   );
   }
 
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
@@ -162,7 +164,6 @@ export class CitaTattooPropioComponent {
 
           // Insertar tatuaje
           this.imagenServicio.insertarTattoo(this.tattoo).subscribe(data => {alert("Subscribe de insertar tatoo" + data);
-
           // Crear la cita
           this.servicioGaleria.encontrarUltimoTattoo().subscribe(data => {cita.tattoo=data
           cita.usuarioCita = this.localStorage.usuarioLogeado(),
@@ -170,8 +171,10 @@ export class CitaTattooPropioComponent {
           cita.turno = this.turno,
           this.citaServicio.insert(cita).subscribe(data => {alert(data);});
           alert("artistaCita: " + cita.artistaCita.nombre + "\nturno: " + cita.turno +
-            "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);},
+            "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
+            this.route.navigateByUrl('/detalle-cita')},
         );
+
         });
         }
       }
@@ -179,9 +182,9 @@ export class CitaTattooPropioComponent {
   }
 
 
-  obtenerTurnosCreados(){
-    for(let i:number=0;i<this.arrayCitas.length;i++){
-      alert("Turno: " + this.arrayCitas[i].turno)
-    }
-  }
+  // obtenerTurnosCreados(){
+  //   for(let i:number=0;i<this.arrayCitas.length;i++){
+  //     alert("Turno: " + this.arrayCitas[i].turno)
+  //   }
+  // }
 }

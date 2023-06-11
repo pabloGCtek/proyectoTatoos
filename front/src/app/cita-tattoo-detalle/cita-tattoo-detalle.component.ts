@@ -61,6 +61,7 @@ export class CitaTattooDetalleComponent {
   }
 
     ngOnInit() {
+
   }
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
   cambiarHora() {
@@ -143,10 +144,13 @@ export class CitaTattooDetalleComponent {
     cita.usuarioCita=this.usuario
     cita.artistaCita=this.tattoN.artista
     cita.tattoo=this.tattoN
-    this.citaServicio.insert(cita).subscribe(dato=>
+    if(cita.turno!=0)
+      {
+        this.citaServicio.insert(cita).subscribe(dato=>
       console.log(dato));
       alert("fecha:"+cita.fecha+" turno "+cita.turno+" cliente "+cita.usuarioCita.nombre+" tattoo "+cita.tattoo.nombre+" del artista: "+cita.artistaCita.nombre)
       this.route.navigateByUrl('/detalle-cita')
+        }
     }
 
 }

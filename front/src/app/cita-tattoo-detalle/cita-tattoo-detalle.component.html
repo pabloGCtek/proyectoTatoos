@@ -29,7 +29,7 @@
       </div>
       <div class="form-group">
         <label for="hora_cita">Elige una hora</label>
-        <select formControlName="hora_cita" id="hora_cita">
+        <select formControlName="hora_cita" id="hora_cita" required>
           <option *ngFor="let hora of horasDisponibles" [value]="hora">{{ hora }}</option>
         </select>
       </div>
