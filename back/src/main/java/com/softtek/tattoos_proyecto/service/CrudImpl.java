@@ -25,8 +25,8 @@ public abstract class CrudImpl<T,ID> {
         return getRepo().save(object);
     }
 
-    public T deleteObject(T object, ID id){
-        findObject(id);
+    public T deleteObject(ID id){
+        T object = findObject(id);
         getRepo().delete(object);
         return object;
     }

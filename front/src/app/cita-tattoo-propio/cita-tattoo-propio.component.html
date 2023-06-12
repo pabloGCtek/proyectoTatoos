@@ -1,4 +1,5 @@
 <h1>PIDE TU CITA</h1>
+<div class="container">
 <form [formGroup]="formularioCita" (ngSubmit)="registrarCita()">
   <div *ngIf="formularioCita.get('fecha_cita')?.hasError('sabadoInvalido')" class="error">Los sábados cerramos por descanso</div>
     <div class="form-group">
@@ -35,3 +36,4 @@
         || formularioCita.get('hora_cita')?.invalid">Pedir cita</button>
     </div>
 </form>
+</div>

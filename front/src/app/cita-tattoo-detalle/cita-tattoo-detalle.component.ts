@@ -152,8 +152,11 @@ export class CitaTattooDetalleComponent {
       cita.usuarioCita=this.usuario
       cita.artistaCita=this.tattoN.artista
       cita.tattoo=this.tattoN
-      this.citaServicio.insert(cita).subscribe(dato=>
-        console.log(dato));this.router.navigateByUrl('/detalle-cita');
+      this.citaServicio.insert(cita).subscribe(dato=>{
+        console.log(dato)
+        this.router.navigateByUrl('/detalle-cita');
+      }
+      );
       }
     
   }
@@ -175,6 +178,7 @@ export class CitaTattooDetalleComponent {
       }
 
     }
+
     else if (this.formularioCita.get('tamano')?.value === 'Mediano') {
       if(this.formularioCita.get('hora_cita')?.value === '10:00'){
         turnoAux=2;

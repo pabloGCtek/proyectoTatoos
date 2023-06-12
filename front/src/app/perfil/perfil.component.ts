@@ -62,6 +62,7 @@ guardarMods(){
       window.location.reload()
     }
     )
+
     }
     else{
       alert('error en el formulario')
