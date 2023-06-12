@@ -4,9 +4,9 @@
     <div class="form-group">
         <label for="tamano">Tamaño</label>
         <select formControlName="tamano" id="tamano" (change)="cambiarHora()" required>
-          <option value="pequeño">Pequeño (4x4 cm)</option>
-          <option value="mediano">Mediano (10x10 cm)</option>
-          <option value="grande">Grande (>10x10 cm)</option>
+          <option value="pequeño">Pequeño (4x4 cm) 50€</option>
+          <option value="mediano">Mediano (10x10 cm) 200€</option>
+          <option value="grande">Grande (>10x10 cm) 400€</option>
         </select>
       </div>
     <div class="form-group">
@@ -14,10 +14,10 @@
         <input formControlName="descripcion" type="text" name="descripcion" id="descripcion" placeholder="Escribe aquí">
     </div>
     <div class="form-group">
-        <label for="subir_foto">Sube una foto de referencia (si tienes):</label>
-        <!-- accept define las extensiones aceptadas. multiple permite seleccionar mas de una foto -->
+        <label for="imagen">Sube una foto de referencia (si tienes):</label>
+        <!-- accept define las extensiones aceptadas -->
         <input type="file" formControlName="imagen" name="imagen" id="imagen" accept=".jpg,.png,image/jpeg,image/png"
-         multiple="multiple" (change)="handleFileInput($event)">
+          (change)="handleFileInput($event)">
     </div>
     <div class="form-group" >
       <label for="fecha_cita">Elige una fecha</label>
@@ -30,6 +30,8 @@
         </select>
       </div>
     <div class="boton">
-        <button type="submit" class="btn btn-warning"   [disabled]="formularioCita.get('fecha_cita')?.invalid">Pedir cita</button>
+        <button type="submit" class="btn btn-warning" [disabled]="formularioCita.get('tamano')?.invalid
+        || formularioCita.get('descripcion')?.invalid || formularioCita.get('fecha_cita')?.invalid
+        || formularioCita.get('hora_cita')?.invalid">Pedir cita</button>
     </div>
 </form>
