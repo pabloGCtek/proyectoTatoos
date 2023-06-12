@@ -17,6 +17,7 @@ export class AuthGuard implements CanActivate {
       // El usuario está autenticado, permitir el acceso a la ruta
       return true;
     } else {
+      alert("Para pedir cita es necesario iniciar sesión");
       return this.router.parseUrl('/login');
     }
 

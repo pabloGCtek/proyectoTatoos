@@ -59,6 +59,7 @@ guardarMods(){
     this.usuario.contrasena = this.miFormulario.get('password')?.value
     this.sUsuario.modificaUsuario(this.usuario).subscribe(u =>{
       this.localStorage.login(this.usuario)
+      alert("Cambios registrados correctamente")
       window.location.reload()
     }
     )
