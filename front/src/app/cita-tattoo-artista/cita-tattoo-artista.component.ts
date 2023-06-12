@@ -72,11 +72,11 @@ export class CitaTattooArtistaComponent {
   }
   //Metodo para cambiar los tatuajes en funcion del tamaño
   cambiarTatuajesTamano(){
-    if(this.formularioCita.get("tamano")?.value ==='pequeño'){
+    if(this.formularioCita.get("tamano")?.value ==='Pequeño'){
     }
-    else if(this.formularioCita.get("tamano")?.value === 'mediano'){
+    else if(this.formularioCita.get("tamano")?.value === 'Mediano'){
     }
-    else if(this.formularioCita.get("tamano")?.value === 'grande'){
+    else if(this.formularioCita.get("tamano")?.value === 'Grande'){
     }
     this.filtrarPorTamano(this.formularioCita.get("tamano")?.value);
   }
@@ -226,9 +226,10 @@ export class CitaTattooArtistaComponent {
   usuario:Usuario;
 
   mostrarTodos(): void{
-    this.servicioGaleria.mostrarTatto().subscribe(data=>{this.tattoos=data
+    this.servicioGaleria.mostrarTatto().subscribe(data=>{this.tattooFiltrado=data
       // condicion para que no muestre los tatuajes subidos por usuarios asignados a ese tatuador
-    for (let i = this.tattooFiltrado.length - 1; i >= 0; i--) {
+      // this.tattooFiltrado=this.tattooFiltrado.filter(data=>data.tattooPropio!=true)
+    for (let i = 0; i < this.tattooFiltrado.length;i++) {
       if (this.tattooFiltrado[i].tattooPropio) {
         alert("Tatuaje propio encontrado: " + this.tattooFiltrado[i].nombre);
         this.tattooFiltrado.splice(i, 1);
@@ -242,11 +243,8 @@ export class CitaTattooArtistaComponent {
      this.artistaServicio.mostrarArtista().subscribe(data=>{this.artistas=data
      this.tattooFiltrado=data[0].tattoos})
    }
-   filtrarTodos(){
-     this.tattooFiltrado=this.tattoos
-   }
    filtrarPorArtista(id: number){
-     this.tattooFiltrado=this.artistas[id].tattoos
+     this.tattooFiltrado=this.artistas[id].tattoos.filter(data => data.tattooPropio !== true)
     // condicion para que no muestre los tatuajes subidos por usuarios asignados a ese tatuador
     for (let i = this.tattooFiltrado.length - 1; i >= 0; i--) {
       if (this.tattooFiltrado[i].tattooPropio) {
