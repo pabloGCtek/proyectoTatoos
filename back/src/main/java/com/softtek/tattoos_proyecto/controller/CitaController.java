@@ -45,9 +45,9 @@ public class CitaController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteCita(@RequestBody Cita cita){
-        Cita c = cs.deleteObject(cita, cita.getIdCita());
+    @DeleteMapping("/{idCita}")
+    public ResponseEntity<Void> deleteCita(@PathVariable int idCita){
+        Cita c = cs.deleteObject(idCita);
         return ResponseEntity.noContent().build();
     }
 
