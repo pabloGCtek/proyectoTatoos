@@ -17,8 +17,6 @@ export class AuthGuard implements CanActivate {
       // El usuario está autenticado, permitir el acceso a la ruta
       return true;
     } else {
-      alert("Debe iniciar sesion antes de acceder a la ruta")
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
       return this.router.parseUrl('/login');
     }
 
