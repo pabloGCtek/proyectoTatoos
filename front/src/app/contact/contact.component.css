@@ -1,16 +1,31 @@
 .contenedor{
+
   width: inherit;
+
   flex-wrap: wrap;
+
   display: flex;
+
   justify-content: center;
+
 }
+
+
+
 
 .contact-info{
+
   width: 60%;
+
   margin-top:40px;
+
   border-radius: 10px;
 
+
+
+
 }
+
 .text{
   width: 100%;
   padding:10px ;
@@ -19,13 +34,23 @@
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
 
 }
+
 .social-media svg{
+
   margin: 10px;
+
   justify-items: center;
+
 }
+
 .map{
+
   width: 550px;
+
   height: 450px;
+
   border: 10px;
+
   margin: 10px;
+
 }
