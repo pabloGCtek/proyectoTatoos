@@ -233,7 +233,6 @@ export class CitaTattooArtistaComponent {
       // this.tattooFiltrado=this.tattooFiltrado.filter(data=>data.tattooPropio!=true)
     for (let i = 0; i < this.tattooFiltrado.length;i++) {
       if (this.tattooFiltrado[i].tattooPropio) {
-        alert("Tatuaje propio encontrado: " + this.tattooFiltrado[i].nombre);
         this.tattooFiltrado.splice(i, 1);
       }
     }
