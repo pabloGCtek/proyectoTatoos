@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
-import { CookieService } from 'ngx-cookie-service';
 import { Route, Router, Routes } from '@angular/router';
 import { Usuario } from '../clases/Usuario';
 
@@ -12,20 +11,21 @@ import { Usuario } from '../clases/Usuario';
 export class UsuariosService {
 
   private url:String = "http://localhost:8080/usuarios"
+  public usActual:Observable<Usuario>
 
-
-  constructor(private http:HttpClient, public cookies: CookieService, private router: Router) { }
+  constructor(private http:HttpClient, private router: Router) { }
 
   insert(user:Usuario):Observable<any>{
-    console.log(user)
-    return this.http.post(`${this.url}/registro`,user)
+    return this.http.post(`${this.url}`,user)
   }
-  
+
   inicioSesion(email: string, clave: string):Observable<Usuario>
   {
-      return this.http.get<Usuario>(`${this.url}/${email}/${clave}`)
+    this.usActual = this.http.get<Usuario>(`${this.url}/${email}/${clave}`)
+    return this.usActual
   }
-  modificaUsuario(us: Usuario){
-
+  modificaUsuario(us: Usuario):Observable<any>{
+    return this.http.put(`${this.url}`,us)
   } 
+
 }

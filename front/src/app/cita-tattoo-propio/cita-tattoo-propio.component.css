@@ -2,6 +2,10 @@ h1{
     text-align: center;
     padding-top: 6rem;
 }
+.container{
+  display: flex;
+  justify-content: space-around;
+}
 form{
     text-align: end;
 }
@@ -10,7 +14,7 @@ form, .boton{
 }
 .form-group{
     display: flex;
-    justify-content:center;
+    justify-content:right;
     margin-top: 1rem;
 }
 input, select{

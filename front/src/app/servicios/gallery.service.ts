@@ -22,5 +22,7 @@ export class GalleryService {
   obtenerPorNombre(nombre: string):Observable<Tattoo>{
     return  this.http.get<Tattoo>(`${this.tatoUrl}/${nombre}`)
   }
-
+  encontrarUltimoTattoo():Observable<Tattoo>{
+    return this.http.get<Tattoo>(`${this.tatoUrl}/ultimoTattoo`)
+  }
 }

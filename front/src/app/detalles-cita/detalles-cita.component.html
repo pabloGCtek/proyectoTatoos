@@ -1,22 +1,40 @@
-<div class="contenedor2">
-    <div class="card" *ngIf="cita" >
-      <p class="card-text">
-        Detalles de la cita:
-      <p class="card-text">
-        Id: {{cita.idCita}}
-      <p class="card-text">
-        Fecha: {{fecha}}
-      <p class="card-text">
-        Turno: {{cita.turno}}
-      <p class="card-text">
-        Artista: {{cita.artistaCita.nombre}}
-      <p class="card-text">
-        Tattoo:
-      <img class="imagen" [src]="cita.tattoo.imagen" >
-      <p class="card-text">
-        Descripcion: {{cita.tattoo.descripcion}}</p>
-        <button (click)="regresar()">Volver a galeria</button>
-       <!--boton para pedir cita-->
-        <!-- <button (click)="regresar()">Pedir Cita</button> -->
-    </div>
-  </div>
+<div class="contenedor2" >
+  <div class="card" >
+    <h3>¡TU CITA ESTÁ CONFIRMADA!</h3>
+    <span class="card-text">
+     Cliente:
+    </span>
+    {{usuario.nombre}}
+     <span class="card-text">
+      Identificador de cliente:
+    </span>
+     {{usuario.idUsuario}}
+    <span class="card-text">
+      Número identificador de cita:
+    </span>
+    {{ultimaCita.idCita}}
+      <span class="card-text">
+      Fecha y hora:
+    </span>
+    {{ultimaCita.fecha | date}}
+    <p class="card-text" *ngIf="ultimaCita.turno==1">
+      8:00hrs
+    </p>
+    <p class="card-text" *ngIf="ultimaCita.turno==2">
+       10:00hrs
+    </p>
+    <p class="card-text" *ngIf="ultimaCita.turno==3">
+      14:00hrs
+    </p>
+    <span class="card-text">
+      Artista:
+    </span>
+      {{ultimaCita.artistaCita.nombre}}
+    <span class="card-text">
+         Descripcion:
+    </span>
+    {{ultimaCita.tattoo.descripcion}}
+</div>
+  <div class="boton">
+    <button class="btn btn-warning"(click)="regresar()">Volver a galeria</button>
+</div>

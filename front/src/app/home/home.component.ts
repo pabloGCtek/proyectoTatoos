@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Artista } from '../clases/Artista';
-import { ArtistasService } from '../servicios/artistas.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
+import { ArtistasService } from '../servicios/artistas.service';
+import { Artista } from '../clases/Artista';
 
 @Component({
   selector: 'app-home',

@@ -1,0 +1,20 @@
+<div class="card">
+    <table>
+        <td>
+            <tr> 
+                <p>Fecha de la cita: {{cita.fecha | date }}</p>               
+            </tr>
+            <tr>
+                <p>Hora de la cita: {{hora}}</p>
+            </tr>
+        </td>
+        <td>
+        </td>
+        <td>
+            <tr></tr>
+            <tr>
+                <button class="btn btn-primary"(click)="borrarCita()">Borrar Cita</button>
+            </tr>
+        </td>
+    </table>
+</div>

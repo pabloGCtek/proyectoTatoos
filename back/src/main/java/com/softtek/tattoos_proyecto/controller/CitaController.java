@@ -44,4 +44,17 @@ public class CitaController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("/{idCita}")
+    public ResponseEntity<Void> deleteCita(@PathVariable int idCita){
+        Cita c = cs.deleteObject(idCita);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("ultimaCita")
+    public EntityModel<Cita> findCitaLast(){
+        Cita c = cs.findLastCita();
+        WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).findCitaLast());
+        return EntityModel.of(c).add(link.withRel("tatt-link"));
+    }
 }
