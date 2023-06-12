@@ -23,4 +23,7 @@ export class CitasService {
   obtenerTodasCitas():Observable<Cita[]>{
     return this.httpC.get<Cita[]>(`${this.url}`);
   }
+  obtenerUltimaCita():Observable<Cita>{
+  return this.httpC.get<Cita>(`${this.url}/ultimaCita`)
+  }
 }

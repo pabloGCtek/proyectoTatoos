@@ -28,6 +28,7 @@ public class Tattoo {
     @Column(name = "tattoo_propio")
     private boolean tattooPropio;
     private double precio;
+
     @JsonIgnoreProperties(value = "tattoos", allowSetters = true)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_artista")

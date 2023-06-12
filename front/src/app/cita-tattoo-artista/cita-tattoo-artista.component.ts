@@ -4,7 +4,7 @@ import { Cita } from '../clases/Cita';
 import { GalleryService } from '../servicios/gallery.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArtistasService } from '../servicios/artistas.service';
 import { Artista } from '../clases/Artista';
 import { Tattoo } from '../clases/Tattoo';
@@ -27,7 +27,7 @@ export class CitaTattooArtistaComponent {
   tattoN:Tattoo
 
 
-  //obtencion de la fecha actual 
+  //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
   constructor(private servicioGaleria: GalleryService,
@@ -35,7 +35,8 @@ export class CitaTattooArtistaComponent {
     private usuarioServicio: UsuariosService,
     private citaServicio:CitasService,
     private localStorage: LocalStorageService,
-    private activarRuta: ActivatedRoute) {
+    private activarRuta: ActivatedRoute,
+    private route: Router) {
     this.formularioCita = new FormGroup({
       tamano: new FormControl('', Validators.required),
       tatuador: new FormControl('', Validators.required),
@@ -191,6 +192,7 @@ export class CitaTattooArtistaComponent {
                     alert("artistaCita: " + cita.artistaCita + "\nturno: " + cita.turno + "\ntattoo: " + cita.tattoo +
                       "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
                     alert("artistaCita.nombre: " + cita.artistaCita.nombre);
+                    this.route.navigateByUrl('/detalle-cita')
                   }
                 );
               }
