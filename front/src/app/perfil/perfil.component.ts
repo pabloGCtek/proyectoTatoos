@@ -45,15 +45,23 @@ constructor(private sUsuario: UsuariosService, private route: Router, private lo
   }
 
 ngOnInit(){
-this.usuario= this.localStorage.usuarioLogeado()
+  this.sUsuario.inicioSesion(this.localStorage.usuarioLogeado().email,this.localStorage.usuarioLogeado().contrasena).subscribe(u =>
+    {
+        this.localStorage.login(u)
+        this.usuario= this.localStorage.usuarioLogeado()
+      }
+  )
  }
 guardarMods(){
 
   if(this.miFormulario.valid){
     this.usuario.email = this.miFormulario.get('email')?.value
     this.usuario.contrasena = this.miFormulario.get('password')?.value
-    this.sUsuario.modificaUsuario(this.usuario).subscribe(u =>
-    this.route.navigateByUrl('/'))
+    this.sUsuario.modificaUsuario(this.usuario).subscribe(u =>{
+      this.localStorage.login(this.usuario)
+      window.location.reload()
+    }
+    )
     }
     else{
       alert('error en el formulario')

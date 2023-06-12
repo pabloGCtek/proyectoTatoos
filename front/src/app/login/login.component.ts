@@ -17,7 +17,7 @@ export class LoginComponent {
     }
   ngOnInit(){
   }
-  login(){
+  login(){  
     this.userService.inicioSesion(this.email, this.contrasena)
       .subscribe(data=>{
           if(data && data.contrasena && data.email && data.nombre){
@@ -27,8 +27,4 @@ export class LoginComponent {
       })
 
     }
-
-
-
-
   }

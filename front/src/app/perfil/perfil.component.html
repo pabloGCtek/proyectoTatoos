@@ -42,7 +42,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col">
+                            <div class="col col-sm-6 mb-3">
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input
@@ -81,7 +81,7 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                    <label for="password">Contraseña</label>
+                                    <label for="password">Nueva Contraseña</label>
                                     <input
                                       type="password"
                                       class="form-control"
@@ -158,9 +158,9 @@
           </div>
         </div>
       </div>
-      <div class="listacitas">
+      <div class="listacitas ">
         <h2>Tus citas</h2>
-        <div *ngFor=" let c of usuario.citasUsuario">
+        <div *ngFor=" let c of usuario.citasUsuario" >
           <app-cita-card [cita]="c"></app-cita-card>
         </div>
       </div>

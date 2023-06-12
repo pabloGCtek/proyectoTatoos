@@ -26,4 +26,8 @@ export class CitasService {
   obtenerUltimaCita():Observable<Cita>{
   return this.httpC.get<Cita>(`${this.url}/ultimaCita`)
   }
+
+  borrarCita(id:number):Observable<any>{
+    return this.httpC.delete(`${this.url}/${id}`)
+  }
 }
