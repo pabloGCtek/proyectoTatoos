@@ -9,7 +9,8 @@ import { ArtistasService } from '../servicios/artistas.service';
 import { UsuariosService } from '../servicios/usuarios.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
 import { CitasService } from '../servicios/citas.service';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-cita-tattoo-detalle',
   templateUrl: './cita-tattoo-detalle.component.html',
@@ -26,6 +27,7 @@ export class CitaTattooDetalleComponent {
   tattoN:Tattoo
   tamano:string
   artista: Artista
+  arrayCitas:Cita[] = [];
   //Filtros
   tattoos: Tattoo[]=[]
   artistas:Artista[]=[]
@@ -39,7 +41,8 @@ export class CitaTattooDetalleComponent {
     private route: Router,
     private citaServicio:CitasService,
     private localStorage: LocalStorageService,
-    private activarRuta: ActivatedRoute) {
+    private activarRuta: ActivatedRoute,
+    private router: Router) {
     this.activarRuta.params.subscribe(info=>
       { this.idTattoo=this.activarRuta.snapshot.params['id']
         this.servicioGaleria.obtenerPorId(info['id']).subscribe(info2=>{
@@ -49,7 +52,7 @@ export class CitaTattooDetalleComponent {
               tatuador: new FormControl({ value: this.tattoN.artista.nombre, disabled: true }),
               tatuaje: new FormControl({ value: this.tattoN.nombre, disabled: true }),
               fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
-              hora_cita: new FormControl(''),
+              hora_cita: new FormControl('', Validators.required),
               lugar:new FormControl({ value: this.tattoN.lugar, disabled: true }),
               precio: new FormControl({ value: this.tattoN.precio, disabled: true })
              })
@@ -59,9 +62,9 @@ export class CitaTattooDetalleComponent {
 
 
   }
-
+  
     ngOnInit() {
-
+      this.citaServicio.obtenerTodasCitas().subscribe(data => {this.arrayCitas=data});
   }
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
   cambiarHora() {
@@ -119,37 +122,89 @@ export class CitaTattooDetalleComponent {
   }
 
   registrarCita() {
-    if (this.formularioCita.get('tamano')?.value === 'Pequeño') {
-      if (this.formularioCita.get('hora_cita')?.value === '08:00') {
-        this.turno = 1;
-      } else if (this.formularioCita.get('hora_cita')?.value === '10:00') {
-        this.turno = 2;
-      } else if (this.formularioCita.get('hora_cita')?.value === '14:00') {
-        this.turno = 3;
-      }
-    } else if (this.formularioCita.get('tamano')?.value === 'Mediano') {
-      if (this.formularioCita.get('hora_cita')?.value === '10:00') {
-        this.turno = 2;
-      } else if (this.formularioCita.get('hora_cita')?.value === '14:00') {
-        this.turno = 3;
-      }
-    } else if (this.formularioCita.get('tamano')?.value === 'Grande') {
-      if (this.formularioCita.get('hora_cita')?.value === '14:00') {
-        this.turno = 3;
-      }
+    let citaExistente = this.verificarCitaExistente();
+    if(citaExistente){
+      alert("Lo sentimos, ya existe una cita en esa hora y dia. Por favor, elige otra.");
     }
-    const cita: Cita= new Cita
-    cita.fecha=this.formularioCita.get("fecha_cita")?.value
-    cita.turno=this.turno
-    cita.usuarioCita=this.usuario
-    cita.artistaCita=this.tattoN.artista
-    cita.tattoo=this.tattoN
-    if(cita.turno!=0)
-      {
-      this.citaServicio.insert(cita).subscribe(dato=>
-      console.log(dato));
-      this.route.navigateByUrl('/detalle-cita')
+    else{
+      if (this.formularioCita.get('tamano')?.value === 'Pequeño') {
+        if (this.formularioCita.get('hora_cita')?.value === '08:00') {
+          this.turno = 1;
+        } else if (this.formularioCita.get('hora_cita')?.value === '10:00') {
+          this.turno = 2;
+        } else if (this.formularioCita.get('hora_cita')?.value === '14:00') {
+          this.turno = 3;
         }
+      } else if (this.formularioCita.get('tamano')?.value === 'Mediano') {
+        if (this.formularioCita.get('hora_cita')?.value === '10:00') {
+          this.turno = 2;
+        } else if (this.formularioCita.get('hora_cita')?.value === '14:00') {
+          this.turno = 3;
+        }
+      } else if (this.formularioCita.get('tamano')?.value === 'Grande') {
+        if (this.formularioCita.get('hora_cita')?.value === '14:00') {
+          this.turno = 3;
+        }
+      }
+      const cita: Cita= new Cita
+      cita.fecha=this.formularioCita.get("fecha_cita")?.value
+      cita.turno=this.turno
+      cita.usuarioCita=this.usuario
+      cita.artistaCita=this.tattoN.artista
+      cita.tattoo=this.tattoN
+      this.citaServicio.insert(cita).subscribe(dato=>{
+        console.log(dato)
+        this.router.navigateByUrl('/detalle-cita');
+      }
+      );
+      }
+    
+  }
+
+  verificarCitaExistente() :boolean {
+    const fechaCita = this.formularioCita.get('fecha_cita')?.value;
+    let turnoAux: number = 0;
+    // Asigna el valor correcto a `turnoAux` según el tamaño y la hora de la cita
+    if (this.formularioCita.get('tamano')?.value == 'Pequeño') {
+
+      if(this.formularioCita.get('hora_cita')?.value === "08:00"){
+        turnoAux=1;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === "10:00"){
+        turnoAux=2;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === "14:00"){
+        turnoAux=3;
+      }
+
     }
 
+    else if (this.formularioCita.get('tamano')?.value === 'Mediano') {
+      if(this.formularioCita.get('hora_cita')?.value === '10:00'){
+        turnoAux=2;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === '14:00'){
+        turnoAux=3;
+      }
+    }
+    else if (this.formularioCita.get('tamano')?.value === 'Grande') {
+      if(this.formularioCita.get('hora_cita')?.value === '14:00'){
+        turnoAux=3;
+      }
+    }
+    // Verifica si la cita ya existe en arrayCitas
+    let coincidenciaEncontrada = false;
+    for(let i = 0; i < this.arrayCitas.length; i++){
+      const fecha = new Date(this.arrayCitas[i].fecha);
+      const year = fecha.getFullYear();
+      const month = fecha.getMonth() + 1;
+      const day = fecha.getDate();
+      const fechaFormateada = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      if(fechaFormateada === fechaCita && this.arrayCitas[i].turno === turnoAux){
+        coincidenciaEncontrada = true;
+        break;
+      }
+    }
+    return coincidenciaEncontrada;
+  }
 }

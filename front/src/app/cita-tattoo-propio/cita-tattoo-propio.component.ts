@@ -25,13 +25,13 @@ export class CitaTattooPropioComponent {
 
   constructor(private servicioGaleria: GalleryService, private artistaServicio: ArtistasService,
     private usuarioServicio: UsuariosService, private citaServicio:CitasService,
-    private route: Router,
-    private localStorage:LocalStorageService, private imagenServicio: ImagenAStringService) {
+    private localStorage:LocalStorageService, private imagenServicio: ImagenAStringService,
+    private router: Router) {
     this.formularioCita = new FormGroup({
-      tamano: new FormControl(''),
-      descripcion: new FormControl(''),
+      tamano: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
       fecha_cita: new FormControl('', [Validators.required, this.validarFecha]),
-      hora_cita: new FormControl(''),
+      hora_cita: new FormControl('', Validators.required),
       imagen: new FormControl('')
     });
 
@@ -39,11 +39,7 @@ export class CitaTattooPropioComponent {
   }
   arrayCitas:Cita[] = [];
   ngOnInit(){
-    // this.citaServicio.obtenerTodasCitas().subscribe(data => {this.arrayCitas=data
-    //   for(let i:number=0;i<this.arrayCitas.length;i++){
-    //     alert("Turno: " + this.arrayCitas[i].fecha)
-    //   }}
-    //   );
+    this.citaServicio.obtenerTodasCitas().subscribe(data => {this.arrayCitas=data});
   }
 
   //Metodo para cambiar las horas disponibles a elegir en funcion del tamaño
@@ -52,7 +48,7 @@ export class CitaTattooPropioComponent {
     this.horasDisponibles = this.getHorasDisponibles(tamano);
   }
 
-  private getHorasDisponibles(tamano: string): string[] {
+  getHorasDisponibles(tamano: string): string[] {
     let horas: string[];
 
     if (tamano == 'pequeño') {
@@ -72,7 +68,7 @@ export class CitaTattooPropioComponent {
     return horas;
   }
 
-  private generarHorasDisponibles(horaInicio: number, horaFin: number, intervalo: number): string[] {
+  generarHorasDisponibles(horaInicio: number, horaFin: number, intervalo: number): string[] {
     const horas: string[] = [];
     let horaActual = horaInicio;
 
@@ -107,6 +103,14 @@ export class CitaTattooPropioComponent {
   }
 
   registrarCita(){
+    // Verifica si la cita ya existe
+    let citaExistente = this.verificarCitaExistente();
+    if(citaExistente){
+      alert("Lo sentimos, ya existe una cita en esa hora y dia. Por favor, elige otra.");
+    }
+    else{
+      // Continúa con el registro de la cita
+    // ...
 
     if (this.formularioCita.get('tamano')?.value == 'pequeño') {
 
@@ -163,28 +167,70 @@ export class CitaTattooPropioComponent {
           }
 
           // Insertar tatuaje
-          this.imagenServicio.insertarTattoo(this.tattoo).subscribe(data => {alert("Subscribe de insertar tatoo" + data);
+          this.imagenServicio.insertarTattoo(this.tattoo).subscribe(data => {
+        
           // Crear la cita
           this.servicioGaleria.encontrarUltimoTattoo().subscribe(data => {cita.tattoo=data
           cita.usuarioCita = this.localStorage.usuarioLogeado(),
           cita.fecha = this.formularioCita.get('fecha_cita')?.value,
           cita.turno = this.turno,
-          this.citaServicio.insert(cita).subscribe(data => {alert(data);});
-          alert("artistaCita: " + cita.artistaCita.nombre + "\nturno: " + cita.turno +
-            "\nfecha: " + cita.fecha + "\nusuario: " + cita.usuarioCita.email);
-            this.route.navigateByUrl('/detalle-cita')},
+          this.citaServicio.insert(cita).subscribe(data => {});
+          this.router.navigateByUrl('/detalle-cita');}
         );
 
         });
         }
       }
     );
+    }
   }
 
+  verificarCitaExistente() :boolean {
+    const fechaCita = this.formularioCita.get('fecha_cita')?.value;
+    let turnoAux: number = 0;
+  
+    // Asigna el valor correcto a `turnoAux` según el tamaño y la hora de la cita
+    if (this.formularioCita.get('tamano')?.value == 'pequeño') {
 
-  // obtenerTurnosCreados(){
-  //   for(let i:number=0;i<this.arrayCitas.length;i++){
-  //     alert("Turno: " + this.arrayCitas[i].turno)
-  //   }
-  // }
+      if(this.formularioCita.get('hora_cita')?.value === "08:00"){
+        turnoAux=1;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === "10:00"){
+        turnoAux=2;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === "14:00"){
+        turnoAux=3;
+      }
+
+    }
+    else if (this.formularioCita.get('tamano')?.value === 'mediano') {
+      if(this.formularioCita.get('hora_cita')?.value === '10:00'){
+        turnoAux=2;
+      }
+      else if(this.formularioCita.get('hora_cita')?.value === '14:00'){
+        turnoAux=3;
+      }
+    }
+    else if (this.formularioCita.get('tamano')?.value === 'grande') {
+      if(this.formularioCita.get('hora_cita')?.value === '14:00'){
+        turnoAux=3;
+      }
+    }
+    // Verifica si la cita ya existe en arrayCitas
+    let coincidenciaEncontrada = false;
+    for(let i = 0; i < this.arrayCitas.length; i++){
+      const fecha = new Date(this.arrayCitas[i].fecha);
+      const year = fecha.getFullYear();
+      const month = fecha.getMonth() + 1;
+      const day = fecha.getDate();
+      const fechaFormateada = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      if(fechaFormateada === fechaCita && this.arrayCitas[i].turno === turnoAux){
+        // alert("COINCIDEN arraycita.fecha: " + fechaFormateada + " turno" + this.arrayCitas[i].turno
+        // + "\nformulariocita: " + fechaCita + "formularioturno: " + turnoAux)
+        coincidenciaEncontrada = true;
+        break;
+      }
+    }
+    return coincidenciaEncontrada;
+  }
 }
