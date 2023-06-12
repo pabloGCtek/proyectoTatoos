@@ -21,7 +21,7 @@ form, .boton{
 }
 .form-group{
     display: flex;
-    justify-content:center;
+    justify-content:right;
     margin-top: 1rem;
 }
 input, select{
