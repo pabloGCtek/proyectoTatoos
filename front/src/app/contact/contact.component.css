@@ -14,10 +14,9 @@
 .text{
   width: 100%;
   padding:10px ;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.4);
   color: rgb(255, 255, 255)  ;
-  opacity: 0.5;
- box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
 
 }
 .social-media svg{
