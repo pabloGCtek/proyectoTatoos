@@ -53,7 +53,7 @@ guardarMods(){
     this.usuario.email = this.miFormulario.get('email')?.value
     this.usuario.contrasena = this.miFormulario.get('password')?.value
     this.sUsuario.modificaUsuario(this.usuario).subscribe(u =>
-    this.route.navigateByUrl('/'))
+    this.route.navigateByUrl(''))
     }
     else{
       alert('error en el formulario')
