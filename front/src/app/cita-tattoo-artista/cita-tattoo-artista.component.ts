@@ -27,7 +27,7 @@ export class CitaTattooArtistaComponent {
   tattoN:Tattoo
 
 
-  //obtencion de la fecha actual 
+  //obtencion de la fecha actual
   fecha_actual:string = new Date().toISOString().split('T')[0];
 
   constructor(private servicioGaleria: GalleryService,
@@ -36,6 +36,7 @@ export class CitaTattooArtistaComponent {
     private citaServicio:CitasService,
     private localStorage: LocalStorageService,
     private router: Router) {
+
     this.formularioCita = new FormGroup({
       tamano: new FormControl('', Validators.required),
       tatuador: new FormControl('', Validators.required),
@@ -189,6 +190,7 @@ export class CitaTattooArtistaComponent {
                     cita.turno = this.turno;
                     this.citaServicio.insert(cita).subscribe(data => {});
                     this.router.navigateByUrl('/detalle-cita');
+
                   }
                 );
               }

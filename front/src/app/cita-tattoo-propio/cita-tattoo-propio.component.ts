@@ -149,9 +149,9 @@ export class CitaTattooPropioComponent {
         const artistaEncontrado = artistas.find(a => a.idArtista == IDartista);
         if (artistaEncontrado) {
           cita.artistaCita = artistaEncontrado;
-  
+
           // Crear el objeto Tattoo
-          
+
           this.tattoo.artista = artistaEncontrado
           this.tattoo.nombre = "";
           this.tattoo.descripcion = this.formularioCita.get('descripcion')?.value;
@@ -177,13 +177,13 @@ export class CitaTattooPropioComponent {
           this.citaServicio.insert(cita).subscribe(data => {});
           this.router.navigateByUrl('/detalle-cita');}
         );
+
         });
         }
       }
     );
     }
   }
-
 
   verificarCitaExistente() :boolean {
     const fechaCita = this.formularioCita.get('fecha_cita')?.value;
@@ -233,5 +233,4 @@ export class CitaTattooPropioComponent {
     }
     return coincidenciaEncontrada;
   }
-  
 }

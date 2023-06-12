@@ -10,6 +10,7 @@ import { UsuariosService } from '../servicios/usuarios.service';
 import { LocalStorageService } from '../servicios/local-storage.service';
 import { CitasService } from '../servicios/citas.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-cita-tattoo-detalle',
   templateUrl: './cita-tattoo-detalle.component.html',
@@ -37,7 +38,7 @@ export class CitaTattooDetalleComponent {
   //obtencion de la fecha actual probando
   fecha_actual:string = new Date().toISOString().split('T')[0];
     constructor(private servicioGaleria: GalleryService,
-    private formBuilder: FormBuilder,
+    private route: Router,
     private citaServicio:CitasService,
     private localStorage: LocalStorageService,
     private activarRuta: ActivatedRoute,
@@ -196,8 +197,6 @@ export class CitaTattooDetalleComponent {
       const day = fecha.getDate();
       const fechaFormateada = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
       if(fechaFormateada === fechaCita && this.arrayCitas[i].turno === turnoAux){
-      //   alert("COINCIDEN arraycita.fecha: " + fechaFormateada + " turno" + this.arrayCitas[i].turno
-      //   + "\nformulariocita: " + fechaCita + "formularioturno: " + turnoAux)
         coincidenciaEncontrada = true;
         break;
       }

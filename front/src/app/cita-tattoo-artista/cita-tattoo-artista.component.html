@@ -39,11 +39,9 @@
          || formularioCita.get('tatuaje')?.invalid || formularioCita.get('fecha_cita')?.invalid
          || formularioCita.get('hora_cita')?.invalid">Pedir cita</button>
       </div>
-
     </form>
     <div *ngIf="tattooSeleccionado">
       <img  class="imagen" [src]="imagenTatuajeSeleccionado">
       <p class="precio">Precio: {{precioTatuajeSeleccionado}}€</p>
     </div>
-    
 </div>
