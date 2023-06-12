@@ -152,8 +152,11 @@ export class CitaTattooDetalleComponent {
       cita.usuarioCita=this.usuario
       cita.artistaCita=this.tattoN.artista
       cita.tattoo=this.tattoN
-      this.citaServicio.insert(cita).subscribe(dato=>
-        console.log(dato));this.router.navigateByUrl('/detalle-cita');
+      this.citaServicio.insert(cita).subscribe(dato=>{
+        console.log(dato)
+        this.router.navigateByUrl('/detalle-cita');
+      }
+      );
       }
     
   }
